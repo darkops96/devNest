@@ -1,5 +1,5 @@
 # devNest
-Red social para la interacción de desarrolladores de videojuegos, con la posibilidad de organizar y gestionar Game Jams.  
+**Red social para la interacción de desarrolladores de videojuegos, con la posibilidad de organizar y gestionar Game Jams.**
 
 De forma pública, se podrán ver los perfiles de otros usuarios, sus posts y comentar en ellos. También se podrán ver las Game Jams organizadas anteriormente y los proyectos que se presentaron en ellas. Los juegos se podrán descargar para jugarlos. Además, todos los usuarios podrán hacer uso de un randomizador que devuelve aleatoriamente 2 temáticas de una pool. 
 
