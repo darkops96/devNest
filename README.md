@@ -17,4 +17,9 @@
 
   * Las notificaciones se envían al correo electrónico.  
   * Randomizador que devuelve 2 palabras aleatorias de una pool para proponer temas.  
+  
+ 
+ 
+ ## Bibliografia
+  * Login : https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_submit
 
