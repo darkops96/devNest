@@ -20,7 +20,7 @@
   }
 </style>
 <title>devNest</title>
-<link type="text/css" rel="stylesheet" href="../static/css/style.css"/>
+<link type="text/css" rel="stylesheet" href="/css/style.css"/>
 </head>
 <body class="webBack">
 <!-- Start your code here -->
@@ -36,8 +36,8 @@
       <button class="randomButton"> Random Topic</button>
     </center>
     <center>
-      <fieldset class="randomWordDisplay">Hola</fieldset>
-      <fieldset class="randomWordDisplay">Perro</fieldset>
+      <fieldset class="randomWordDisplay">{{topic1}}</fieldset>
+      <fieldset class="randomWordDisplay">{{topic2}}</fieldset>
     </center>    
   </p>
   <p>
@@ -48,7 +48,7 @@
           <th>GameJam</th> <th>Topics</th> <th>Teams</th> <th>Start Date</th> <th>Deadline</th> <th>Winner</th>
         </tr>
         <tr>
-          <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
+          <td>{{gamejam1}}</td> <td>{{topics1}}</td> <td>{{teams1}}</td> <td>{{start1}}</td> <td>{{end1}}</td> <td>{{winner1}}</td>
         </tr>
         <tr>
           <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
@@ -66,6 +66,5 @@
     </center>
   </p>
 <!-- End your code here -->
-<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>
