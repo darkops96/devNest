@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class devNestController {
+public class DevNestController {
     
     @GetMapping("/")
     public String home(Model model){
