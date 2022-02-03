@@ -1,0 +1,79 @@
+.webBack{
+  background-color: #E0FFFF;
+}
+
+.bigTitle 
+{
+  font-size: 30px; 
+  padding: 50px;
+  text-align: left;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B8B;
+  color: white;
+}
+
+.smallTitle 
+{
+  font-size: 22px; 
+  padding: 15px;
+  text-align: left;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
+  color: white;
+}
+
+.registerLogButton
+{
+  font-size: 20px;
+  color: #000000;
+  margin-right: 10px;
+  background-color: #E0FFFF;
+  border-radius: 6px;
+  border-color: #006363;
+}
+.registerLogButton:focus
+{
+  font-size: 20px;
+  color: #000000;
+  margin-right: 10px;
+  background-color: #90A6A6;
+  border-radius: 6px;
+  border-color: #006363;
+}
+
+.randomButton{
+  font-size: 20px;
+  color: white;
+  padding-top: 0.55em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  margin-bottom: 0.65em;
+  background-color: #008B8B;
+  border-radius: 6px;
+  border-color: #006363;
+}
+
+.randomButton:focus{
+  font-size: 20px;
+  color: white;
+  padding-top: 0.55em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  background-color: #006363;
+  border-radius: 6px;
+  border-color: #006363;
+}
+
+.randomWordDisplay {
+  display: inline;
+  border-color: #006363;
+  font-size: 20px;
+  background-color: #FFFFFF;
+  border-width: 3px;
+  padding-top: 0.55em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
