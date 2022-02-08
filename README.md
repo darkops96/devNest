@@ -8,7 +8,7 @@
 ## Entidades:
 
   * **Game Jam**: compuesto de Nombre de la Game Jam, Usuario Administrador, Descripción, Temática, Equipos, Fecha de Inicio y Fecha de Fin.  
-  * **Equipos**: compuesto de Game Jam en la que participa, Nombre, Miembros y Juego.  
+  * **Equipos**: Nombre del equipo, Miembros.  
   * **Usuarios**: Alias Único, Contraseña, Correo Electrónico, Foto de Perfil (opcional) y Descripción (opcional).  
   * **Videojuegos**: Título, Equipo, Game Jam, Fecha de subida, Categoría, Plataformas, Fichero.  
   * **Comentario**: Juego, Usuario, Fecha, Texto, Comentario al que responde (opcional).
