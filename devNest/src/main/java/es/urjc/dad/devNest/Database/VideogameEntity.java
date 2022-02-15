@@ -4,8 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
-public class Videogame {
+public class VideogameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -13,10 +15,11 @@ public class Videogame {
     @Column (nullable = false)
     private String title;
 
-
     @Column(nullable = false)
     private String date;
 
+    @Lob
+    @Column(length = 512)
     private String description;
 
     @Column(nullable = false)
@@ -25,9 +28,13 @@ public class Videogame {
     @Column(nullable = false)
     private String platform;
 
-    //hay que meter el fichero pero ªªªªªª
+    @ManyToOne
+    @Column(nullable = false)
+    private TeamEntity team;
 
+    //GAME FILE
 
+    public VideogameEntity() {}
 
     //region SETTERS
 
@@ -54,6 +61,10 @@ public class Videogame {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setTeam(TeamEntity team) {
+        this.team = team;
     }
 
     //endregion
@@ -83,6 +94,10 @@ public class Videogame {
 
     public String getTitle() {
         return title;
+    }
+
+    public TeamEntity getTeam() {
+        return team;
     }
     //endregion
 
