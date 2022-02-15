@@ -1,12 +1,11 @@
 package es.urjc.dad.devNest.Utils;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.Buffer;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,12 +20,13 @@ public class RandomWord {
     }
 
     static List<String> initializeList() {
+        List<String> aux = new ArrayList<>();
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("devNest/src/main/resources/static/Text files/testFile.txt"));
+            reader = new BufferedReader(new FileReader(getResourceFile()));
             String line = reader.readLine();
             while (line != null) {
-                words.add(line);
+                aux.add(line);
                 line = reader.readLine();
             }
             reader.close();
@@ -35,7 +35,7 @@ public class RandomWord {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return aux;
     }
 
     public static String getRandomWord() {
@@ -43,4 +43,8 @@ public class RandomWord {
         return words.get(rn.nextInt(0, words.size() - 1));
     }
 
+    static private String getResourceFile() throws IOException {
+        File resource = new ClassPathResource("static/Text files/testFile.txt").getFile();
+        return resource.getAbsolutePath();
+    }
 }
