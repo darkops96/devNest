@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DevNestApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(DevNestApplication.class, args);
 	}
 
