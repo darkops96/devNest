@@ -11,7 +11,7 @@ public class DevNestController {
     public String home(Model model){
         //Random generator
         model.addAttribute("topic1", "Oscuridad");
-        model.addAttribute("topic2", "Salto");
+        model.addAttribute("topic2", "Saltos");
 
         //GameJams table
         model.addAttribute("gamejam1", "GameGen GameJam");
