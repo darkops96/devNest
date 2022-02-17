@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.urjc.dad.devNest.Internal_Services.UserService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @Controller
 public class DevNestController
@@ -46,18 +49,32 @@ public class DevNestController
         return "registerWeb";
     }
 
-    @PostMapping("/register/{{username}}+{{password}}")
-    public String login(Model model, @RequestParam String username, @RequestParam String password)
+    @RequestMapping(value="/loginUser", method = RequestMethod.POST, params={"username", "password"})
+    public String login(@RequestParam String username, @RequestParam String password)
     {
-        userService.login(username, password);
-        return "initialWeb";
+        boolean result = userService.login(username, password);
+        if(result)
+        {
+            return "redirect:/initialWeb";
+        }
+        else
+        {
+            return "redirect:/login";
+        } 
     }
 
-    @PostMapping("/register/{{email}}+{{username}}+{{password}}")
-    public String register(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String email)
+    @RequestMapping(value="/registerUser", method = RequestMethod.POST, params={"email", "username", "password"})
+    public String register(@RequestParam String username, @RequestParam String password, @RequestParam String email)
     {
-        userService.register(username, password, email);
-        return "initialWeb";
+        boolean result = userService.register(username, password, email);
+        if(result)
+        {
+            return "redirect:/initialWeb";
+        }
+        else
+        {
+            return "redirect:/register";
+        }        
     }
 
     @GetMapping("/logout")
