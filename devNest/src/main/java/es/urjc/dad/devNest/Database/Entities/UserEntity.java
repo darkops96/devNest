@@ -1,4 +1,4 @@
-package es.urjc.dad.devNest.Database;
+package es.urjc.dad.devNest.Database.Entities;
 
 import java.sql.Blob;
 

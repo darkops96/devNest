@@ -1,6 +1,7 @@
-package es.urjc.dad.devNest.Database;
+package es.urjc.dad.devNest.Database.Entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class CommentEntity {
@@ -27,7 +28,24 @@ public class CommentEntity {
     private String textComment;
 
     //Constructor
-    public CommentEntity() {}
+    public CommentEntity() {
+    }
+
+    public CommentEntity(VideogameEntity _videogame, UserEntity _user, Date _date, String _comment) {
+        videogame = _videogame;
+        user = _user;
+        date = _date.toString();
+        textComment = _comment;
+    }
+
+    public CommentEntity(VideogameEntity _videogame, UserEntity _user, CommentEntity _commentParent, Date _date, String _comment) {
+        videogame = _videogame;
+        user = _user;
+        parentComment = _commentParent;
+        date = _date.toString();
+        textComment = _comment;
+    }
+
 
     //region SETTERS
 
@@ -42,7 +60,7 @@ public class CommentEntity {
     public void setUser(UserEntity user) {
         this.user = user;
     }
-    
+
     public void setParentComment(CommentEntity parentComment) {
         this.parentComment = parentComment;
     }
@@ -69,8 +87,8 @@ public class CommentEntity {
 
     public UserEntity getUser() {
         return user;
-    } 
-    
+    }
+
     public CommentEntity getParentComment() {
         return parentComment;
     }

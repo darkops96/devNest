@@ -1,13 +1,8 @@
-package es.urjc.dad.devNest.Database;
+package es.urjc.dad.devNest.Database.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
@@ -27,23 +22,23 @@ public class VideogameEntity {
     @Column(length = 512)
     private String description;
 
-
     private String category;
 
     private String platform;
 
-    @ManyToOne
+    @OneToOne
     @Column(nullable = false)
     private TeamEntity team;
 
-
     private String filePath;
-
 
     @Lob
     @JsonIgnore
     @Column(nullable = false)
     private Blob gameFile;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "videogame")
+    private List<CommentEntity> comments;
 
 
     public VideogameEntity() {
