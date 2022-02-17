@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class DevNestController {
+public class DevNestController
+{
     
     @GetMapping("/")
     public String home(Model model){
@@ -16,22 +17,25 @@ public class DevNestController {
         model.addAttribute("topic2", "Saltos");
 
         //GameJams table
-        model.addAttribute("gamejam1", "GameGen GameJam");
-        model.addAttribute("topics1", "Oscuridad/Salto");
-        model.addAttribute("teams1", "Team 3\nTeam 16");
-        model.addAttribute("start1", "02/23/2021");
-        model.addAttribute("end1", "02/26/2021");
-        model.addAttribute("winner1", "Team 3");
+        model.addAttribute("name", "GameGen GameJam");
+        model.addAttribute("topics", "Oscuridad/Salto");
+        model.addAttribute("teams", "Team 3\nTeam 16");
+        model.addAttribute("startdate", "02/23/2021");
+        model.addAttribute("deadline", "02/26/2021");
+        model.addAttribute("winner", "Team 3");
 
         return "initialWeb";
     }
 
-    @PostMapping("/login")
-    public String login(Model model){
-        //Random generator
-        model.addAttribute("name", "aaaaaaaaa");
-
-
+    @GetMapping("/login")
+    public String goToLogin(Model model)
+    {
         return "loginWeb";
+    }
+
+    @GetMapping("/register")
+    public String goToRegister(Model model)
+    {
+        return "registerWeb";
     }
 }
