@@ -46,65 +46,86 @@
   }
 }
 
+/*Change Background Color*/
 .webBack{
   background-color: #E0FFFF;
 }
-
+  
 .bigTitle 
-{
-  font-size: 30px; 
-  padding: 50px;
-  text-align: left;
+ {
+  font-size: 15px; 
+  padding: 10px;
+  text-align: center;
   text-shadow: 2px 2px 4px #333333;
   background-color: #008B8B;
   color: white;
+  border-radius: 16px
 }
 
-.smallTitle 
-{
-  font-size: 22px; 
+.profileTitle{
+  font-size:30px;
+  padding: 10px;  
+}
+  
+.GameJamData{
+  font-size: 20px; 
   padding: 15px;
-  text-align: left;
+  line-height:40px;
+  text-align: center;
   text-shadow: 2px 2px 4px #333333;
   background-color: #008B5B;
   color: white;
+  margin: auto;
+  width: 50%;
+  margin: auto;
+  border: 3px solid green;
+  padding: 10px;
+  border-radius: 16px
 }
-
-
-
-.randomButton{
-  font-size: 20px;
+.ThemeData{
+  font-size: 15px; 
+  padding: 15px;
+  line-height:40px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
   color: white;
-  padding-top: 0.55em;
-  padding-bottom: 0.625em;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  margin-bottom: 0.65em;
-  background-color: #008B8B;
-  border-radius: 6px;
-  border-color: #006363;
+  margin: auto;
+  width: 50%;
+  margin: auto;
+  border: 3px solid green;
+  padding: 10px;
+  border-radius: 16px
 }
 
-.randomButton:focus{
-  font-size: 20px;
+.ThemeTitle{
+  font-size: 25px; 
+  padding: 15px;
+  line-height:40px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
   color: white;
-  padding-top: 0.55em;
-  padding-bottom: 0.625em;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  background-color: #006363;
-  border-radius: 6px;
-  border-color: #006363;
+  margin: auto;
+  width: 50%;
+  margin: auto;
 }
 
-.randomWordDisplay {
-  display: inline;
-  border-color: #006363;
-  font-size: 20px;
-  background-color: #FFFFFF;
-  border-width: 3px;
-  padding-top: 0.55em;
-  padding-bottom: 0.625em;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
+.GamesCard{
+  font-size: 15px; 
+  padding: 15px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
+  color: white;
+  margin: auto;
+  width: 30%;
+  border: 3px solid green;
+  padding: 10px;
+  border-radius: 16px
+}
+
+
+a {
+  color: dodgerblue;
 }
