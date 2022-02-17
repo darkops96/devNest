@@ -24,6 +24,8 @@ public class TeamEntity {
     @ManyToMany
     private List<UserEntity> members;
 
+    public TeamEntity() {}
+
     public long getId()
     {
         return id;

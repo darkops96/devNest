@@ -33,6 +33,10 @@ public class UserEntity {
     @JsonIgnore
     private Blob pPictureFile;
 
+    @Lob
+    @Column(length = 512)
+    private String description;
+
     public UserEntity() {}
 
     public long getId()
@@ -93,5 +97,15 @@ public class UserEntity {
     public void setPPictureFile(Blob _pPictureFile)
     {
         pPictureFile = _pPictureFile;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String _description)
+    {
+        description = _description;
     }
 }
