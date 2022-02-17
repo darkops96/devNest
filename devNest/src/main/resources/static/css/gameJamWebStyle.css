@@ -46,85 +46,86 @@
   }
 }
 
+/*Change Background Color*/
 .webBack{
-    background-color: #E0FFFF;
-  }
-  
-  .bigTitle 
-  {
-    font-size: 15px; 
-    padding: 10px;
-    text-align: center;
-    text-shadow: 2px 2px 4px #333333;
-    background-color: #008B8B;
-    color: white;
-    border-radius: 16px
-  }
-.profileTitle{
-  font-size:30px;
-  padding: 10px;
-  
+  background-color: #E0FFFF;
 }
   
-  .GameJamData{
-    font-size: 20px; 
-    padding: 15px;
-    line-height:40px;
-    text-align: center;
-    text-shadow: 2px 2px 4px #333333;
-    background-color: #008B5B;
-    color: white;
-    margin: auto;
-    width: 50%;
-    margin: auto;
-    border: 3px solid green;
-    padding: 10px;
-    border-radius: 16px
-  }
-  .ThemeData{
-    font-size: 15px; 
-    padding: 15px;
-    line-height:40px;
-    text-align: center;
-    text-shadow: 2px 2px 4px #333333;
-    background-color: #008B5B;
-    color: white;
-    margin: auto;
-    width: 50%;
-    margin: auto;
-    border: 3px solid green;
-    padding: 10px;
-    border-radius: 16px
-  }
+.bigTitle 
+ {
+  font-size: 15px; 
+  padding: 10px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B8B;
+  color: white;
+  border-radius: 16px
+}
 
-    .ThemeTitle{
-    font-size: 25px; 
-    padding: 15px;
-    line-height:40px;
-    text-align: center;
-    text-shadow: 2px 2px 4px #333333;
-    background-color: #008B5B;
-    color: white;
-    margin: auto;
-    width: 50%;
-    margin: auto;
-  }
+.profileTitle{
+  font-size:30px;
+  padding: 10px;  
+}
+  
+.GameJamData{
+  font-size: 20px; 
+  padding: 15px;
+  line-height:40px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
+  color: white;
+  margin: auto;
+  width: 50%;
+  margin: auto;
+  border: 3px solid green;
+  padding: 10px;
+  border-radius: 16px
+}
+.ThemeData{
+  font-size: 15px; 
+  padding: 15px;
+  line-height:40px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
+  color: white;
+  margin: auto;
+  width: 50%;
+  margin: auto;
+  border: 3px solid green;
+  padding: 10px;
+  border-radius: 16px
+}
 
-  .GamesCard{
-    font-size: 15px; 
-    padding: 15px;
-    text-align: center;
-    text-shadow: 2px 2px 4px #333333;
-    background-color: #008B5B;
-    color: white;
-    margin: auto;
-    width: 30%;
-    border: 3px solid green;
-    padding: 10px;
-    border-radius: 16px
-  }
-  
-  
-  a {
-    color: dodgerblue;
-  }
+.ThemeTitle{
+  font-size: 25px; 
+  padding: 15px;
+  line-height:40px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
+  color: white;
+  margin: auto;
+  width: 50%;
+  margin: auto;
+}
+
+.GamesCard{
+  font-size: 15px; 
+  padding: 15px;
+  text-align: center;
+  text-shadow: 2px 2px 4px #333333;
+  background-color: #008B5B;
+  color: white;
+  margin: auto;
+  width: 30%;
+  border: 3px solid green;
+  padding: 10px;
+  border-radius: 16px
+}
+
+
+a {
+  color: dodgerblue;
+}

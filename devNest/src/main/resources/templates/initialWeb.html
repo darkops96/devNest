@@ -19,16 +19,19 @@
     text-shadow: 2px 2px 4px #333333;
   }
 </style>
-<title>devNest</title>
+<title>devNest-Home</title>
 <link type="text/css" rel="stylesheet" href="/css/initialWebStyle.css"/>
 </head>
 <body class="webBack">
 <!-- Start your code here -->
 
-<h1 class="bigTitle">Welcome to the devNest!  
-  <button style="float:  right;" class="registerLogButton">Register</button>
-  <button style="float:  right;" class="registerLogButton">Log in</button>
-</h1>
+  <div class="header">
+  <b>devNest</b>
+  <div class="header-right">
+    <a  href="#home">Log In</a>
+    <a href="#register"> Register</a>
+  </div>
+</div>
   
   <p>
     <center>
@@ -44,25 +47,18 @@
     <center>
       <h2 class="smallTitle">GameJams</h2>
       <table>
-        <tr>
           <th>GameJam</th> <th>Topics</th> <th>Teams</th> <th>Start Date</th> <th>Deadline</th> <th>Winner</th>
-        </tr>
+       {{#gamejams}}
         <tr>
-          <td>{{gamejam1}}</td> <td>{{topics1}}</td> <td>{{teams1}}</td> <td>{{start1}}</td> <td>{{end1}}</td> <td>{{winner1}}</td>
+          <td>{{name}}</td>
+          <td>{{topics}}</td>
+          <td>{{teams}}</td>
+          <td>{{startdate}}</td>
+          <td>{{deadline}}</td>
+          <td>{{winner}}</td>
         </tr>
-        <tr>
-          <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
-        </tr>
-        <tr>
-          <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
-        </tr>
-        <tr>
-          <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
-        </tr>
-        <tr>
-          <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
-        </tr>
-      </table>
+        {{/gamejams}}
+       </table>
     </center>
   </p>
 <!-- End your code here -->

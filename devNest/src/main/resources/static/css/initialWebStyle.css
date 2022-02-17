@@ -1,3 +1,51 @@
+/* Style the header with a grey background and some padding */
+.header {
+  overflow: hidden;
+  background-color: #008B8B;
+  padding: 20px 10px;
+  border-radius: 16px
+}
+
+/* Style the header links */
+.header a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 16px
+}
+
+.header b{
+  font-size:34px;
+  color:white;
+}
+
+/* Change the background color on mouse-over */
+.header a:hover {
+  background-color: #FFFFFF;
+  color: black;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: right;
+}
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+
 .webBack{
   background-color: #E0FFFF;
 }
@@ -22,24 +70,7 @@
   color: white;
 }
 
-.registerLogButton
-{
-  font-size: 20px;
-  color: #000000;
-  margin-right: 10px;
-  background-color: #E0FFFF;
-  border-radius: 6px;
-  border-color: #006363;
-}
-.registerLogButton:focus
-{
-  font-size: 20px;
-  color: #000000;
-  margin-right: 10px;
-  background-color: #90A6A6;
-  border-radius: 6px;
-  border-color: #006363;
-}
+
 
 .randomButton{
   font-size: 20px;
