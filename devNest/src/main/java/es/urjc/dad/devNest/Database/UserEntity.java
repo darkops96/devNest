@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class UserEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -37,75 +37,77 @@ public class UserEntity {
     @Column(length = 512)
     private String description;
 
-    public UserEntity() {}
-
-    public long getId()
-    {
-        return id;
+    public UserEntity() {
     }
 
-    public void setId(long _id)
-    {
-        id = _id;
-    }
-
-    public String getAlias()
-    {
-        return alias;
-    }
-
-    public void setAlias(String _alias)
-    {
+    public UserEntity(String _alias, String _password, String _email) {
         alias = _alias;
-    }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String _password)
-    {
         password = _password;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public void setEmail(String _email)
-    {
         email = _email;
     }
 
-    public String getProfilePicture()
-    {
+    public UserEntity(String _alias, String _password, String _email, String _profilePicture, Blob _picture) {
+        alias = _alias;
+        password = _password;
+        email = _email;
+
+
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long _id) {
+        id = _id;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String _alias) {
+        alias = _alias;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String _password) {
+        password = _password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String _email) {
+        email = _email;
+    }
+
+    public String getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(String _profilePicture)
-    {
+    public void setProfilePicture(String _profilePicture) {
         profilePicture = _profilePicture;
     }
 
-    public String getPPictureFile()
-    {
+    public String getPPictureFile() {
         return profilePicture;
     }
 
-    public void setPPictureFile(Blob _pPictureFile)
-    {
+    public void setPPictureFile(Blob _pPictureFile) {
         pPictureFile = _pPictureFile;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String _description)
-    {
+    public void setDescription(String _description) {
         description = _description;
     }
 }
