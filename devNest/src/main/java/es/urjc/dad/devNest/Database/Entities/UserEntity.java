@@ -41,17 +41,19 @@ public class UserEntity {
     }
 
     public UserEntity(String _alias, String _password, String _email) {
+        super();
         alias = _alias;
         password = _password;
         email = _email;
     }
 
     public UserEntity(String _alias, String _password, String _email, String _profilePicture, Blob _picture) {
+        super();
         alias = _alias;
         password = _password;
         email = _email;
-
-
+        profilePicture = _profilePicture;
+        pPictureFile = _picture;
     }
 
 
@@ -110,4 +112,9 @@ public class UserEntity {
     public void setDescription(String _description) {
         description = _description;
     }
+
+    @Override
+	public String toString() {
+		return "User [username=" + alias + ", email=" + email + "]";
+	}
 }

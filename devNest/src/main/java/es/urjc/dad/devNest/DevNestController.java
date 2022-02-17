@@ -3,12 +3,14 @@ package es.urjc.dad.devNest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class DevNestController {
     
     @GetMapping("/")
     public String home(Model model){
+        
         //Random generator
         model.addAttribute("topic1", "Oscuridad");
         model.addAttribute("topic2", "Saltos");
@@ -24,7 +26,7 @@ public class DevNestController {
         return "initialWeb";
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String login(Model model){
         //Random generator
         model.addAttribute("name", "aaaaaaaaa");

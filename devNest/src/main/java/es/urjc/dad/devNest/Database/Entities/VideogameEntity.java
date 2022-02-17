@@ -27,7 +27,6 @@ public class VideogameEntity {
     private String platform;
 
     @OneToOne
-    @Column(nullable = false)
     private TeamEntity team;
 
     private String filePath;
@@ -45,6 +44,7 @@ public class VideogameEntity {
     }
 
     public VideogameEntity(String _title, Date _date, TeamEntity _team, String _filePath, Blob _gameFile) {
+        super();
         title = _title;
         date = _date.toString();
         team = _team;
@@ -53,6 +53,7 @@ public class VideogameEntity {
     }
 
     public VideogameEntity(String _title, Date _date, String _description, String _category, String _platform, TeamEntity _team, String _filePath, Blob _gameFile) {
+        super();
         title = _title;
         date = _date.toString();
         description = _description;
@@ -144,6 +145,9 @@ public class VideogameEntity {
     }
     //endregion
 
-
+    @Override
+	public String toString() {
+		return "Videogame [title=" + title + ", team=" + team.getTeamName() + ", date=" + date + "]";
+	}
 }
 
