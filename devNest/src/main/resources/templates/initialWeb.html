@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
+    <style>
   table{
     border: 1px solid black;
     background-color: #006363;
@@ -18,49 +18,70 @@
     color: white;
     text-shadow: 2px 2px 4px #333333;
   }
-</style>
-<title>devNest-Home</title>
-<link type="text/css" rel="stylesheet" href="/css/initialWebStyle.css"/>
+
+
+
+    </style>
+    <title>devNest-Home</title>
+    <link type="text/css" rel="stylesheet" href="/css/initialWebStyle.css"/>
 </head>
 <body class="webBack">
 <!-- Start your code here -->
 
-  <div class="header">
-  <b>devNest</b>
-  <div class="header-right">
-    <form action="login" method="get"> <button>Log in</button> </form> 
-    <form action="register" method="get"> <button>Register</button> </form>   
-  </div>
+<div class="header">
+    <b>devNest</b>
+    <div class="header-right">
+        <!-- button that loads the login html -->
+        <a href="/login"> Login</a>
+        <!-- button that loads the register html -->
+        <a href="/register"> Register</a>
+    </div>
 </div>
-  
-  <p>
+
+<!-- random topic generator -->
+<p>
+    <!-- random button -->
+    <h2 class="smallTitle"> Random Topic Generator</h2>
     <center>
-      <h2 class="smallTitle">Random Topic Generator</h2>
-      <button class="randomButton"> Random Topic</button>
+
+        <form action="/">
+            <input class="randomButton" type='submit' value='home'/>
+        </form>
+
     </center>
+
+    <!-- word displays -->
     <center>
-      <fieldset class="randomWordDisplay">{{topic1}}</fieldset>
-      <fieldset class="randomWordDisplay">{{topic2}}</fieldset>
-    </center>    
-  </p>
-  <p>
-    <center>
-      <h2 class="smallTitle">GameJams</h2>
-      <table>
-          <th>GameJam</th> <th>Topics</th> <th>Teams</th> <th>Start Date</th> <th>Deadline</th> <th>Winner</th>
-       {{#gamejams}}
+        <fieldset class="randomWordDisplay">{{topic1}}</fieldset>
+        <fieldset class="randomWordDisplay">{{topic2}}</fieldset>
+    </center>
+</p>
+
+<!-- game jams table -->
+
+<p>
+<h2 class="smallTitle">GameJams</h2>
+<center>
+    <table>
+        <th>GameJam</th>
+        <th>Topics</th>
+        <th>Teams</th>
+        <th>Start Date</th>
+        <th>Deadline</th>
+        <th>Winner</th>
+        {{#gamejams}}
         <tr>
-          <td>{{name}}</td>
-          <td>{{topics}}</td>
-          <td>{{teams}}</td>
-          <td>{{startdate}}</td>
-          <td>{{deadline}}</td>
-          <td>{{winner}}</td>
+            <td>{{name}}</td>
+            <td>{{topics}}</td>
+            <td>{{teams}}</td>
+            <td>{{startdate}}</td>
+            <td>{{deadline}}</td>
+            <td>{{winner}}</td>
         </tr>
         {{/gamejams}}
-       </table>
-    </center>
-  </p>
+    </table>
+</center>
+</p>
 <!-- End your code here -->
 </body>
 </html>
