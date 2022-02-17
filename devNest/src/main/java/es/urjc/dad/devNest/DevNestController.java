@@ -1,4 +1,4 @@
-package es.urjc.dad.devNest.Controllers;
+package es.urjc.dad.devNest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,5 +22,14 @@ public class DevNestController {
         model.addAttribute("winner1", "Team 3");
 
         return "initialWeb";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model){
+        //Random generator
+        model.addAttribute("name", "aaaaaaaaa");
+
+
+        return "loginWeb";
     }
 }
