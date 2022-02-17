@@ -1,4 +1,4 @@
-package es.urjc.dad.devNest;
+package es.urjc.dad.devNest.Controllers;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

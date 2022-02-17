@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
-
+@Entity
 public class VideogameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
