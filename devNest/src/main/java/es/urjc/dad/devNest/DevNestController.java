@@ -1,13 +1,20 @@
 package es.urjc.dad.devNest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import es.urjc.dad.devNest.Internal_Services.UserService;
 
 @Controller
 public class DevNestController
 {
+
+    @Autowired
+    private UserService userService;
     
     @GetMapping("/")
     public String home(Model model){
@@ -37,5 +44,26 @@ public class DevNestController
     public String goToRegister(Model model)
     {
         return "registerWeb";
+    }
+
+    @PostMapping("/register/{{username}}+{{password}}")
+    public String login(Model model, @RequestParam String username, @RequestParam String password)
+    {
+        userService.login(username, password);
+        return "initialWeb";
+    }
+
+    @PostMapping("/register/{{email}}+{{username}}+{{password}}")
+    public String register(Model model, @RequestParam String username, @RequestParam String password, @RequestParam String email)
+    {
+        userService.register(username, password, email);
+        return "initialWeb";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model)
+    {
+        userService.logout();
+        return "initialWeb";
     }
 }
