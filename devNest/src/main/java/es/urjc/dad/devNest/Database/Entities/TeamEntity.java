@@ -25,6 +25,7 @@ public class TeamEntity {
     }
 
     public TeamEntity(String _name, List<UserEntity> _users,List<VideogameEntity>games) {
+        super();
         teamName = _name;
         members = _users;
         videogames=games;
@@ -32,6 +33,7 @@ public class TeamEntity {
 
 
     public TeamEntity(String _name, List<UserEntity> _users) {
+        super();
         teamName = _name;
         members = _users;
     }
@@ -60,4 +62,9 @@ public class TeamEntity {
     public void setMembers(List<UserEntity> _members) {
         members = _members;
     }
+
+    @Override
+	public String toString() {
+		return "Team [name=" + teamName + "]";
+	}
 }

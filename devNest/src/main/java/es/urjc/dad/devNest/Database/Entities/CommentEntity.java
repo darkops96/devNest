@@ -11,11 +11,9 @@ public class CommentEntity {
     private long id;
 
     @ManyToOne
-    @Column(nullable = false)
     private VideogameEntity videogame;
 
     @OneToOne
-    @Column(nullable = false)
     private UserEntity user;
 
     @ManyToOne
@@ -32,6 +30,7 @@ public class CommentEntity {
     }
 
     public CommentEntity(VideogameEntity _videogame, UserEntity _user, Date _date, String _comment) {
+        super();
         videogame = _videogame;
         user = _user;
         date = _date.toString();
@@ -39,6 +38,7 @@ public class CommentEntity {
     }
 
     public CommentEntity(VideogameEntity _videogame, UserEntity _user, CommentEntity _commentParent, Date _date, String _comment) {
+        super();
         videogame = _videogame;
         user = _user;
         parentComment = _commentParent;
@@ -102,4 +102,8 @@ public class CommentEntity {
     }
     //endregion
 
+    @Override
+	public String toString() {
+		return "Comment [comment=" + textComment + ", user=" + user.getAlias() + "]";
+	}
 }

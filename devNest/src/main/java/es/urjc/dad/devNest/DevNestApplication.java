@@ -1,6 +1,5 @@
 package es.urjc.dad.devNest;
 
-import es.urjc.dad.devNest.Services.RandomWord;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

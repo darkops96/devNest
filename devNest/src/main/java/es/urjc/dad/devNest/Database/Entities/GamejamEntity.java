@@ -16,7 +16,6 @@ public class GamejamEntity {
     private String name;
 
     @ManyToOne
-    @Column(nullable = false)
     private UserEntity adminUser;
 
     @Lob
@@ -41,6 +40,7 @@ public class GamejamEntity {
     }
 
     public GamejamEntity(String _name, UserEntity _userEntity, String _topic, Date _startDate, Date _endDate) {
+        super();
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
@@ -48,6 +48,7 @@ public class GamejamEntity {
         endDate = _endDate.toString();
     }
     public GamejamEntity(String _name, UserEntity _userEntity,String _description, String _topic, Date _startDate, Date _endDate) {
+        super();
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
@@ -126,4 +127,9 @@ public class GamejamEntity {
         return startDate;
     }
     //endregion
+
+    @Override
+	public String toString() {
+		return "Game Jam [name=" + name + ", topic=" + topic + ", admin=" + adminUser + ", start date=" + startDate + ", deadline=" + endDate + "]";
+	}
 }
