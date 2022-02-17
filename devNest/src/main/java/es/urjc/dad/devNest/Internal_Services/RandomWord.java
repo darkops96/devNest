@@ -11,13 +11,13 @@ import java.util.Random;
 @Service
 public class RandomWord {
 
-    private static List<String> words;
+    private List<String> words;
 
     public RandomWord() {
         words = initializeList();
     }
 
-    static List<String> initializeList() {
+    List<String> initializeList() {
         List<String> aux = new ArrayList<>();
         BufferedReader reader;
         try {
@@ -36,12 +36,12 @@ public class RandomWord {
         return aux;
     }
 
-    public static String getRandomWord() {
+    public String getRandomWord() {
         Random rn = new Random();
         return words.get(rn.nextInt(0, words.size() - 1));
     }
 
-    static private String getResourceFile() throws IOException {
+    static String getResourceFile() throws IOException {
         File resource = new ClassPathResource("static/Text files/testFile.txt").getFile();
         return resource.getAbsolutePath();
     }
