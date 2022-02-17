@@ -19,15 +19,10 @@ public class DevNestController {
 
     @Autowired
     RandomWord randomWord;
-
-    //region INITIAL WEB
-
-public class DevNestController
-{
-
     @Autowired
     private UserService userService;
-    
+    //region INITIAL WEB
+
 
     @GetMapping("/")
     public String home(Model model) {
@@ -59,37 +54,28 @@ public class DevNestController
         return "registerWeb";
     }
 
-    @RequestMapping(value="/loginUser", method = RequestMethod.POST, params={"username", "password"})
-    public String login(@RequestParam String username, @RequestParam String password)
-    {
+    @RequestMapping(value = "/loginUser", method = RequestMethod.POST, params = {"username", "password"})
+    public String login(@RequestParam String username, @RequestParam String password) {
         boolean result = userService.login(username, password);
-        if(result)
-        {
+        if (result) {
             return "redirect:/initialWeb";
-        }
-        else
-        {
+        } else {
             return "redirect:/login";
-        } 
+        }
     }
 
-    @RequestMapping(value="/registerUser", method = RequestMethod.POST, params={"email", "username", "password"})
-    public String register(@RequestParam String username, @RequestParam String password, @RequestParam String email)
-    {
+    @RequestMapping(value = "/registerUser", method = RequestMethod.POST, params = {"email", "username", "password"})
+    public String register(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
         boolean result = userService.register(username, password, email);
-        if(result)
-        {
+        if (result) {
             return "redirect:/initialWeb";
-        }
-        else
-        {
+        } else {
             return "redirect:/register";
-        }        
+        }
     }
 
     @GetMapping("/logout")
-    public String logout(Model model)
-    {
+    public String logout(Model model) {
         userService.logout();
         return "initialWeb";
     }
