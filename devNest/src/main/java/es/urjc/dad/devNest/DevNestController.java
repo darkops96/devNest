@@ -1,6 +1,7 @@
 package es.urjc.dad.devNest;
 
 import javax.servlet.http.HttpSession;
+import es.urjc.dad.devNest.Internal_Services.RandomWord;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,13 +21,15 @@ public class DevNestController
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RandomWord randomWord;
     
     @GetMapping("/")
-    public String home(Model model){
-        
+    public String home(Model model) {
+
         //Random generator
-        model.addAttribute("topic1", "Oscuridad");
-        model.addAttribute("topic2", "Saltos");
+        model.addAttribute("topic1", randomWord.getRandomWord());
+        model.addAttribute("topic2", randomWord.getRandomWord());
 
         //GameJams table
         model.addAttribute("name", "GameGen GameJam");
@@ -38,16 +41,16 @@ public class DevNestController
 
         return "initialWeb";
     }
+    //endregion
+
 
     @GetMapping("/login")
-    public String goToLogin(Model model)
-    {
+    public String goToLogin(Model model) {
         return "loginWeb";
     }
 
     @GetMapping("/register")
-    public String goToRegister(Model model)
-    {
+    public String goToRegister(Model model) {
         return "registerWeb";
     }
 
