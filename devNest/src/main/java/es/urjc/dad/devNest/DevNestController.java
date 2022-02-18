@@ -3,10 +3,8 @@ package es.urjc.dad.devNest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
-import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.GameJamService;
 import es.urjc.dad.devNest.Internal_Services.RandomWord;
 
