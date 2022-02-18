@@ -25,23 +25,21 @@ public class DevNestController
     private RandomWord randomWord;
     
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, HttpSession httpSession){
+        if(httpSession.isNew())
+        {
 
+        }
+        else
+        {
+
+        }
         //Random generator
         model.addAttribute("topic1", randomWord.getRandomWord());
         model.addAttribute("topic2", randomWord.getRandomWord());
 
-        //GameJams table
-        model.addAttribute("name", "GameGen GameJam");
-        model.addAttribute("topics", "Oscuridad/Salto");
-        model.addAttribute("teams", "Team 3\nTeam 16");
-        model.addAttribute("startdate", "02/23/2021");
-        model.addAttribute("deadline", "02/26/2021");
-        model.addAttribute("winner", "Team 3");
-
         return "initialWeb";
     }
-    //endregion
 
 
     @GetMapping("/login")
