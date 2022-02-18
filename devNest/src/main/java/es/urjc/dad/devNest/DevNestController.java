@@ -1,11 +1,13 @@
 package es.urjc.dad.devNest;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import es.urjc.dad.devNest.Internal_Services.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +57,7 @@ public class DevNestController
         boolean result = userService.login(username, password);
         if(result)
         {
-            return "redirect:/initialWeb";
+            return "redirect:/";
         }
         else
         {
@@ -63,24 +65,31 @@ public class DevNestController
         } 
     }
 
-    @RequestMapping(value="/registerUser", method = RequestMethod.POST, params={"email", "username", "password"})
-    public String register(@RequestParam String username, @RequestParam String password, @RequestParam String email)
+    @RequestMapping(value="/registerUser")
+    public ModelAndView register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat)
     {
-        boolean result = userService.register(username, password, email);
-        if(result)
+        if(psw.equals(pswRepeat))
         {
-            return "redirect:/initialWeb";
+            boolean result = userService.register(username, psw, email);
+            if(result)
+            {
+                return new ModelAndView("redirect:/");
+            }
+            else
+            {
+                return new ModelAndView("redirect:/register");
+            }
         }
         else
         {
-            return "redirect:/register";
-        }        
+            return new ModelAndView("redirect:/register");
+        }                
     }
 
     @GetMapping("/logout")
-    public String logout(Model model)
+    public ModelAndView logout(Model model, HttpSession httpSession)
     {
-        userService.logout();
-        return "initialWeb";
+        userService.logout(httpSession);
+        return new ModelAndView("redirect:/");
     }
 }

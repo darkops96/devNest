@@ -1,6 +1,9 @@
 package es.urjc.dad.devNest.Internal_Services;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,7 +11,6 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Database.Repositories.UserRepository;
-import es.urjc.dad.devNest.Model.User;
 
 @Component
 @SessionScope
@@ -17,35 +19,51 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private User myUser;
+    private UserEntity myUser;
 
     public boolean login(String username, String password)
     {
-        User u = new User(username);
-        UserEntity uE = u.getUserEntity();
+        Optional<UserEntity> u = userRepository.findByAlias(username);
 
-        if(uE.getPassword().equals(password))
+        if(u.isPresent())
         {
-            myUser = u;
-            return true;
+            if(u.get().getPassword().equals(password))
+            {
+                myUser = u.get();
+                return true;
+            }
+            else
+            {
+                myUser = null;
+                return false;
+            }
         }
         else
         {
-            myUser = null;
             return false;
-        }
+        }       
     }
 
     public boolean register(String username, String password, String email)
     {
-        myUser = new User(username, password, email);
-        myUser.saveUser();
-        return true;     
+        Optional<UserEntity> u = userRepository.findByAlias(username);
+
+        if(!u.isPresent())
+        {
+            myUser = new UserEntity(username, password, email);
+            userRepository.save(myUser);
+            return true; 
+        }
+        else
+        {
+            return false;
+        }            
     }
 
-    public void logout()
+    public void logout(HttpSession httpSession)
     {
         myUser = null;
+        httpSession.invalidate();
     }
 
     public List<UserEntity> getAllUsers()
@@ -53,7 +71,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getMyUser()
+    public UserEntity getMyUser()
     {
         return myUser;
     }
