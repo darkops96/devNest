@@ -56,6 +56,7 @@ public class UserService {
         }
         else
         {
+            myUser = null;
             return false;
         }            
     }

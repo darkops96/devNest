@@ -52,10 +52,10 @@ public class DevNestController
         return "registerWeb";
     }
 
-    @RequestMapping(value="/loginUser", method = RequestMethod.POST, params={"username", "password"})
-    public String login(@RequestParam String username, @RequestParam String password)
+    @RequestMapping(value="/loginUser")
+    public String login(@RequestParam String username, @RequestParam String psw)
     {
-        boolean result = userService.login(username, password);
+        boolean result = userService.login(username, psw);
         if(result)
         {
             return "redirect:/";
