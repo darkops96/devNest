@@ -34,6 +34,9 @@ public class GamejamEntity {
     @OneToMany
     private List<TeamEntity> teams;
 
+    @OneToOne
+    private UserEntity winner;
+
 
     //region CONSTRUCTOR
     public GamejamEntity() {
@@ -47,7 +50,7 @@ public class GamejamEntity {
         startDate = _startDate.toString();
         endDate = _endDate.toString();
     }
-    public GamejamEntity(String _name, UserEntity _userEntity,String _description, String _topic, Date _startDate, Date _endDate) {
+    public GamejamEntity(String _name, UserEntity _userEntity,String _description, String _topic, Date _startDate, Date _endDate, UserEntity _winner) {
         super();
         name = _name;
         adminUser = _userEntity;
@@ -55,6 +58,7 @@ public class GamejamEntity {
         startDate = _startDate.toString();
         endDate = _endDate.toString();
         description=_description;
+        winner = _winner;
     }
     //endregion
 
@@ -91,6 +95,10 @@ public class GamejamEntity {
     public void setTopic(String topic) {
         this.topic = topic;
     }
+
+    public void setWinner(UserEntity _winner) {
+        this.winner = _winner;
+    }
     //endregion
 
     //region GETTER
@@ -125,6 +133,10 @@ public class GamejamEntity {
 
     public String getStartDate() {
         return startDate;
+    }
+
+    public UserEntity getWinner() {
+        return winner;
     }
     //endregion
 

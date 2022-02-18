@@ -72,11 +72,11 @@
         {{#gamejams}}
         <tr>
             <td>{{name}}</td>
-            <td>{{topics}}</td>
-            <td>{{teams}}</td>
-            <td>{{startdate}}</td>
-            <td>{{deadline}}</td>
-            <td>{{winner}}</td>
+            <td>{{topic}}</td>
+            <td>{{^teams}}Hola{{/teams}}</td>
+            <td>{{startDate}}</td>
+            <td>{{endDate}}</td>
+            <td>{{^winner}}.{{/winner}}</td>
         </tr>
         {{/gamejams}}
     </table>
