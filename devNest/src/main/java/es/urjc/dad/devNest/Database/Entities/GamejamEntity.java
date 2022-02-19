@@ -44,24 +44,36 @@ public class GamejamEntity {
     public GamejamEntity() {
     }
 
-    public GamejamEntity(String _name, UserEntity _userEntity, String _topic, Date _startDate, Date _endDate) {
+    public GamejamEntity(String _name, UserEntity _userEntity, String _topic, String _startDate, String _endDate) {
         super();
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        startDate = formatter.format(_startDate);
-        endDate = formatter.format(_endDate);
+        startDate = _startDate;
+        endDate = _endDate;
     }
-    public GamejamEntity(String _name, UserEntity _userEntity,String _description, String _topic, Date _startDate, Date _endDate, TeamEntity _winner) {
+
+    public GamejamEntity(String _name, UserEntity _userEntity, String _description, String _topic, String _startDate, String _endDate) {
         super();
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        startDate = formatter.format(_startDate);
-        endDate = formatter.format(_endDate);
-        description=_description;
+        startDate = _startDate;
+        endDate = _endDate;
+        description = _description;
+    }
+
+    public GamejamEntity(String _name, UserEntity _userEntity, String _description, String _topic, String _startDate, String _endDate, TeamEntity _winner) {
+        super();
+        name = _name;
+        adminUser = _userEntity;
+        topic = _topic;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        startDate = _startDate;
+        endDate = _endDate;
+        description = _description;
         winner = _winner;
     }
     //endregion
@@ -145,7 +157,7 @@ public class GamejamEntity {
     //endregion
 
     @Override
-	public String toString() {
-		return "Game Jam [name=" + name + ", topic=" + topic + ", admin=" + adminUser + ", start date=" + startDate + ", deadline=" + endDate + "]";
-	}
+    public String toString() {
+        return "Game Jam [name=" + name + ", topic=" + topic + ", admin=" + adminUser + ", start date=" + startDate + ", deadline=" + endDate + "]";
+    }
 }

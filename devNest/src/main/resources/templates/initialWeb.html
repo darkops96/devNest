@@ -21,6 +21,7 @@
 
 
 
+
     </style>
     <title>devNest-Home</title>
     <link type="text/css" rel="stylesheet" href="/css/initialWebStyle.css"/>
@@ -34,39 +35,36 @@
         {{#userEntity}}
         <!-- button that loads the login html -->
         <a href="/myProfile"> {{alias}}</a>
-
+        <!-- button that takes you to organize a jam -->
         <a href="/registerJam"> Organize a Jam!</a>
         <!-- button that loads the register html -->
         <a href="/logout"> Log out</a>
         {{/userEntity}}
-        
+
         {{^userEntity}}
         <!-- button that loads the login html -->
         <a href="/login"> Log in</a>
         <!-- button that loads the register html -->
         <a href="/register"> Register</a>
-        {{/userEntity}}        
+        {{/userEntity}}
     </div>
 </div>
 
 <!-- random topic generator -->
-<p>
-    <!-- random button -->
-    <h2 class="smallTitle"> Random Topic Generator</h2>
-    <center>
 
-        <form action="/">
-            <input class="randomButton" type='submit' value='Get Topics!'/>
-        </form>
+<!-- random button -->
+<h2 class="smallTitle"> Random Topic Generator</h2>
+<center>
+    <form action="/">
+        <input class="randomButton" type='submit' value='Get Topics!'/>
+    </form>
+</center>
+<!-- word displays -->
+<center>
+    <fieldset class="randomWordDisplay">{{topic1}}</fieldset>
+    <fieldset class="randomWordDisplay">{{topic2}}</fieldset>
+</center>
 
-    </center>
-
-    <!-- word displays -->
-    <center>
-        <fieldset class="randomWordDisplay">{{topic1}}</fieldset>
-        <fieldset class="randomWordDisplay">{{topic2}}</fieldset>
-    </center>
-</p>
 
 <!-- game jams table -->
 
@@ -76,18 +74,17 @@
     <table>
         <th>GameJam</th>
         <th>Topics</th>
-        <th>Teams</th>
         <th>Start Date</th>
         <th>Deadline</th>
         <th>Winner</th>
         {{#gamejams}}
         <tr>
-            <td> <a href="/gamejam/{{id}}"> {{name}}</a> </td>
+            <td><a href="/gamejam/{{id}}"> {{name}}</a></td>
             <td>{{topic}}</td>
-            <td>{{#teams}} {{teamName}} {{/teams}} {{^teams}} - {{/teams}}</td>
             <td>{{startDate}}</td>
             <td>{{endDate}}</td>
             <td>{{#winner}} {{alias}} {{/winner}} {{^winner}} - {{/winner}}</td>
+            <!-- <td>{{#teams}} {{teamName}} {{/teams}} {{^teams}} - {{/teams}}</td>-->
         </tr>
         {{/gamejams}}
     </table>

@@ -25,90 +25,76 @@ public class GameJamService {
     @Autowired
     private GamejamRepository gamejamRepository;
     @Autowired
-    private TeamRepository teamRepository;    
+    private TeamRepository teamRepository;
 
     private List<GamejamEntity> allJams;
     private boolean needsUpdate;
 
-    public GameJamService()
-    {
+    public GameJamService() {
         needsUpdate = true;
-    } 
-    
+    }
+
     //region INIT
     @Autowired
     private UserRepository userRepository;
 
     @PostConstruct
-    private void addJams()
-    {
-        UserEntity u = new UserEntity("pablo", "1234", "a@b.c");
-        userRepository.save(u);
-        try {
-            gamejamRepository.save(new GamejamEntity("GGJam", u, "Perro Amarillo", new SimpleDateFormat("dd/MM/yyyy").parse("18/02/2022"), new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2022")));
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    private void addJams() {
+        //UserEntity u = new UserEntity("pablo", "1234", "a@b.c");
+        //userRepository.save(u);
+        //  gamejamRepository.save(new GamejamEntity("GGJam", u, "Perro Amarillo", "18/02/2022", "20/02/2022"));
+
     }
     //endregion
 
-    public void refreshJamList()
-    {
+    public void refreshJamList() {
         allJams = gamejamRepository.findAll();
         needsUpdate = false;
     }
 
-    public List<GamejamEntity> getAllJams()
-    {
-        if(needsUpdate)
+    public List<GamejamEntity> getAllJams() {
+        if (needsUpdate)
             refreshJamList();
-        
+
         return allJams;
     }
 
-    public boolean addNewJam(String _name, UserEntity _userEntity, String _topic, Date _startDate, Date _endDate)
-    {
-        GamejamEntity newJam = new GamejamEntity(_name, _userEntity, _topic, _startDate, _endDate);
+    public boolean addNewJam(String _name,String description, UserEntity _userEntity, String _topic, String _startDate, String _endDate) {
+        GamejamEntity newJam = new GamejamEntity(_name, _userEntity, description,_topic, _startDate, _endDate);
+        //(String _name, UserEntity _userEntity,String _description, String _topic, String _startDate, String _endDate, TeamEntity _winner)
         Optional<GamejamEntity> u = gamejamRepository.findById(newJam.getId());
 
-        if(!u.isPresent())
-        {
+        if (!u.isPresent()) {
             gamejamRepository.save(newJam);
             needsUpdate = true;
-            return true; 
-        }
-        else
+            return true;
+        } else
             return false;
     }
-    
-    public GamejamEntity getJam(long id)
-    {
+
+    public GamejamEntity getJam(long id) {
         Optional<GamejamEntity> u = gamejamRepository.findById(id);
 
-        if(u.isPresent())
-            return u.get(); 
+        if (u.isPresent())
+            return u.get();
         else
             return null;
     }
 
-    public TeamEntity getTeam(long id)
-    {
+    public TeamEntity getTeam(long id) {
         Optional<TeamEntity> t = teamRepository.findById(id);
 
-        if(t.isPresent())
-            return t.get(); 
+        if (t.isPresent())
+            return t.get();
         else
             return null;
     }
 
-    public Blob getTeamGame(long id)
-    {
+    public Blob getTeamGame(long id) {
         TeamEntity t = getTeam(id);
-        if(t != null)
-        {
+        if (t != null) {
             VideogameEntity v = t.getVideogame();
-            if(v!=null)
+            if (v != null)
                 return v.getGameFile();
         }
         return null;
