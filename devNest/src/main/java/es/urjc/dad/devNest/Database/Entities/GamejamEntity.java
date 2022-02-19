@@ -1,6 +1,8 @@
 package es.urjc.dad.devNest.Database.Entities;
 
 import javax.persistence.*;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class GamejamEntity {
     @Column(nullable = false)
     private String endDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gamejam")
     private List<TeamEntity> teams;
 
     @ManyToOne
@@ -47,16 +49,18 @@ public class GamejamEntity {
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
-        startDate = _startDate.toString();
-        endDate = _endDate.toString();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        startDate = formatter.format(_startDate);
+        endDate = formatter.format(_endDate);
     }
     public GamejamEntity(String _name, UserEntity _userEntity,String _description, String _topic, Date _startDate, Date _endDate, UserEntity _winner) {
         super();
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
-        startDate = _startDate.toString();
-        endDate = _endDate.toString();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        startDate = formatter.format(_startDate);
+        endDate = formatter.format(_endDate);
         description=_description;
         winner = _winner;
     }

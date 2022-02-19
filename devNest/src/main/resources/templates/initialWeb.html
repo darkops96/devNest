@@ -82,10 +82,10 @@
         <tr>
             <td>{{name}}</td>
             <td>{{topic}}</td>
-            <td>{{^teams}}Hola{{/teams}}</td>
+            <td>{{#teams}} {{teamName}} {{/teams}} {{^teams}} - {{/teams}}</td>
             <td>{{startDate}}</td>
             <td>{{endDate}}</td>
-            <td>{{^winner}}.{{/winner}}</td>
+            <td>{{#winner}} {{alias}} {{/winner}} {{^winner}} - {{/winner}}</td>
         </tr>
         {{/gamejams}}
     </table>
