@@ -56,7 +56,6 @@ public class UserEntity {
         pPictureFile = _picture;
     }
 
-
     public long getId() {
         return id;
     }

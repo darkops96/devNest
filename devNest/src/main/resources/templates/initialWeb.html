@@ -31,10 +31,19 @@
 <div class="header">
     <b>devNest</b>
     <div class="header-right">
+        {{#userEntity}}
         <!-- button that loads the login html -->
-        <a href="/login"> Login</a>
+        <a href="/myProfile"> {{alias}}</a>
+        <!-- button that loads the register html -->
+        <a href="/logout"> Log out</a>
+        {{/userEntity}}
+        
+        {{^userEntity}}
+        <!-- button that loads the login html -->
+        <a href="/login"> Log in</a>
         <!-- button that loads the register html -->
         <a href="/register"> Register</a>
+        {{/userEntity}}        
     </div>
 </div>
 

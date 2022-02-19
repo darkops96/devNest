@@ -26,7 +26,7 @@ public class VideogameEntity {
 
     private String platform;
 
-    @OneToOne
+    @OneToOne(mappedBy = "videogame")
     private TeamEntity team;
 
     private String filePath;
@@ -36,7 +36,7 @@ public class VideogameEntity {
     @Column(nullable = false)
     private Blob gameFile;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "videogame")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "videogame", orphanRemoval = true)
     private List<CommentEntity> comments;
 
 
