@@ -4,7 +4,6 @@ import java.sql.Blob;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,20 +42,14 @@ public class GameJamService {
     @PostConstruct
     private void addJams()
     {
-        UserEntity u = userRepository.save(new UserEntity("pablo", "1234", "a@b.c"));
-        List<UserEntity> members = new LinkedList<UserEntity>();
-        members.add(u);
-        //TeamEntity t = teamRepository.save(new TeamEntity("team 1", members));
-        //List<TeamEntity> teams = new LinkedList<TeamEntity>();
-        //teams.add(t);
-        /*try {
-            GamejamEntity gj = new GamejamEntity("GGJam", u, "Perro Amarillo", new SimpleDateFormat("dd/MM/yyyy").parse("18/02/2022"), new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2022"));
-            gj.setTeams(teams);
-            gamejamRepository.save(gj);
+        UserEntity u = new UserEntity("pablo", "1234", "a@b.c");
+        userRepository.save(u);
+        try {
+            gamejamRepository.save(new GamejamEntity("GGJam", u, "Perro Amarillo", new SimpleDateFormat("dd/MM/yyyy").parse("18/02/2022"), new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2022")));
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }*/
+        }
     }
     //endregion
 
