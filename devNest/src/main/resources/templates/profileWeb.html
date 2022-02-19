@@ -26,13 +26,21 @@
 <br>
 <form action="Profile_page.php">
   <div class="UserData">
+    {{#userentity}}
     <div class="ProfileTitle">
-      <img src="img_avatar.png" alt="Avatar">
+      {{#profilePicture}}
+        <img src="img_avatar" alt="{{profilePicture}}">
       <br>
-      <label for = "Carlos Chamizo"><b>Carlos Chamizo</b></label>
+      {{/profilePicture}}
+      <label for = "Profile"><b>{{alias}}</b></label>
     </div>
     <hr>
-    Actualmente cursando 4º curso del Doble Grado de Diseño y Desarrollo de Videojuegos e Ingeniería de Computadores de la URJC.
+        {{#description}}
+          {{description}}
+        {{/description}}
+        {{^description}}
+        -
+        {{/description}}
     <br>
   </div>
   <br>
@@ -43,11 +51,25 @@
   </div>
   
     <br>
-<div class="GamesCard">
-	<img src="Furfun.png" alt="FurFun" >
-      <h4><b>FurFun</b></h4>
-      <p>Pasalo mal jugando a este juego con NFTs</p>
-  <p><a href="#"> Download </a></p>
-    </div>
+    <!--List of all videogames of the current profile-->
+    <ul> {{#videogame}}
+      <li>
+        <div class="GamesCard">
+          <img src="{{image}}" alt="{{image.name}}" >
+              <h4><b>{{title}}</b></h4>
+              <p>
+
+                {{#description}}
+                  {{description}}
+                {{/description}}
+                {{^description}}
+                -
+                {{/description}}
+
+              </p>
+            </div>
+      </li>
+      {{/videogame}}
+    </ul>
   <hr>
 </form>
