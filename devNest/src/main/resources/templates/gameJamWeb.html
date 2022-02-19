@@ -61,13 +61,17 @@
   </div>
     <br>
 
-
-<div class="GamesCard">
-      <h4><b>FurFun</b></h4>
-      <p>Pasalo mal jugando a este juego con NFTs</p>
-  <p><a href="#"> Download </a></p>
-</div>
-
-  <hr>
+<ul> {{#teams}} 
+  <li>
+    <div class="GamesCard">
+          <h4><b>{{teamName}}</b></h4>
+          <h4><b>{{#videogame}}
+            <a href="#"> {{title}} </a> {{/videogame}} </b>
+          </h4>
+    </div>
+  </li>
+{{/teams}}
+</ul>
+<hr>
   
 </form>
