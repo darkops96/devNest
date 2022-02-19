@@ -80,7 +80,7 @@
         <th>Winner</th>
         {{#gamejams}}
         <tr>
-            <td>{{name}}</td>
+            <td> <a href="/gamejam/{{id}}"> {{name}}</a> </td>
             <td>{{topic}}</td>
             <td>{{#teams}} {{teamName}} {{/teams}} {{^teams}} - {{/teams}}</td>
             <td>{{startDate}}</td>
