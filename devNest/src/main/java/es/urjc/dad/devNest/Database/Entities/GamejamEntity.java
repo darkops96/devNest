@@ -37,7 +37,7 @@ public class GamejamEntity {
     private List<TeamEntity> teams;
 
     @ManyToOne
-    private UserEntity winner;
+    private TeamEntity winner;
 
 
     //region CONSTRUCTOR
@@ -53,7 +53,7 @@ public class GamejamEntity {
         startDate = formatter.format(_startDate);
         endDate = formatter.format(_endDate);
     }
-    public GamejamEntity(String _name, UserEntity _userEntity,String _description, String _topic, Date _startDate, Date _endDate, UserEntity _winner) {
+    public GamejamEntity(String _name, UserEntity _userEntity,String _description, String _topic, Date _startDate, Date _endDate, TeamEntity _winner) {
         super();
         name = _name;
         adminUser = _userEntity;
@@ -100,7 +100,7 @@ public class GamejamEntity {
         this.topic = topic;
     }
 
-    public void setWinner(UserEntity _winner) {
+    public void setWinner(TeamEntity _winner) {
         this.winner = _winner;
     }
     //endregion
@@ -139,7 +139,7 @@ public class GamejamEntity {
         return startDate;
     }
 
-    public UserEntity getWinner() {
+    public TeamEntity getWinner() {
         return winner;
     }
     //endregion
