@@ -15,10 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import es.urjc.dad.devNest.Internal_Services.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
+
 
 @Controller
-public class DevNestController
-{
+public class DevNestController {
 
     @Autowired
     private UserService userService;
@@ -26,23 +27,21 @@ public class DevNestController
     private GameJamService gameJamService;
 
     @Autowired
-    private RandomWord randomWord;    
-    
-    @GetMapping("/")
-    public String home(Model model){
-        
-        //Random generator
-        model.addAttribute("topic1", randomWord.getRandomWord());
-        model.addAttribute("topic2", randomWord.getRandomWord());
+    private RandomWord randomWord;
 
-        model.addAttribute("gamejams", gameJamService.getAllJams());        
+    @GetMapping("/")
+    public String home(Model model) {
+
+        //Random generator
+        randomWordAction(model);
+
+        model.addAttribute("gamejams", gameJamService.getAllJams());
 
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
 
         return "initialWeb";
     }
-
 
     @GetMapping("/login")
     public String goToLogin(Model model) {
@@ -54,44 +53,32 @@ public class DevNestController
         return "registerWeb";
     }
 
-    @RequestMapping(value="/loginUser")
-    public String login(@RequestParam String username, @RequestParam String psw)
-    {
+    @RequestMapping(value = "/loginUser")
+    public String login(@RequestParam String username, @RequestParam String psw) {
         boolean result = userService.login(username, psw);
-        if(result)
-        {
+        if (result) {
             return "redirect:/";
-        }
-        else
-        {
+        } else {
             return "redirect:/login";
-        } 
+        }
     }
 
-    @RequestMapping(value="/registerUser")
-    public ModelAndView register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat)
-    {
-        if(psw.equals(pswRepeat))
-        {
+    @RequestMapping(value = "/registerUser")
+    public ModelAndView register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat) {
+        if (psw.equals(pswRepeat)) {
             boolean result = userService.register(username, psw, email);
-            if(result)
-            {
+            if (result) {
                 return new ModelAndView("redirect:/");
-            }
-            else
-            {
+            } else {
                 return new ModelAndView("redirect:/register");
             }
-        }
-        else
-        {
+        } else {
             return new ModelAndView("redirect:/register");
-        }                
+        }
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(Model model)
-    {
+    public ModelAndView logout(Model model) {
         userService.logout();
         return new ModelAndView("redirect:/");
     }
@@ -114,8 +101,30 @@ public class DevNestController
     }
 
     @GetMapping("/registerJam")
-    public String goToOrganizeJam(Model model)
-    {
+    public String goToOrganizeJam(Model model) {
+
+        model.addAttribute("userName", userService.getMyUser().getAlias());
+        randomWordAction(model);
         return "createJam";
     }
+
+    @RequestMapping(value = "/registerGameJam")
+    public ModelAndView createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate) {
+        boolean result = gameJamService.addNewJam(jamName, description, userService.getMyUser(), topic, sDate, eDate);
+        if (result) {
+            return new ModelAndView("redirect:/");
+        } else {
+            return new ModelAndView("redirect:/createJam");
+        }
+    }
+
+    //region PRIVATE METHODS
+    private void randomWordAction(Model model) {
+        //Random generator
+        model.addAttribute("topic1", randomWord.getRandomWord());
+        model.addAttribute("topic2", randomWord.getRandomWord());
+    }
+
+    //endregion
+
 }

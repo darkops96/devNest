@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>devNest - Create a Jam </title>
+    <link type="text/css" rel="stylesheet" href="/css/createJamStyle.css"/>
+</head>
+<body class="webBack">
+<!-- Start your code here -->
+<div class="header">
+    <b>devNest</b>
+    <div class="header-right">
+        <!-- button that loads the login html -->
+        <a href="/myProfile"> {{userName}}</a>
+        <a href="/logout"> Log out</a>
+    </div>
+</div>
+
+<!-- random topic generator -->
+
+    <!-- random button -->
+    <h2 class="smallTitle"> Random Topic Generator</h2>
+    <center>
+    <form action="/registerJam">
+        <input class="randomButton" type='submit' value='Get Topics!'/>
+    </form>
+</center>
+    <!-- word displays -->
+    <center>
+    <fieldset class="randomWordDisplay">{{topic1}}</fieldset>
+    <fieldset class="randomWordDisplay">{{topic2}}</fieldset>
+</center>
+
+
+
+<form method='post' action="/registerGameJam">
+    <br>
+    <div class="request">
+        <!-- Nombre de la jam -->
+        <label for="JamName"><b>Jam Name</b></label>
+        <br>
+        <input type="text" placeholder="Enter jam name" name="jamName" id="JamName" required>
+        <br>
+        <!-- Descripción de la jam -->
+        <label for="description"><b>Description</b></label>
+        <br>
+        <input type="text" placeholder="Enter a small description" name="description" id="description" required>
+        <br>
+        <!-- Topics de la jam -->
+        <label for="topic"><b>Topic</b></label>
+        <br>
+        <input type="text" placeholder="Enter a topic" name="topic" id="topic" required>
+        <br>
+        <!-- fecha de inicio -->
+        <label for="startDate"><b>Starting day</b></label>
+        <br>
+        <input type="date" placeholder="Enter a starting day" name="sDate" id="startDate" required>
+        <br>
+        <!-- fecha de fin -->
+        <label for="endDate"><b>Ending day</b></label>
+        <br>
+        <input type="date" placeholder="Enter a ending day" name="eDate" id="endDate" required>
+        <br>
+    </div>
+
+    <!-- Submit data button -->
+    <center>
+        <br>
+        <button type="submit" class="registerbtn"> Register Jam</button>
+    </center>
+    <br>
+</form>
+</body>
+
