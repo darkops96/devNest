@@ -1,0 +1,83 @@
+<title>devNest-Videogame</title>
+<link type="text/css" rel="stylesheet" href="/css/gameWebStyle.css"/>
+
+<body class="webBack">
+<!-- Start your code here -->
+<div class="header">
+  <b href="#default">Videogame</b>
+  <div class="header-right">
+    <a href="/">Home</a>
+    {{#userEntity}}
+        <!-- button that loads the login html -->
+        <a href="/myProfile"> {{alias}}</a>
+
+        <a href="/registerJam"> Organize a Jam!</a>
+        <!-- button that loads the register html -->
+        <a href="/logout"> Log out</a>
+        {{/userEntity}}
+        
+        {{^userEntity}}
+        <!-- button that loads the login html -->
+        <a href="/login"> Log in</a>
+        <!-- button that loads the register html -->
+        <a href="/register"> Register</a>
+        {{/userEntity}}  
+  </div>
+</div>
+<br>
+<!--Game Info-->
+  <div class="GameData">
+    {{#game}}
+    <div class="GameTitle">
+      <label for = "Game"><b>{{title}}</b></label>
+    </div>
+    <hr>
+    <c>{{#description}}
+      {{description}}
+    {{/description}}
+    {{^description}}
+    -
+    {{/description}}</c>
+    <br>
+    <hr>
+    <c>{{date}}</c>
+    <hr>
+    <c>{{#category}}
+      {{category}}
+    {{/category}}
+    {{^category}}
+    -
+    {{/category}}</c>
+    <hr>
+    <c>{{platform}}
+      {{platform}}
+    {{/platform}}
+    {{^platform}}
+    -
+    {{/platform}}</c>
+  <c>Download link: {{#filepath}}
+    <a href="#"> {{title}}</a>
+    {{/filepath}}
+    {{^filepath}}
+    -
+    {{/filepath}}
+  </c>
+  <br>
+</div>
+  <!--Comments-->
+  <br>
+    <div class="bigTitle">
+    <h1>Comments</h1>
+     <hr>
+  </div>
+  
+    <br>
+<div class="GamesCard">
+      <p><a href="#"> Pablo D. Hoz </a></p>
+      <b>Ey muy divertido XD</b>
+  <br>
+  <br>
+  </div>
+  
+  
+</form>
