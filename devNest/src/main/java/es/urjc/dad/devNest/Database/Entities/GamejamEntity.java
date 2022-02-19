@@ -2,8 +2,6 @@ package es.urjc.dad.devNest.Database.Entities;
 
 import javax.persistence.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -49,7 +47,6 @@ public class GamejamEntity {
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         startDate = _startDate;
         endDate = _endDate;
     }
@@ -59,7 +56,6 @@ public class GamejamEntity {
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         startDate = _startDate;
         endDate = _endDate;
         description = _description;
@@ -70,7 +66,6 @@ public class GamejamEntity {
         name = _name;
         adminUser = _userEntity;
         topic = _topic;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         startDate = _startDate;
         endDate = _endDate;
         description = _description;
