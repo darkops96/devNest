@@ -105,4 +105,10 @@ public class DevNestController
     public String jamPage(Model model, @PathVariable long gjId) {
         return "gameJamWebLogOut";
     }
+
+    @GetMapping("/registerJam")
+    public String goToOrganizeJam(Model model)
+    {
+        return "createJam";
+    }
 }
