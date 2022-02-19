@@ -25,7 +25,13 @@ public class UserService {
     @PostConstruct
     private void addAdmin()
     {
-        userRepository.save(new UserEntity("admin", "admin", "admin@devnest.es"));          
+        UserEntity ue = new UserEntity("admin", "admin", "admin@devnest.es");
+        Optional<UserEntity> u = userRepository.findByAlias(ue.getAlias());
+
+        if(!u.isPresent())
+        {
+            userRepository.save(ue);
+        }        
     }
     //endregion
 
