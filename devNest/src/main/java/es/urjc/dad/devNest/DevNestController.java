@@ -1,10 +1,6 @@
 package es.urjc.dad.devNest;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import javax.servlet.http.HttpSession;
-
+import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.GameJamService;
 import es.urjc.dad.devNest.Internal_Services.RandomWord;
 
@@ -29,35 +25,19 @@ public class DevNestController
     private GameJamService gameJamService;
 
     @Autowired
-    private RandomWord randomWord;
-
-    //region init
-        private void addThings() throws ParseException
-        {
-            userService.register("pablo", "1234", "pablo@juja.chami");
-            gameJamService.addNewJam("GGJam", userService.getMyUser(), "Perros amarillos", new SimpleDateFormat("dd/MM/yyyy").parse("18/02/2022"), new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2022"));
-        }
-    //endregion
+    private RandomWord randomWord;    
     
     @GetMapping("/")
-    public String home(Model model, HttpSession httpSession){
-        if(httpSession.isNew())
-        {
-            try {
-                addThings();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        else
-        {
-
-        }
+    public String home(Model model){
+        
         //Random generator
         model.addAttribute("topic1", randomWord.getRandomWord());
         model.addAttribute("topic2", randomWord.getRandomWord());
 
-        model.addAttribute("gamejams", gameJamService.getAllJams());
+        model.addAttribute("gamejams", gameJamService.getAllJams());        
+
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);
 
         return "initialWeb";
     }
@@ -109,9 +89,14 @@ public class DevNestController
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(Model model, HttpSession httpSession)
+    public ModelAndView logout(Model model)
     {
-        userService.logout(httpSession);
+        userService.logout();
         return new ModelAndView("redirect:/");
+    }
+
+    @GetMapping("/myProfile")
+    public String goToMyProfile(Model model) {
+        return "profileWebLogin";
     }
 }

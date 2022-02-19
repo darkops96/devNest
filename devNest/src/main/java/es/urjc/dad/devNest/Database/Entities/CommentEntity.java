@@ -13,7 +13,7 @@ public class CommentEntity {
     @ManyToOne
     private VideogameEntity videogame;
 
-    @OneToOne
+    @ManyToOne
     private UserEntity user;
 
     @ManyToOne

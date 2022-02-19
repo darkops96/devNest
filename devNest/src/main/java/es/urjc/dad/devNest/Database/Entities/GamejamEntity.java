@@ -31,10 +31,10 @@ public class GamejamEntity {
     @Column(nullable = false)
     private String endDate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<TeamEntity> teams;
 
-    @OneToOne
+    @ManyToOne
     private UserEntity winner;
 
 

@@ -3,7 +3,7 @@ package es.urjc.dad.devNest.Internal_Services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +20,15 @@ public class UserService {
     private UserRepository userRepository;
 
     private UserEntity myUser;
+
+    //REGION init
+    @PostConstruct
+    private void addAdmin()
+    {
+        userRepository.save(new UserEntity("admin", "admin", "admin@devnest.es"));          
+    }
+    //endregion
+
 
     public boolean login(String username, String password)
     {
@@ -61,10 +70,9 @@ public class UserService {
         }            
     }
 
-    public void logout(HttpSession httpSession)
+    public void logout()
     {
         myUser = null;
-        httpSession.invalidate();
     }
 
     public List<UserEntity> getAllUsers()
