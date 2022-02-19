@@ -97,13 +97,20 @@ public class DevNestController
     }
 
     @GetMapping("/myProfile")
-    public String goToMyProfile(Model model) {
-        return "profileWebLogin";
+    public String goToMyProfile(Model model) 
+    {
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);
+        return "profileWeb";
     }
 
     @RequestMapping("/gamejam/{gjId}")
     public String jamPage(Model model, @PathVariable long gjId) {
-        return "gameJamWebLogOut";
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);
+
+        model.addAttribute("gamejam", gameJamService.getJam(gjId));
+        return "gameJamWeb";
     }
 
     @GetMapping("/registerJam")
