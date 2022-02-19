@@ -18,24 +18,29 @@ public class TeamEntity {
     @ManyToMany
     private List<UserEntity> members;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private VideogameEntity videogame;
+
+    @ManyToOne
+    private GamejamEntity gamejam;
 
     public TeamEntity() {
     }
 
-    public TeamEntity(String _name, List<UserEntity> _users, VideogameEntity game) {
+    public TeamEntity(String _name, List<UserEntity> _users, GamejamEntity _gamejam, VideogameEntity game) {
         super();
         teamName = _name;
         members = _users;
+        gamejam = _gamejam;
         videogame = game;
     }
 
 
-    public TeamEntity(String _name, List<UserEntity> _users) {
+    public TeamEntity(String _name, List<UserEntity> _users, GamejamEntity _gamejam) {
         super();
         teamName = _name;
         members = _users;
+        gamejam = _gamejam;
     }
 
 
@@ -69,6 +74,15 @@ public class TeamEntity {
 
     public void setVideogame(VideogameEntity _videogame) {
         this.videogame = _videogame;
+    }
+
+    public GamejamEntity getGamejam()
+    {
+        return gamejam;
+    }
+
+    public void setGamejam(GamejamEntity _gamejam) {
+        this.gamejam = _gamejam;
     }
 
     @Override

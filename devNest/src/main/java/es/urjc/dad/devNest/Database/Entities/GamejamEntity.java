@@ -31,7 +31,7 @@ public class GamejamEntity {
     @Column(nullable = false)
     private String endDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gamejam")
     private List<TeamEntity> teams;
 
     @ManyToOne

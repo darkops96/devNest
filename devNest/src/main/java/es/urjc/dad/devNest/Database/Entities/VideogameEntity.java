@@ -26,9 +26,6 @@ public class VideogameEntity {
 
     private String platform;
 
-    @OneToOne(mappedBy = "videogame")
-    private TeamEntity team;
-
     private String filePath;
 
     @Lob
@@ -47,7 +44,6 @@ public class VideogameEntity {
         super();
         title = _title;
         date = _date.toString();
-        team = _team;
         filePath = _filePath;
         gameFile = _gameFile;
     }
@@ -59,7 +55,6 @@ public class VideogameEntity {
         description = _description;
         category = _category;
         platform = _platform;
-        team = _team;
         filePath = _filePath;
         gameFile = _gameFile;
     }
@@ -100,10 +95,6 @@ public class VideogameEntity {
         this.title = title;
     }
 
-    public void setTeam(TeamEntity team) {
-        this.team = team;
-    }
-
     //endregion
 
     //region GETTERS
@@ -140,14 +131,11 @@ public class VideogameEntity {
         return title;
     }
 
-    public TeamEntity getTeam() {
-        return team;
-    }
     //endregion
 
     @Override
 	public String toString() {
-		return "Videogame [title=" + title + ", team=" + team.getTeamName() + ", date=" + date + "]";
+		return "Videogame [title=" + title + ", date=" + date + "]";
 	}
 }
 

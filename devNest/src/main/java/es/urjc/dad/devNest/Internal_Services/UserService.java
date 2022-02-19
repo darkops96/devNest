@@ -21,7 +21,7 @@ public class UserService {
 
     private UserEntity myUser;
 
-    //REGION init
+    //region INIT
     @PostConstruct
     private void addAdmin()
     {
