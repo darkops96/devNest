@@ -40,22 +40,32 @@ public class VideogameEntity {
     public VideogameEntity() {
     }
 
-    public VideogameEntity(String _title, Date _date, TeamEntity _team, String _filePath, Blob _gameFile) {
+    public VideogameEntity(String _title, String _date, TeamEntity _team, String _filePath, Blob _gameFile) {
         super();
         title = _title;
-        date = _date.toString();
+        date = _date;
         filePath = _filePath;
         gameFile = _gameFile;
     }
 
-    public VideogameEntity(String _title, Date _date, String _description, String _category, String _platform, TeamEntity _team, String _filePath, Blob _gameFile) {
+    public VideogameEntity(String _title, String _date, String _description, String _category, String _platform, TeamEntity _team, String _filePath, Blob _gameFile) {
         super();
         title = _title;
-        date = _date.toString();
+        date = _date;
         description = _description;
         category = _category;
         platform = _platform;
         filePath = _filePath;
+        gameFile = _gameFile;
+
+    }
+    public VideogameEntity(String _title, String _date, String _description, String _category, String _platform, TeamEntity _team, Blob _gameFile) {
+        super();
+        title = _title;
+        date = _date;
+        description = _description;
+        category = _category;
+        platform = _platform;
         gameFile = _gameFile;
     }
 

@@ -60,10 +60,8 @@ public class GameJamService {
     }
 
     public boolean addNewJam(String _name,String description, UserEntity _userEntity, String _topic, String _startDate, String _endDate) {
-        
         GamejamEntity newJam = new GamejamEntity(_name, _userEntity, description,_topic, _startDate, _endDate);
         Optional<GamejamEntity> u = gamejamRepository.findById(newJam.getId());
-
         if (!u.isPresent()) {
             gamejamRepository.save(newJam);
             needsUpdate = true;
@@ -74,7 +72,6 @@ public class GameJamService {
 
     public GamejamEntity getJam(long id) {
         Optional<GamejamEntity> u = gamejamRepository.findById(id);
-
         if (u.isPresent())
             return u.get();
         else
@@ -130,6 +127,14 @@ public class GameJamService {
         }
         else
             return false;
+    }
+    public TeamEntity getTeam(String teamName) {
+        Optional<TeamEntity> t = teamRepository.findByTeamName(teamName);
+
+        if (t.isPresent())
+            return t.get();
+        else
+            return null;
     }
 
     public boolean joinTeam(long jamId, long teamId, UserEntity user)

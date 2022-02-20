@@ -1,19 +1,37 @@
 package es.urjc.dad.devNest;
 
+import es.urjc.dad.devNest.Database.Entities.TeamEntity;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
-import es.urjc.dad.devNest.Internal_Services.GameJamService;
-import es.urjc.dad.devNest.Internal_Services.RandomWord;
+import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
+import es.urjc.dad.devNest.Internal_Services.*;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import es.urjc.dad.devNest.Internal_Services.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.Blob;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 
 @Controller
@@ -23,6 +41,8 @@ public class DevNestController {
     private UserService userService;
     @Autowired
     private GameJamService gameJamService;
+    @Autowired
+    private GameService gameService;
     @Autowired
     private RandomWord randomWord;
 
@@ -97,7 +117,7 @@ public class DevNestController {
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(myUser.getId())));
-        ;
+
         return "profileWeb";
     }
 
@@ -139,6 +159,7 @@ public class DevNestController {
         randomWordAction(model);
         return "createJam";
     }
+
     @RequestMapping(value = "/registerGameJam")
     public ModelAndView createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate) {
         boolean result = gameJamService.addNewJam(jamName, description, userService.getMyUser(), topic, sDate, eDate);
@@ -156,9 +177,35 @@ public class DevNestController {
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
         model.addAttribute("game", null);
-
         return "gameWeb";
+    }
 
+    @RequestMapping("/createGame")
+    public ModelAndView createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam String _teamName, @RequestParam MultipartFile _file) throws IOException {
+        //team by name
+        TeamEntity team = gameJamService.getTeam(_teamName);
+        //current date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+        //file
+        Blob file = BlobProxy.generateProxy(_file.getInputStream(), _file.getSize());
+        URI location = fromCurrentRequest().build().toUri();
+
+        VideogameEntity videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, team, location.toString(), file);
+
+        boolean result = gameService.addNewGame(videogame);
+        if (result) {
+            return new ModelAndView("redirect:/");
+        } else {
+            return new ModelAndView("redirect:/createGame");
+        }
+    }
+
+    @GetMapping("/registerGame")
+    public String goCreateGame(Model model) {
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);
+        return "createGame";
     }
 //endregion
 
