@@ -128,4 +128,13 @@ public class DevNestController
     {
         return "createJam";
     }
+    @RequestMapping("/game/{gId}")
+    public String gamePage(Model model, @PathVariable long gId){
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);
+        model.addAttribute("game",null);
+        
+        return "gameWeb";
+
+    }
 }
