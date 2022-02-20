@@ -1,6 +1,7 @@
 package es.urjc.dad.devNest.Internal_Services;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,5 +98,89 @@ public class GameJamService {
                 return v.getGameFile();
         }
         return null;
+    }
+
+    public boolean addNewTeam(long jamId, String teamName, UserEntity user)
+    {
+        leaveTeam(jamId, user);
+        GamejamEntity gj = getJam(jamId);
+        if(gj != null)
+        {
+            List<TeamEntity> teams = gj.getTeams();
+            boolean duplicateName = false;
+            for (TeamEntity teamEntity : teams) {
+                if(teamEntity.getTeamName().equalsIgnoreCase(teamName))
+                {
+                    duplicateName = true;
+                }
+            }
+
+            if(!duplicateName)
+            {
+                List<UserEntity> members = new ArrayList<UserEntity>();
+                members.add(user);
+                TeamEntity t = new TeamEntity(teamName, members, gj);
+                teamRepository.save(t);
+                gj.getTeams().add(t);
+                gamejamRepository.save(gj);
+                return true;
+            }
+            else
+                return false;            
+        }
+        else
+            return false;
+    }
+
+    public boolean joinTeam(long jamId, long teamId, UserEntity user)
+    {
+        leaveTeam(jamId, user);
+        GamejamEntity gj = getJam(jamId);
+        if(gj != null)
+        {  
+            TeamEntity t = getTeam(teamId);
+            if(t != null)
+            {
+                List<UserEntity> members = t.getMembers();
+                members.add(user);                
+                teamRepository.save(t);
+                gamejamRepository.save(gj);                
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;        
+    }
+
+    public void leaveTeam(long jamId, UserEntity user)
+    {
+        GamejamEntity gj = getJam(jamId);
+        if(gj != null)
+        {
+            long oldTeamId = checkIfIsInTeam(gj, user);
+            if(oldTeamId != -1)
+            {
+                TeamEntity t = getTeam(oldTeamId);
+                List<UserEntity> members = t.getMembers();
+                members.remove(user);                
+                teamRepository.save(t);
+                gamejamRepository.save(gj); 
+            }
+        }
+    }
+
+    public long checkIfIsInTeam(GamejamEntity gj, UserEntity user)
+    {
+        List<TeamEntity> teams = gj.getTeams();
+        long oldTeamId = -1;
+        for (TeamEntity teamEntity : teams) {
+            if(teamEntity.getMembers().contains(user))
+            {
+                oldTeamId = teamEntity.getId();
+            }
+        }
+        return oldTeamId;
     }
 }
