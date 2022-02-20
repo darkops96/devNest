@@ -4,7 +4,6 @@ import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.GameJamService;
 import es.urjc.dad.devNest.Internal_Services.RandomWord;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
