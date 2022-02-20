@@ -109,8 +109,9 @@ public class DevNestController {
 
     @GetMapping("/registerJam")
     public String goToOrganizeJam(Model model) {
-
-        model.addAttribute("userName", userService.getMyUser().getAlias());
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);
+        
         randomWordAction(model);
         return "createJam";
     }
