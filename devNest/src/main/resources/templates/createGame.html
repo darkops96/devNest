@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>devNest - Create a Jam </title>
+    <link type="text/css" rel="stylesheet" href="/css/createJamStyle.css"/>
+</head>
+<body class="webBack">
+<!-- Start your code here -->
+<div class="header">
+    <b>Organize a Jam!</b>
+    <div class="header-right">
+        <a href="/">Home</a>
+        {{#userEntity}}
+        <!-- button that loads the register html -->
+        <a href="/logout"> Log out</a>
+        {{/userEntity}}
+    </div>
+</div>
+
+
+<form method='post' action="/registerGameJam">
+    <br>
+    <div class="request">
+        <!-- Nombre del juego -->
+        <label for="gameTitle"><b>Jam Name</b></label>
+        <br>
+        <input type="text" placeholder="Enter a game title" name="gameTitle" id="gameTitle" required>
+        <br>
+        <!-- Descripción del juego -->
+        <label for="description"><b>Description</b></label>
+        <br>
+        <input type="text" placeholder="Enter a small description" name="description" id="description" required>
+        <br>
+        <!-- categorias del juego -->
+        <label for="category"><b>Topic</b></label>
+        <br>
+        <input type="text" placeholder="Enter a topic" name="category" id="category" required>
+        <br>
+        <!-- plataformas -->
+        <label for="plataform"><b>Topic</b></label>
+        <br>
+        <input type="text" placeholder="Enter a topic" name="plataform" id="plataform" required>
+        <br>
+        <!-- fecha de inicio -->
+        <label for="startDate"><b>Starting day</b></label>
+        <br>
+        <input type="date" placeholder="Enter a starting day" name="sDate" id="startDate" required>
+        <br>
+        <!-- fecha de fin -->
+        <label for="endDate"><b>Ending day</b></label>
+        <br>
+        <input type="date" placeholder="Enter a ending day" name="eDate" id="endDate" required>
+        <br>
+    </div>
+
+    <!-- Submit data button -->
+    <center>
+        <br>
+        <button type="submit" class="registerbtn"> Register Jam</button>
+    </center>
+    <br>
+</form>
+</body>
+
