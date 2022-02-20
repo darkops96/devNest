@@ -117,7 +117,7 @@ public class DevNestController {
     }
 
     @RequestMapping("/game/{gId}")
-    public String gamePage(Model model, @PathVariable long gId){
+    public String gamePage(Model model, @PathVariable long gId, @RequestParam String comment){
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
         model.addAttribute("game",null);
