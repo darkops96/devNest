@@ -141,11 +141,17 @@ public class GameJamService {
             TeamEntity t = getTeam(teamId);
             if(t != null)
             {
-                List<UserEntity> members = t.getMembers();
-                members.add(user);                
-                teamRepository.save(t);
-                gamejamRepository.save(gj);                
-                return true;
+                long oldTeamId = checkIfIsInTeam(gj, user);
+                if(teamId != oldTeamId)
+                {
+                    List<UserEntity> members = t.getMembers();
+                    members.add(user);                
+                    teamRepository.save(t);
+                    gamejamRepository.save(gj);                
+                    return true;
+                }
+                else
+                    return false;                
             }
             else
                 return false;

@@ -60,19 +60,33 @@
   </div>
     <br>
 
-<ul> {{#teams}} 
+<ul style="list-style: none;"> {{#teams}} 
   <li>
     <div class="GamesCard">
           <h4><b>{{teamName}}</b></h4>
           <h4><b>{{#videogame}}
-            <a href="/game/{{id}}"> {{title}} </a> {{/videogame}} </b>
-          </h4>
+            <a href="/game/{{id}}"> {{title}} </a>
+          {{/videogame}} </b> </h4>
+
+          <form method='get' action='/gamejam/{{gamejam.id}}/join+team/{{id}}'>
+            <center>                  
+              <input type='submit' value='Join {{teamName}}'>
+            </center>
+          </form>
+
     </div>
+    <br>
   </li>
 {{/teams}} </ul>
 
 <form method='get' action='/gamejam/{{id}}/register+team'>
+  <center>
+  <div class="request">
+    <input type="text" placeholder="Enter team name" name="teamname" id="teamname" required>
+  </div>    
+  <br>
   <input type='submit' value='Create new team'>
+</center>
 </form>
 {{/gamejam}}
 <hr>
