@@ -24,101 +24,88 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private TeamRepository teamRepository;   
+    private TeamRepository teamRepository;
 
     private UserEntity myUser;
 
     //region INIT
     @PostConstruct
-    private void addAdmin()
-    {
+    private void addAdmin() {
         UserEntity ue = new UserEntity("admin", "admin", "admin@devnest.es");
         Optional<UserEntity> u = userRepository.findByAlias(ue.getAlias());
 
-        if(!u.isPresent())
-        {
+        if (!u.isPresent()) {
             userRepository.save(ue);
-        }        
+        }
     }
     //endregion
 
 
-    public boolean login(String username, String password)
-    {
+    public boolean login(String username, String password) {
         Optional<UserEntity> u = userRepository.findByAlias(username);
 
-        if(u.isPresent())
-        {
-            if(u.get().getPassword().equals(password))
-            {
+        if (u.isPresent()) {
+            if (u.get().getPassword().equals(password)) {
                 myUser = u.get();
                 return true;
-            }
-            else
-            {
+            } else {
                 myUser = null;
                 return false;
             }
-        }
-        else
-        {
+        } else {
             return false;
-        }       
+        }
     }
 
-    public boolean register(String username, String password, String email)
-    {
+    public boolean register(String username, String password, String email) {
         Optional<UserEntity> u = userRepository.findByAlias(username);
 
-        if(!u.isPresent())
-        {
+        if (!u.isPresent()) {
             myUser = new UserEntity(username, password, email);
             userRepository.save(myUser);
-            return true; 
-        }
-        else
-        {
+            return true;
+        } else {
             myUser = null;
             return false;
-        }            
+        }
     }
 
-    public void logout()
-    {
+    public void logout() {
         myUser = null;
     }
 
-    public List<UserEntity> getAllUsers()
-    {
+    public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public UserEntity getMyUser()
-    {
+    public UserEntity getMyUser() {
         return myUser;
     }
 
-    public UserEntity getUser(long id)
-    {
+    public UserEntity getUser(long id) {
         Optional<UserEntity> user = userRepository.findById(id);
-        if(user.isPresent())
+        if (user.isPresent())
             return user.get();
         else
             return null;
     }
 
-    public List<TeamEntity> getUserTeams(long id){
+    public void updateUser(UserEntity user) {
+        userRepository.save(user);
+    }
+
+    public List<TeamEntity> getUserTeams(long id) {
         return teamRepository.findByMembersId(id);
     }
 
-    public List<VideogameEntity> getGames(List<TeamEntity> teams){
+    public List<VideogameEntity> getGames(List<TeamEntity> teams) {
         List<VideogameEntity> games = new LinkedList<VideogameEntity>();
-        
+
         for (TeamEntity t : teams) {
             games.add(t.getVideogame());
         }
         return games;
     }
-    
+
 
 }

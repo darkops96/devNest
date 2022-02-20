@@ -3,98 +3,92 @@
 
 <body class="webBack">
 <!-- Start your code here -->
-  
+
 <div class="header">
-  <b>Profile</b>
-  <div class="header-right">
-    <a href="/">Home</a>
+    <b>Profile</b>
+    <div class="header-right">
+        <a href="/">Home</a>
         {{#userEntity}}
-            <!-- button that loads the registerJam html -->
-            <a href="/registerJam"> Organize a Jam!</a>
-            <!-- button that loads the register html -->
-            <a href="/logout"> Log out</a>
+        <!-- button that loads the registerJam html -->
+        <a href="/registerJam"> Organize a Jam!</a>
+        <!-- button that loads the register html -->
+        <a href="/logout"> Log out</a>
         {{/userEntity}}
-        
+
         {{^userEntity}}
         <!-- button that loads the login html -->
         <a href="/login"> Log in</a>
         <!-- button that loads the register html -->
         <a href="/register"> Register</a>
-        {{/userEntity}}  
-  </div>
+        {{/userEntity}}
+    </div>
 </div>
 <br>
-  
-<form action="Profile_page.php">
-  <div class="UserData">
+<!-- php???-->
+
+<div class="UserData">
     {{#userEntity}}
     <div class="ProfileTitle">
-      {{#profilePicture}}
+        {{#profilePicture}}
         <img src="img_avatar" alt="{{profilePicture}}">
-      <br>
-      {{/profilePicture}}
-      <label for = "Profile"><b>{{alias}}</b></label>
+        <br>
+        {{/profilePicture}}
+        <label for="Profile"><b>{{alias}}</b></label>
     </div>
     <hr>
-        {{#description}}
-          {{description}}
-        {{/description}}
-        {{^description}}
-        -
-        {{/description}}
+    {{#description}}
+    {{description}}
+    {{/description}}
+    {{^description}}
+    -
+    {{/description}}
     <br>
     <dialog id="ms">
-   
-  <p>Edit Profile</p>
-      <form method='post' action="/edit_profile.php" id="editProfile">
-      <h3>
-        Description
-        </h3>
-        <textArea type="text" name="description" id="description" rows="4" cols="28" required >Enter a small description..
-          </textArea>
-        <br>
-        <br>
-        <label for="myfile">Select a file:</label>
-        <br>
-        <input type="file" id="myfile" name="myfile">
-         <br>
-        <br>
-          <button id="close" onclick="document.getElementById('ms').close()">Close</button>
-          <button type="submit" class="editprofile"> Update </button>
-      </form>
- 
-</dialog>
-<button id="show" onclick="document.getElementById('ms').show()">Edit</button>
+
+        <p>Edit Profile</p>
+        <!-- php???-->
+        <form method='post' action="/editProfile" >
+            <label for="description">Description</label>
+            <textArea type="text" name="description" id="description" rows="4" cols="28" required>Enter a small description..
+            </textArea>
+            <br>
+            <label for="myfile">Select a file:</label>
+            <input type="file" id="myfile" name="myfile">
+            <br>
+            <button type="submit" class="editprofile"> Update</button>
+        </form>
+        <button id="close" onclick="document.getElementById('ms').close()">Close</button>
+    </dialog>
+    <button id="show" onclick="document.getElementById('ms').show()">Edit</button>
     <br>
-  </div>
-  <br>
-  {{/userEntity}}
-  
-    <div class="bigTitle">
+</div>
+<br>
+{{/userEntity}}
+
+<div class="bigTitle">
     <h1>Videogames</h1>
-     <hr>
-  </div>
-  
-    <br>
-    <!--List of all videogames of the current profile-->
-    <ul> {{#videogame}}
-      <li>
+    <hr>
+</div>
+
+<br>
+<!--List of all videogames of the current profile-->
+<ul> {{#videogame}}
+    <li>
         <div class="GamesCard">
-          <img src="{{image}}" alt="{{image.name}}" >
-              <h4><b>{{title}}</b></h4>
-              <p>
+            <img src="{{image}}" alt="{{image.name}}">
+            <h4><b>{{title}}</b></h4>
+            <p>
 
                 {{#description}}
-                  {{description}}
+                {{description}}
                 {{/description}}
                 {{^description}}
                 -
                 {{/description}}
 
-              </p>
-            </div>
-      </li>
-      {{/videogame}}
-    </ul>
-  <hr>
-</form>
+            </p>
+        </div>
+    </li>
+    {{/videogame}}
+</ul>
+<hr>
