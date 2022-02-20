@@ -23,10 +23,11 @@ public class DevNestController {
     private UserService userService;
     @Autowired
     private GameJamService gameJamService;
-
     @Autowired
     private RandomWord randomWord;
 
+
+    //region ./ controller
     @GetMapping("/")
     public String home(Model model) {
 
@@ -41,14 +42,12 @@ public class DevNestController {
         return "initialWeb";
     }
 
+    //endregion
+
+    //region login controller
     @GetMapping("/login")
     public String goToLogin() {
         return "loginWeb";
-    }
-
-    @GetMapping("/register")
-    public String goToRegister() {
-        return "registerWeb";
     }
 
     @RequestMapping(value = "/loginUser")
@@ -59,6 +58,14 @@ public class DevNestController {
         } else {
             return "redirect:/login";
         }
+    }
+
+    //endregion
+
+    //region register user controller
+    @GetMapping("/register")
+    public String goToRegister() {
+        return "registerWeb";
     }
 
     @RequestMapping(value = "/registerUser")
@@ -74,30 +81,36 @@ public class DevNestController {
             return new ModelAndView("redirect:/register");
         }
     }
+    //endregion
 
+    //region logout controller
     @GetMapping("/logout")
     public ModelAndView logout() {
         userService.logout();
         return new ModelAndView("redirect:/");
     }
+    //endregion
 
+    //region my profile controller
     @GetMapping("/myProfile")
-    public String goToMyProfile(Model model) 
-    {
+    public String goToMyProfile(Model model) {
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
-        model.addAttribute("videogame",userService.getGames(userService.getUserTeams(myUser.getId())));;
+        model.addAttribute("videogame", userService.getGames(userService.getUserTeams(myUser.getId())));
+        ;
         return "profileWeb";
     }
 
     @RequestMapping("/profile/{uId}")
-    public String goToProfile(Model model, @PathVariable long uId){
+    public String goToProfile(Model model, @PathVariable long uId) {
         UserEntity user = userService.getUser(uId);
-        model.addAttribute("userEntity",user);
-        model.addAttribute("videogame",userService.getGames(userService.getUserTeams(uId)));
+        model.addAttribute("userEntity", user);
+        model.addAttribute("videogame", userService.getGames(userService.getUserTeams(uId)));
         return "profile";
     }
+    //endregion
 
+    //region gamejam controller
     @RequestMapping("/gamejam/{gjId}")
     public String jamPage(Model model, @PathVariable long gjId) {
         UserEntity myUser = userService.getMyUser();
@@ -107,26 +120,25 @@ public class DevNestController {
         return "gameJamWeb";
     }
 
+    @RequestMapping("/gamejam/{gjId}/register+team")
+    public ModelAndView registerTeam(@PathVariable long gjId) {
+        UserEntity myUser = userService.getMyUser();
+        if (myUser != null) {
+            gameJamService.addNewTeam(gjId, "Team 1", myUser);
+        }
+        return new ModelAndView("redirect:/gamejam/" + gjId);
+    }
+    //endregion
+
+    //region register jam controller
     @GetMapping("/registerJam")
     public String goToOrganizeJam(Model model) {
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
-        
+
         randomWordAction(model);
         return "createJam";
     }
-
-    @RequestMapping("/game/{gId}")
-    public String gamePage(Model model, @PathVariable long gId){
-        UserEntity myUser = userService.getMyUser();
-        model.addAttribute("userEntity", myUser);
-        model.addAttribute("game",null);
-        
-        return "gameWeb";
-
-    }
-
-
     @RequestMapping(value = "/registerGameJam")
     public ModelAndView createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate) {
         boolean result = gameJamService.addNewJam(jamName, description, userService.getMyUser(), topic, sDate, eDate);
@@ -136,16 +148,20 @@ public class DevNestController {
             return new ModelAndView("redirect:/createJam");
         }
     }
+    //endregion
 
-    @RequestMapping("/gamejam/{gjId}/register+team")
-    public ModelAndView registerTeam(@PathVariable long gjId) {
+    //region game controller
+    @RequestMapping("/game/{gId}")
+    public String gamePage(Model model, @PathVariable long gId) {
         UserEntity myUser = userService.getMyUser();
-        if(myUser!=null)
-        {            
-            gameJamService.addNewTeam(gjId, "Team 1", myUser);
-        }
-        return new ModelAndView("redirect:/gamejam/"+gjId);
+        model.addAttribute("userEntity", myUser);
+        model.addAttribute("game", null);
+
+        return "gameWeb";
+
     }
+//endregion
+
 
     //region PRIVATE METHODS
     private void randomWordAction(Model model) {
