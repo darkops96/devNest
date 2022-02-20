@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>devNest - Create a Jam </title>
+    <link type="text/css" rel="stylesheet" href="/css/createJamStyle.css"/>
+</head>
+<body class="webBack">
+<!-- Start your code here -->
+<div class="header">
+    <b>Create a game</b>
+    <div class="header-right">
+        <a href="/">Home</a>
+        {{#userEntity}}
+        <!-- button that loads the register html -->
+        <a href="/logout"> Log out</a>
+        {{/userEntity}}
+    </div>
+</div>
+
+<form method='post' action="/createGame">
+    <br>
+    <div class="request">
+        <!-- Nombre del juego -->
+        <label for="gameTitle"><b>Game title</b></label>
+        <br>
+        <input type="text" placeholder="Enter a game title" name="gameTitle" id="gameTitle" required>
+        <br>
+        <!-- Descripción del juego -->
+        <label for="description"><b>Description</b></label>
+        <br>
+        <input type="text" placeholder="Enter a small description" name="description" id="description" required>
+        <br>
+        <!-- categorias del juego -->
+        <label for="category"><b>Categories</b></label>
+        <br>
+        <input type="text" placeholder="Enter a category" name="category" id="category" required>
+        <br>
+        <!-- plataformas -->
+        <label for="plataform"><b>Platforms</b></label>
+        <br>
+        <input type="text" placeholder="Enter a platform for the game" name="plataform" id="plataform" required>
+        <br>
+
+        <!-- archivo del juego -->
+        <label for="file"><b>Game file</b></label>
+        <br>
+        <input type="file"  name="file" id="file" required>
+        <br>
+
+    </div>
+
+    <!-- Submit data button -->
+    <center>
+        <br>
+        <button type="submit" class="registerbtn"> Register Game</button>
+    </center>
+    <br>
+</form>
+</body>
+
