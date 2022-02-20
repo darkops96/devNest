@@ -73,12 +73,13 @@
   <div class="GamesCard">
       {{#userEntity}}
     {{name}}
+    <form action="/comment_box.php" id="UserCommentBox">
   <textarea id="UserCommentBox" name="UserCommentBox" rows="4" cols="50">
   Leave a comment...
   </textarea>
         <br><br>
   <input type="submit" value="Submit">
-
+    </form>
   {{/userEntity}}}}
 
 {{^userEntity}}
