@@ -116,6 +116,14 @@ public class DevNestController {
         }
     }
 
+    @RequestMapping("/gamejam/{gjId}/register+team")
+    public String registerTeam(Model model, @PathVariable long gjId) {
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);
+;
+        return "gameJamWeb";
+    }
+
     //region PRIVATE METHODS
     private void randomWordAction(Model model) {
         //Random generator
