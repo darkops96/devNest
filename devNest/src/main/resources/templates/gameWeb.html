@@ -70,8 +70,24 @@
       <h1>Comments</h1>
         <hr>
     </div>
+  <div class="GamesCard">
+      {{#userEntity}}
+    {{name}}
+  <textarea id="UserCommentBox" name="UserCommentBox" rows="4" cols="50">
+  Leave a comment...
+  </textarea>
+        <br><br>
+  <input type="submit" value="Submit">
+
+  {{/userEntity}}}}
+
+{{^userEntity}}
+    <a href="/login"> Log in</a> to comment on this post
+{{/userEntity}}
+   </div>
     <br>
     <ul>{{#comments}}
+      
       <li>
         <div class="GamesCard">
               <p><a href="/profile/{{id}}"> {{user}} </a></p>
