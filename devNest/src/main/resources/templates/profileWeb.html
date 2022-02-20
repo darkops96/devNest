@@ -24,6 +24,7 @@
   </div>
 </div>
 <br>
+  
 <form action="Profile_page.php">
   <div class="UserData">
     {{#userEntity}}
@@ -41,6 +42,29 @@
         {{^description}}
         -
         {{/description}}
+    <br>
+    <dialog id="ms">
+   
+  <p>Edit Profile</p>
+      <form method='post' action="/edit_profile.php" id="editProfile">
+      <h3>
+        Description
+        </h3>
+        <textArea type="text" name="description" id="description" rows="4" cols="28" required >Enter a small description..
+          </textArea>
+        <br>
+        <br>
+        <label for="myfile">Select a file:</label>
+        <br>
+        <input type="file" id="myfile" name="myfile">
+         <br>
+        <br>
+          <button id="close" onclick="document.getElementById('ms').close()">Close</button>
+          <button type="submit" class="editprofile"> Update </button>
+      </form>
+ 
+</dialog>
+<button id="show" onclick="document.getElementById('ms').show()">Edit</button>
     <br>
   </div>
   <br>

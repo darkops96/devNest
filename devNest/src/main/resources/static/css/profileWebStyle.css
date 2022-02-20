@@ -102,7 +102,13 @@ padding: 10px;
   padding: 10px;
   border-radius: 16px
 }
-
+h3{
+  text-align:left;
+}
+dialogBox{
+  color: black;
+  background-color:#E0FFFF;
+}
 
 a {
   color: dodgerblue;
