@@ -42,12 +42,12 @@ public class DevNestController {
     }
 
     @GetMapping("/login")
-    public String goToLogin(Model model) {
+    public String goToLogin() {
         return "loginWeb";
     }
 
     @GetMapping("/register")
-    public String goToRegister(Model model) {
+    public String goToRegister() {
         return "registerWeb";
     }
 
@@ -76,7 +76,7 @@ public class DevNestController {
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(Model model) {
+    public ModelAndView logout() {
         userService.logout();
         return new ModelAndView("redirect:/");
     }
@@ -138,11 +138,13 @@ public class DevNestController {
     }
 
     @RequestMapping("/gamejam/{gjId}/register+team")
-    public String registerTeam(Model model, @PathVariable long gjId) {
+    public ModelAndView registerTeam(@PathVariable long gjId) {
         UserEntity myUser = userService.getMyUser();
-        model.addAttribute("userEntity", myUser);
-;
-        return "gameJamWeb";
+        if(myUser!=null)
+        {            
+            gameJamService.addNewTeam(gjId, "Team 1", myUser);
+        }
+        return new ModelAndView("redirect:/gamejam/"+gjId);
     }
 
     //region PRIVATE METHODS
