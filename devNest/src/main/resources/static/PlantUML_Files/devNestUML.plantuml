@@ -1,0 +1,4 @@
+@startuml devNest
+skinparam Style strictuml
+A -> B : Hello
+@enduml
