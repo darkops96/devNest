@@ -65,8 +65,15 @@
     <div class="GamesCard">
           <h4><b>{{teamName}}</b></h4>
           <h4><b>{{#videogame}}
-            <a href="/game/{{id}}"> {{title}} </a> {{/videogame}} </b>
-          </h4>
+            <a href="/game/{{id}}"> {{title}} </a>
+          {{/videogame}} </b> </h4>
+
+          <form method='get' action='/gamejam/{{gamejam.id}}/join+team/{{id}}'>
+            <center>                  
+              <input type='submit' value='Join {{teamName}}'>
+            </center>
+          </form>
+
     </div>
     <br>
   </li>

@@ -147,6 +147,16 @@ public class DevNestController {
         return new ModelAndView("redirect:/gamejam/"+gjId);
     }
 
+    @RequestMapping("/gamejam/{gjId}/join+team/{tId}")
+    public ModelAndView joinTeam(@PathVariable long gjId, @PathVariable long tId) {
+        UserEntity myUser = userService.getMyUser();
+        if(myUser!=null)
+        {            
+            gameJamService.joinTeam(gjId, tId, myUser);
+        }
+        return new ModelAndView("redirect:/gamejam/"+gjId);
+    }
+
     //region PRIVATE METHODS
     private void randomWordAction(Model model) {
         //Random generator
