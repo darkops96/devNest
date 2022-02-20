@@ -132,14 +132,7 @@ public class DevNestController {
         return "gameJamWeb";
     }
 
-/*    @RequestMapping("/gamejam/{gjId}/register+team")
-    public ModelAndView registerTeam(@PathVariable long gjId) {
-        UserEntity myUser = userService.getMyUser();
-        if (myUser != null) {
-            gameJamService.addNewTeam(gjId, "Team 1", myUser);
-        }
-        return new ModelAndView("redirect:/gamejam/" + gjId);
-    }*/
+
     @RequestMapping(value ="/gamejam/{gjId}/register+team")
     public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname) {
         UserEntity myUser = userService.getMyUser();
