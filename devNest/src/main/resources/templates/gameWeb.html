@@ -49,7 +49,7 @@
     -
     {{/category}}</c>
     <hr>
-    <c>{{platform}}
+    <c>{{#platform}}
       {{platform}}
     {{/platform}}
     {{^platform}}
@@ -67,17 +67,27 @@
   <!--Comments-->
   <br>
     <div class="bigTitle">
-    <h1>Comments</h1>
-     <hr>
-  </div>
-  
+      <h1>Comments</h1>
+        <hr>
+    </div>
     <br>
-<div class="GamesCard">
-      <p><a href="#"> Pablo D. Hoz </a></p>
-      <b>Ey muy divertido XD</b>
-  <br>
-  <br>
-  </div>
+    <ul>{{#comments}}
+      <li>
+        <div class="GamesCard">
+              <p><a href="/profile/{{id}}"> {{user}} </a></p>
+              <b>
+              {{#textComment}}
+                {{textComment}}
+              {{/textComment}}
+              {{^textComment}}
+              -
+              {{/textComment}}</b>
+          <br>
+          <br>
+        </div>
+      </li>
+    {{/comments}}</ul>
+    {{/game}}
   
   
 </form>
