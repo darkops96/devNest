@@ -132,13 +132,22 @@ public class DevNestController {
         return "gameJamWeb";
     }
 
-    @RequestMapping("/gamejam/{gjId}/register+team")
+/*    @RequestMapping("/gamejam/{gjId}/register+team")
     public ModelAndView registerTeam(@PathVariable long gjId) {
         UserEntity myUser = userService.getMyUser();
         if (myUser != null) {
             gameJamService.addNewTeam(gjId, "Team 1", myUser);
         }
         return new ModelAndView("redirect:/gamejam/" + gjId);
+    }*/
+    @RequestMapping(value ="/gamejam/{gjId}/register+team")
+    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname) {
+        UserEntity myUser = userService.getMyUser();
+        if(myUser!=null)
+        {
+            gameJamService.addNewTeam(gjId, teamname, myUser);
+        }
+        return new ModelAndView("redirect:/gamejam/"+gjId);
     }
     //endregion
 
@@ -164,7 +173,7 @@ public class DevNestController {
     //endregion
 
     //region game controller
-    @RequestMapping("/game/{gId}")
+    @RequestMapping(value ="/game/{gId}")
     public String gamePage(Model model, @PathVariable long gId, @RequestParam String comment){
 
         UserEntity myUser = userService.getMyUser();
@@ -173,7 +182,7 @@ public class DevNestController {
         return "gameWeb";
     }
 
-    @RequestMapping("/createGame")
+    @RequestMapping(value ="/createGame")
     public ModelAndView createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam String _teamName, @RequestParam MultipartFile _file) throws IOException {
         //team by name
         TeamEntity team = gameJamService.getTeam(_teamName);
@@ -194,17 +203,9 @@ public class DevNestController {
         }
     }
 
-    @RequestMapping("/gamejam/{gjId}/register+team")
-    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname) {
-        UserEntity myUser = userService.getMyUser();
-        if(myUser!=null)
-        {            
-            gameJamService.addNewTeam(gjId, teamname, myUser);
-        }
-        return new ModelAndView("redirect:/gamejam/"+gjId);
-    }
 
-    @RequestMapping("/gamejam/{gjId}/join+team/{tId}")
+
+    @RequestMapping(value ="/gamejam/{gjId}/join+team/{tId}")
     public ModelAndView joinTeam(@PathVariable long gjId, @PathVariable long tId) {
         UserEntity myUser = userService.getMyUser();
         if(myUser!=null)
