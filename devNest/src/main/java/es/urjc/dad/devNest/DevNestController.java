@@ -4,6 +4,7 @@ import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.GameJamService;
 import es.urjc.dad.devNest.Internal_Services.RandomWord;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,7 +102,16 @@ public class DevNestController
     {
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
+        model.addAttribute("videogame",userService.getGames(userService.getUserTeams(myUser.getId())));;
         return "profileWeb";
+    }
+
+    @RequestMapping("/profile/{uId}")
+    public String goToProfile(Model model, @PathVariable long uId){
+        UserEntity user = userService.getUser(uId);
+        model.addAttribute("userEntity",user);
+        model.addAttribute("videogame",userService.getGames(userService.getUserTeams(uId)));
+        return "profile";
     }
 
     @RequestMapping("/gamejam/{gjId}")
