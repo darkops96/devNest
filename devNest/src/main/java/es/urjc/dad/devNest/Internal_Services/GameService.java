@@ -1,17 +1,11 @@
 package es.urjc.dad.devNest.Internal_Services;
 
-import es.urjc.dad.devNest.Database.Entities.GamejamEntity;
-import es.urjc.dad.devNest.Database.Entities.TeamEntity;
-import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.VideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Component

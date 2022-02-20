@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Blob;
-import java.util.Date;
 import java.util.List;
 @Entity
 public class VideogameEntity {

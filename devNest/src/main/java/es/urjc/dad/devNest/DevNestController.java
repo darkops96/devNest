@@ -7,7 +7,6 @@ import es.urjc.dad.devNest.Internal_Services.*;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,18 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.Blob;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
@@ -220,6 +212,7 @@ public class DevNestController {
             gameJamService.joinTeam(gjId, tId, myUser);
         }
         return new ModelAndView("redirect:/gamejam/"+gjId);
+    }
 
     @GetMapping("/registerGame")
     public String goCreateGame(Model model) {
