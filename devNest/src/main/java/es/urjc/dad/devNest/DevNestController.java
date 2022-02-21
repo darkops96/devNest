@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.sql.Blob;
 import java.time.LocalDateTime;
@@ -109,7 +109,6 @@ public class DevNestController {
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(myUser.getId())));
-
         return "profileWeb";
     }
 
@@ -120,6 +119,21 @@ public class DevNestController {
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(uId)));
         return "profile";
     }
+
+    @RequestMapping(value = "/editProfile")
+    public ModelAndView goToProfile(@RequestParam String description, @RequestParam File myfile) throws IOException {
+        UserEntity user = userService.getMyUser();
+        user.setDescription(description);
+        //no consigo hacer la parte de la imagen
+//        URI location = fromCurrentRequest().build().toUri();
+//        user.setProfilePicture(location.toString());
+//        FileInputStream inputStream = new FileInputStream(myfile);
+//        if (myfile != null) user.setPPictureFile(BlobProxy.generateProxy(inputStream, myfile.length()));
+        userService.updateUser(user);
+        return new ModelAndView("redirect:/myProfile");
+    }
+
+
     //endregion
 
     //region gamejam controller
@@ -132,6 +146,15 @@ public class DevNestController {
         return "gameJamWeb";
     }
 
+
+    @RequestMapping(value = "/gamejam/{gjId}/register+team")
+    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname) {
+        UserEntity myUser = userService.getMyUser();
+        if (myUser != null) {
+            gameJamService.addNewTeam(gjId, teamname, myUser);
+        }
+        return new ModelAndView("redirect:/gamejam/" + gjId);
+    }
     //endregion
 
     //region register jam controller
@@ -156,8 +179,8 @@ public class DevNestController {
     //endregion
 
     //region game controller
-    @RequestMapping("/game/{gId}")
-    public String gamePage(Model model, @PathVariable long gId, @RequestParam String comment){
+    @RequestMapping(value = "/game/{gId}")
+    public String gamePage(Model model, @PathVariable long gId, @RequestParam String comment) {
 
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
@@ -165,7 +188,7 @@ public class DevNestController {
         return "gameWeb";
     }
 
-    @RequestMapping("/createGame")
+    @RequestMapping(value = "/createGame")
     public ModelAndView createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam String _teamName, @RequestParam MultipartFile _file) throws IOException {
         //team by name
         TeamEntity team = gameJamService.getTeam(_teamName);
@@ -186,24 +209,14 @@ public class DevNestController {
         }
     }
 
-    @RequestMapping("/gamejam/{gjId}/register+team")
-    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname) {
-        UserEntity myUser = userService.getMyUser();
-        if(myUser!=null)
-        {            
-            gameJamService.addNewTeam(gjId, teamname, myUser);
-        }
-        return new ModelAndView("redirect:/gamejam/"+gjId);
-    }
 
-    @RequestMapping("/gamejam/{gjId}/join+team/{tId}")
+    @RequestMapping(value = "/gamejam/{gjId}/join+team/{tId}")
     public ModelAndView joinTeam(@PathVariable long gjId, @PathVariable long tId) {
         UserEntity myUser = userService.getMyUser();
-        if(myUser!=null)
-        {            
+        if (myUser != null) {
             gameJamService.joinTeam(gjId, tId, myUser);
         }
-        return new ModelAndView("redirect:/gamejam/"+gjId);
+        return new ModelAndView("redirect:/gamejam/" + gjId);
     }
 
     @GetMapping("/registerGame")
