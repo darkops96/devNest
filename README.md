@@ -16,7 +16,8 @@
 ## Servicios internos:
 
   * Las notificaciones se envían al correo electrónico.  
-  * Randomizador que devuelve 2 palabras aleatorias de una pool para proponer temas.  
+  * Randomizador que devuelve 2 palabras aleatorias de una pool para proponer temas. 
+  * Descarga archivos de juego 
   
 ## Páginas Web:
 ![Diagrama de pantallas](https://user-images.githubusercontent.com/49963607/155017804-c55d094a-5b66-47c8-b7fc-689157e39b23.png)
@@ -56,6 +57,7 @@
 
 ## Diagrama UML
 ![devNest](https://user-images.githubusercontent.com/49963607/155034005-160ecb9a-391a-4ddc-ac33-074fe1df03ac.png)
-## Diagrama Entidad-Relación
 
+## Diagrama Entidad-Relación
+![Diagrama-Entidad-Relacion](https://user-images.githubusercontent.com/58952176/155035518-28213136-7775-4a52-815b-81e821234202.PNG)
 
