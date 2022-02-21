@@ -88,11 +88,11 @@
         </div>
       </li>
     {{/comments}}</ul>
-    {{/game}}
+
     <div class="GamesCard">
       {{#userEntity}}
     {{alias}}
-    <form action="/comment_box.php" id="UserCommentBox">
+    <form action="/game/{{game.id}}/addComment" id="UserCommentBox">
   <textarea id="UserCommentBox" name="UserCommentBox" rows="4" cols="50">
   Leave a comment...
   </textarea>
@@ -105,3 +105,5 @@
       <a href="/login"> Log in to comment on this post</a>
   {{/userEntity}}
    </div>
+
+    {{/game}}    

@@ -38,6 +38,8 @@ public class DevNestController {
     @Autowired
     private GameService gameService;
     @Autowired
+    private CommentService commentService;
+    @Autowired
     private RandomWord randomWord;
 
 
@@ -267,6 +269,22 @@ public class DevNestController {
         model.addAttribute("userEntity", myUser);        
         model.addAttribute("tName", gameJamService.getTeam(tId).getTeamName());
         return "createGame";
+    }
+
+    @RequestMapping("/game/{gId}/addComment")
+    public ModelAndView addComment(@PathVariable long gId, @RequestParam String commentText)
+    {
+        UserEntity myUser = userService.getMyUser();
+        commentService.addComment(gId, myUser.getId(), commentText);
+        return new ModelAndView("redirect:/game/"+gId);
+    }
+
+    @RequestMapping("/game/{gId}/answerComment+{cId}")
+    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String commentText)
+    {
+        UserEntity myUser = userService.getMyUser();
+        commentService.answerComment(gId, myUser.getId(), cId, commentText);
+        return new ModelAndView("redirect:/game/"+gId);
     }
 //endregion
 
