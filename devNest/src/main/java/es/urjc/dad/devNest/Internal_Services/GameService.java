@@ -42,5 +42,9 @@ public class GameService {
             return null;
     }
 
+    public void updateGame(VideogameEntity v)
+    {
+        videogameRepository.save(v);
+    }
 
 }

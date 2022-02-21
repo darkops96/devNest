@@ -29,20 +29,20 @@ public class CommentEntity {
     public CommentEntity() {
     }
 
-    public CommentEntity(VideogameEntity _videogame, UserEntity _user, Date _date, String _comment) {
+    public CommentEntity(VideogameEntity _videogame, UserEntity _user, String _date, String _comment) {
         super();
         videogame = _videogame;
         user = _user;
-        date = _date.toString();
+        date = _date;
         textComment = _comment;
     }
 
-    public CommentEntity(VideogameEntity _videogame, UserEntity _user, CommentEntity _commentParent, Date _date, String _comment) {
+    public CommentEntity(VideogameEntity _videogame, UserEntity _user, CommentEntity _commentParent, String _date, String _comment) {
         super();
         videogame = _videogame;
         user = _user;
         parentComment = _commentParent;
-        date = _date.toString();
+        date = _date;
         textComment = _comment;
     }
 
