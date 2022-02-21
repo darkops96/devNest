@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -124,15 +123,7 @@ public class DevNestController {
     }
 
     @GetMapping("/{id}/image")
-    public ResponseEntity<Object> downloadImage(@PathVariable long id)
-            throws SQLException, MalformedURLException {
-/*
-        UserEntity user = userService.getMyUser();
-        Path imagePath = Path.of(user.getProfilePicture());
-        Resource image = (Resource) new UrlResource(imagePath.toUri());
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, "image/png")
-                .body(image);*/
+    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException, MalformedURLException {
         UserEntity myUser = userService.getUser(id);
         if (myUser.getProfilePicture() != null) {
             InputStreamResource file = new InputStreamResource(
