@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>devNest - Create a Jam </title>
+    <title>devNest - Upload a Videogame </title>
     <link type="text/css" rel="stylesheet" href="/css/createJamStyle.css"/>
 </head>
 <body class="webBack">
 <!-- Start your code here -->
 <div class="header">
-    <b>Create a game</b>
+    <b>Upload a videogame</b>
     <div class="header-right">
         <a href="/">Home</a>
         {{#userEntity}}
@@ -17,34 +17,34 @@
     </div>
 </div>
 
-<form method='post' enctype="multipart/form-data" action="/createGame">
+<form method='post' enctype="multipart/form-data" action="/createGame/{{tName}}">
     <br>
     <div class="request">
         <!-- Nombre del juego -->
         <label for="gameTitle"><b>Game title</b></label>
         <br>
-        <input type="text" placeholder="Enter a game title" name="gameTitle" id="gameTitle" required>
+        <input type="text" placeholder="Enter a game title" name="_title" id="_title" required>
         <br>
         <!-- Descripción del juego -->
         <label for="description"><b>Description</b></label>
         <br>
-        <textArea type="text" style="resize: none" name="description"  placeholder="Enter a small description..." id="description" rows="4" cols="50" required></textArea>
+        <textArea type="text" style="resize: none" name="_descrition"  placeholder="Enter a small description..." id="_descrition" rows="4" cols="40" required></textArea>
         <br>
         <!-- categorias del juego -->
         <label for="category"><b>Categories</b></label>
         <br>
-        <input type="text" placeholder="Enter a category" name="category" id="category" required>
+        <input type="text" placeholder="Enter a category" name="_category" id="_category" required>
         <br>
         <!-- plataformas -->
         <label for="plataform"><b>Platforms</b></label>
         <br>
-        <input type="text" placeholder="Enter a platform for the game" name="plataform" id="plataform" required>
+        <input type="text" placeholder="Enter a platform for the game" name="_platform" id="_platform" required>
         <br>
 
         <!-- archivo del juego -->
         <label for="file"><b>Game file</b></label>
         <br>
-        <input type="file"  name="file" id="file" required>
+        <input type="file"  name="_file" id="_file" accept=".zip, .rar, .exe, .png" required>
         <br>
 
     </div>
