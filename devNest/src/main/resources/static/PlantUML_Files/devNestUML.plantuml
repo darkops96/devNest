@@ -14,5 +14,7 @@ UserService -- TeamRepository : > has a
 UserService -- DevNestController : < has a
 
 CommentService -- CommentRepository : > has a
+CommentService -- UserService : > has a
+CommentService -- GameJamService : > has a
 CommentService -- DevNestController : < has a
 @enduml
