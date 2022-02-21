@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,6 @@ import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.GamejamRepository;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
-//import es.urjc.dad.devNest.Database.Repositories.UserRepository;
 
 @Service
 public class GameJamService {
@@ -30,22 +27,7 @@ public class GameJamService {
 
     public GameJamService() {
         needsUpdate = true;
-    }
-
-    /*
-    //region INIT
-    @Autowired
-    private UserRepository userRepository;
-
-    @PostConstruct
-    private void addJams() {
-        UserEntity u = new UserEntity("pablo", "1234", "a@b.c");
-        userRepository.save(u);
-        gamejamRepository.save(new GamejamEntity("GGJam", u, "Perro Amarillo", "18/02/2022", "20/02/2022"));
-
-    }
-    //endregion
-    */
+    }    
 
     public void refreshJamList() {
         allJams = gamejamRepository.findAll();
