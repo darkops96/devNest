@@ -120,9 +120,8 @@ public class DevNestController {
     public String goToProfile(Model model, @PathVariable long uId) {
         UserEntity user = userService.getUser(uId);
         model.addAttribute("userEntity", user);
-        model.addAttribute("profilePicture", user.getProfilePicture());
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(uId)));
-        return "profile";
+        return "profileWeb";
     }
 
     @GetMapping("/{id}/image")
