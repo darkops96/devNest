@@ -51,5 +51,6 @@
 
 **Game**: Página de información de videojuego.
 * Web que recoge la información sobre un videojuego subido: Título, descripción, lista de los desarrolladores y link de descarga.
+* Los usuarios con sesión iniciada podrán comentar.
 
 
