@@ -1,6 +1,8 @@
 package es.urjc.dad.devNest.Internal_Services;
 
+import es.urjc.dad.devNest.Database.Entities.TeamEntity;
 import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
+import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
 import es.urjc.dad.devNest.Database.Repositories.VideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,13 +15,17 @@ import java.util.Optional;
 public class GameService {
     @Autowired
     VideogameRepository videogameRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
     //add a new game
-    public boolean addNewGame(VideogameEntity videogame) {
-        VideogameEntity newJam = videogame;
-        Optional<VideogameEntity> u = videogameRepository.findById(newJam.getId());
+    public boolean addNewGame(VideogameEntity videogame, String tName) {
+        Optional<VideogameEntity> u = videogameRepository.findById(videogame.getId());
         if (!u.isPresent()) {
-            videogameRepository.save(newJam);
+            videogameRepository.save(videogame);
+            TeamEntity t = teamRepository.findByTeamName(tName).get();
+            t.setVideogame(videogame);
+            teamRepository.save(t);            
             return true;
         } else {
             return false;
