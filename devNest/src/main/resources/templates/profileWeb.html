@@ -40,15 +40,15 @@
     -
     {{/description}}
     <br>
-    <dialog id="ms">
-        <h2>Edit Profile</h2>
+    <dialog id="ms" style="background-color: #006363;">
+        <h2 style="color: white;">Edit Profile</h2>
         <form method='post' enctype="multipart/form-data" action="/editProfile">
-            <h3 >Description</h3>
+            <h3 style="color: white;">Description</h3>
             <textArea type="text" style="resize: none" name="description" placeholder="Enter a small description ..."
                       id="description" rows="4" cols="50"></textArea>
                         <br>
-            <h3>Select a file</h3>
-            <input type="file" id="myfile" name="myfile" accept=".png,.jpg,.jpeg,.gif">
+            <h3 style="color: white;">Select a file</h3>
+            <input style="color: white;" type="file" id="myfile" name="myfile" accept=".png,.jpg,.jpeg,.gif">
             <br>
             <br>
             <button type="submit" class="randomButton"> Update</button>
