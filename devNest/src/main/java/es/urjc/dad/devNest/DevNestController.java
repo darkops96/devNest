@@ -199,7 +199,7 @@ public class DevNestController {
 
     //region game controller
     @RequestMapping(value = "/game/{gId}")
-    public String gamePage(Model model, @PathVariable long gId, @RequestParam String comment) {
+    public String gamePage(Model model, @PathVariable long gId) {
 
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
