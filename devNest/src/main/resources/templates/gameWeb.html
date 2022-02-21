@@ -1,10 +1,10 @@
-<title>devNest-Videogame</title>
-<link type="text/css" rel="stylesheet" href="/css/gameWebStyle.css"/>
+<title>devNest-GameJam</title>
+<link type="text/css" rel="stylesheet" href="/css/gameJamWebStyle.css"/>
 
 <body class="webBack">
 <!-- Start your code here -->
 <div class="header">
-  <b href="#default">Videogame</b>
+  <b href="#default">Game Jam</b>
   <div class="header-right">
     <a href="/">Home</a>
     {{#userEntity}}
@@ -15,96 +15,83 @@
         <!-- button that loads the register html -->
         <a href="/logout"> Log out</a>
         {{/userEntity}}
-        
+
         {{^userEntity}}
         <!-- button that loads the login html -->
         <a href="/login"> Log in</a>
         <!-- button that loads the register html -->
         <a href="/register"> Register</a>
-        {{/userEntity}}  
+        {{/userEntity}}
   </div>
 </div>
 <br>
-<!--Game Info-->
-  <div class="GameData">
-    {{#game}}
-    <div class="GameTitle">
-      <label for = "Game"><b>{{title}}</b></label>
+{{#gamejam}}
+  <div class="GameJamData">
+    <div class="ProfileTitle">
+
+      <label for = "GameGenJam"><b>{{name}}</b></label>
     </div>
     <hr>
-    <c>{{#description}}
+    {{#description}}
       {{description}}
     {{/description}}
     {{^description}}
     -
-    {{/description}}</c>
+    {{/description}}
     <br>
-    <hr>
-    <c>{{date}}</c>
-    <hr>
-    <c>{{#category}}
-      {{category}}
-    {{/category}}
-    {{^category}}
-    -
-    {{/category}}</c>
-    <hr>
-    <c>{{#platform}}
-      {{platform}}
-    {{/platform}}
-    {{^platform}}
-    -
-    {{/platform}}</c>
-  <c>Download link: {{#filepath}}
-    <a href="#"> {{title}}</a>
-    {{/filepath}}
-    {{^filepath}}
-    -
-    {{/filepath}}
-  </c>
+  </div>
   <br>
-</div>
-  <!--Comments-->
+  <div class="ThemeData">
+    <div class="ThemeTitle">
+      <label for = "Theme"><b>Topics</b></label>
+    </div>
+    <hr>
+    {{topic}}
+    <hr>
+    {{startDate}}
+    <hr>
+    {{endDate}}
+    <hr>
+  </div>
   <br>
     <div class="bigTitle">
-      <h1>Comments</h1>
-        <hr>
-    </div>
-  <div class="GamesCard">
-      {{#userEntity}}
-    {{name}}
-    <form action="/comment_box.php" id="UserCommentBox">
-  <textarea id="UserCommentBox" name="UserCommentBox" rows="4" cols="50">
-  Leave a comment...
-  </textarea>
-        <br><br>
-  <input type="submit" value="Submit">
-    </form>
-  {{/userEntity}}}}
-
-{{^userEntity}}
-    <a href="/login"> Log in</a> to comment on this post
+    <h1>Videogames Uploaded</h1>
+     <hr>
+       {{#userEntity}}
+      <center><div class="header2"><c href="/createGame">Upload Game</c></div></center>
+         
 {{/userEntity}}
-   </div>
+  </div>
     <br>
-    <ul>{{#comments}}
-      
-      <li>
-        <div class="GamesCard">
-              <p><a href="/profile/{{id}}"> {{user}} </a></p>
-              <b>
-              {{#textComment}}
-                {{textComment}}
-              {{/textComment}}
-              {{^textComment}}
-              -
-              {{/textComment}}</b>
-          <br>
-          <br>
+<form method='get' action='/gamejam/{{id}}/register+team'>
+    <center>
+        <div class="request">
+            <input type="text" placeholder="Enter team name" name="teamname" id="teamname" required>
         </div>
-      </li>
-    {{/comments}}</ul>
-    {{/game}}
-  
-  
+        <br>
+        <input type='submit' value='Create new team'>
+    </center>
 </form>
+
+<ul style="list-style: none;"> {{#teams}}
+  <li>
+    <from method='get' action='/creategame'>
+    <div class="GamesCard">
+          <h4><b>{{teamName}}</b></h4>
+         
+          <h4><b>{{#videogame}}
+            <a href="/game/{{id}}"> {{title}} </a>
+          {{/videogame}} </b> </h4>
+          <form method='get' action='/gamejam/{{gamejam.id}}/join+team/{{id}}'>
+            <center>
+              <input type='submit' value='Join {{teamName}}'>
+            </center>
+          </form>
+    </div>
+    <br>
+  </li>
+{{/teams}} </ul>
+
+
+{{/gamejam}}
+<hr>
