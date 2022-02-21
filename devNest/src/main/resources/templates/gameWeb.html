@@ -75,7 +75,14 @@
       
       <li>
         <div class="GamesCard">
-              <p><a href="/profile/{{id}}"> {{user}} </a></p>
+          {{#user}}
+              <p><a href="/profile/{{id}}"> {{alias}}  </a></p>
+          {{/user}}
+              <br>
+              {{#parentComment}}
+              {{textComment}}
+              {{/parentComment}}
+              <br>
               <b>
               {{#textComment}}
                 {{textComment}}
@@ -83,19 +90,30 @@
               {{^textComment}}
               -
               {{/textComment}}</b>
+            <dialog id="ms" style="background-color: #006363;">
+        <h2 style="color: white;">Answer</h2>
+        <form method='post' enctype="multipart/form-data" action="/game/{{game.id}}/answerComment+{{id}}">
+            <textArea type="text" style="resize: none" name="userCommentBox" placeholder="Enter a small description ..."
+                      id="userCommentBox" rows="4" cols="50"></textArea>
+            <br>
+            <br>
+          <button type="submit" class="answerButton"> Answer </button>
+        </form>
+        <button id="close" onclick="document.getElementById('ms').close()" class="randomButton">Close</button>
+    </dialog>
+                <button id="answer" onclick="document.getElementById('ms').show()" class="answerButton2">Answer</button>
+          
           <br>
           <br>
         </div>
       </li>
     {{/comments}}</ul>
-    {{/game}}
+
     <div class="GamesCard">
       {{#userEntity}}
     {{alias}}
-    <form action="/comment_box.php" id="UserCommentBox">
-  <textarea id="UserCommentBox" name="UserCommentBox" rows="4" cols="50">
-  Leave a comment...
-  </textarea>
+    <form action="/game/{{game.id}}/addComment" id="userCommentBox">
+  <textarea id="userCommentBox" placeholder="Leave a comment..." name="userCommentBox" rows="4" cols="50"></textarea>
         <br><br>
   <input type="submit" value="Submit">
     </form>
@@ -105,3 +123,5 @@
       <a href="/login"> Log in to comment on this post</a>
   {{/userEntity}}
    </div>
+
+    {{/game}}    

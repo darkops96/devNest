@@ -38,6 +38,8 @@ public class DevNestController {
     @Autowired
     private GameService gameService;
     @Autowired
+    private CommentService commentService;
+    @Autowired
     private RandomWord randomWord;
 
 
@@ -118,9 +120,8 @@ public class DevNestController {
     public String goToProfile(Model model, @PathVariable long uId) {
         UserEntity user = userService.getUser(uId);
         model.addAttribute("userEntity", user);
-        model.addAttribute("profilePicture", user.getProfilePicture());
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(uId)));
-        return "profile";
+        return "profileWeb";
     }
 
     @GetMapping("/{id}/image")
@@ -267,6 +268,22 @@ public class DevNestController {
         model.addAttribute("userEntity", myUser);        
         model.addAttribute("tName", gameJamService.getTeam(tId).getTeamName());
         return "createGame";
+    }
+
+    @RequestMapping("/game/{gId}/addComment")
+    public ModelAndView addComment(@PathVariable long gId, @RequestParam String userCommentBox)
+    {
+        UserEntity myUser = userService.getMyUser();
+        commentService.addComment(gId, myUser.getId(), userCommentBox);
+        return new ModelAndView("redirect:/game/"+gId);
+    }
+
+    @RequestMapping("/game/{gId}/answerComment+{cId}")
+    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox)
+    {
+        UserEntity myUser = userService.getMyUser();
+        commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
+        return new ModelAndView("redirect:/game/"+gId);
     }
 //endregion
 
