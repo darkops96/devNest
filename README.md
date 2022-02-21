@@ -19,6 +19,7 @@
   * Randomizador que devuelve 2 palabras aleatorias de una pool para proponer temas.  
   
 ## Páginas Web:
+![Diagrama de pantallas](https://user-images.githubusercontent.com/49963607/155017804-c55d094a-5b66-47c8-b7fc-689157e39b23.png)
 
 **Home**: Página inicial. 
 * El usuario puede registrarse o iniciar sesión desde la cabecera. Si tiene la sesión iniciada, puede ir a su perfil, crear una GameJam o cerrar sesión.
