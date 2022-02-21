@@ -19,6 +19,7 @@
   * Randomizador que devuelve 2 palabras aleatorias de una pool para proponer temas.  
   
 ## Páginas Web:
+![Diagrama de pantallas](https://user-images.githubusercontent.com/49963607/155017804-c55d094a-5b66-47c8-b7fc-689157e39b23.png)
 
 **Home**: Página inicial. 
 * El usuario puede registrarse o iniciar sesión desde la cabecera. Si tiene la sesión iniciada, puede ir a su perfil, crear una GameJam o cerrar sesión.
@@ -52,5 +53,9 @@
 **Game**: Página de información de videojuego.
 * Web que recoge la información sobre un videojuego subido: Título, descripción, lista de los desarrolladores y link de descarga.
 * Los usuarios con sesión iniciada podrán comentar.
+
+**Diagrama UML**
+![image](https://user-images.githubusercontent.com/49963607/155025181-36fbad1f-b8b8-42fd-a5fb-a7957bc9b509.png)
+
 
 
