@@ -272,18 +272,18 @@ public class DevNestController {
     }
 
     @RequestMapping("/game/{gId}/addComment")
-    public ModelAndView addComment(@PathVariable long gId, @RequestParam String commentText)
+    public ModelAndView addComment(@PathVariable long gId, @RequestParam String userCommentBox)
     {
         UserEntity myUser = userService.getMyUser();
-        commentService.addComment(gId, myUser.getId(), commentText);
+        commentService.addComment(gId, myUser.getId(), userCommentBox);
         return new ModelAndView("redirect:/game/"+gId);
     }
 
     @RequestMapping("/game/{gId}/answerComment+{cId}")
-    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String commentText)
+    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox)
     {
         UserEntity myUser = userService.getMyUser();
-        commentService.answerComment(gId, myUser.getId(), cId, commentText);
+        commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
         return new ModelAndView("redirect:/game/"+gId);
     }
 //endregion
