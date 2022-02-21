@@ -161,6 +161,7 @@ public class DevNestController {
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
 
+        gameJamService.deleteEmptyTeams(gjId);
         model.addAttribute("gamejam", gameJamService.getJam(gjId));
         return "gameJamWeb";
     }
