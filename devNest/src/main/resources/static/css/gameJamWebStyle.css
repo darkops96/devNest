@@ -17,6 +17,21 @@
   line-height: 25px;
   border-radius: 16px
 }
+.header2 {
+  overflow: hidden;
+  background-color: #008B8B;
+  padding: 20px 10px;
+  border-radius: 16px;
+  text-align: center;
+}
+.header2 c {
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 16px
+}
 
 .header b{
   font-size:34px;
@@ -25,6 +40,10 @@
 
 /* Change the background color on mouse-over */
 .header a:hover {
+  background-color: #FFFFFF;
+  color: black;
+}
+.header2 c:hover {
   background-color: #FFFFFF;
   color: black;
 }

@@ -139,32 +139,38 @@ public class GameJamService {
     }
 
     public boolean joinTeam(long jamId, long teamId, UserEntity user)
-    {
-        leaveTeam(jamId, user);
-        GamejamEntity gj = getJam(jamId);
-        if(gj != null)
-        {  
-            TeamEntity t = getTeam(teamId);
-            if(t != null)
-            {
-                long oldTeamId = checkIfIsInTeam(gj, user);
-                if(teamId != oldTeamId)
+    {        
+        GamejamEntity gj = getJam(jamId);        
+        long oldTeamId = checkIfIsInTeam(gj, user);
+
+        if(oldTeamId != teamId)
+        {
+            leaveTeam(jamId, user);
+            if(gj != null)
+            {  
+                TeamEntity t = getTeam(teamId);
+                if(t != null)
                 {
-                    List<UserEntity> members = t.getMembers();
-                    members.add(user);                
-                    teamRepository.save(t);
-                    gamejamRepository.save(gj);  
-                    needsUpdate = true;              
-                    return true;
+                    if(teamId != oldTeamId)
+                    {
+                        List<UserEntity> members = t.getMembers();
+                        members.add(user);                
+                        teamRepository.save(t);
+                        gamejamRepository.save(gj);  
+                        needsUpdate = true;              
+                        return true;
+                    }
+                    else
+                        return false;                
                 }
                 else
-                    return false;                
+                    return false;
             }
             else
                 return false;
         }
         else
-            return false;        
+            return false;       
     }
 
     public void leaveTeam(long jamId, UserEntity user)
