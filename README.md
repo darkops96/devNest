@@ -18,8 +18,38 @@
   * Las notificaciones se envían al correo electrónico.  
   * Randomizador que devuelve 2 palabras aleatorias de una pool para proponer temas.  
   
- 
- 
- ## Bibliografia
-  * Login html : https://www.w3schools.com/html/tryit.asp?filename=tryhtml_form_submit
+## Páginas Web:
+
+**Home**: Página inicial. 
+* El usuario puede registrarse o iniciar sesión desde la cabecera. Si tiene la sesión iniciada, puede ir a su perfil, crear una GameJam o cerrar sesión.
+* Como característica principal, puede utilizar el "Random Topic Generator" para conseguir dos temas aleatorios.
+* Además, se puede ver un listado con todas las GameJams existentes y entrar en las respectivas páginas de cada una.
+
+**Register**: Página de registro de usuario.
+* Desde la cabecera se puede ir a la página de inicio de sesión o a la página principal.
+* El usuario puede introducir sus datos para registrar una cuenta, para ello ha de introducir: Alias (irrepetible), correo electrónico,
+
+**Log In**: Página de inicio de sesión.
+* El usuario puede utilizar la cabecera para ir a la página de registro o volver a la página principal.
+* En esta página se puede iniciar sesión introduciendo el nombre de usuario o alias y la contraseña
+
+**Profile**: Página de perfil de usuario.
+* Página que muestra los datos de los usuarios así como los juegos creados.
+* Si el usuario entra en su propio perfil, puede editar la descripción y la imagen de perfil.
+
+**Create Jam**: Página de creación de GameJams.
+* El usuario puede rellenar un formulario con la información de la GameJam que quiere crear.
+* Solo puede crear una Game Jam si tiene la sesión iniciada.
+
+**GameJam**: Página de información de GameJam.
+* En esta página, se pueden ver los datos relacionados con una GameJam como sus topics, la fecha de inicio y de fin y los equipos apuntados con sus respectivos juegos.
+* Los usuarios pueden crear equipos y apuntarse a otros ya existentes.
+
+**Upload Game**: Página para subir un videojuego.
+* El usuario puede rellenar un formulario para subir un videojuego con información relevante de este como nombre, descripción y el archivo del juego.
+* Es necesario que sea miembro de un equipo para acceder a esta página.
+
+**Game**: Página de información de videojuego.
+* Web que recoge la información sobre un videojuego subido: Título, descripción, lista de los desarrolladores y link de descarga.
+
 
