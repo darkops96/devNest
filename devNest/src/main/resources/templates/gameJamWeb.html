@@ -57,6 +57,10 @@
     <div class="bigTitle">
     <h1>Videogames Uploaded</h1>
      <hr>
+       {{#userEntity}}
+      <center><div class="header2"><c href="/createGame">Upload Game</c></div></center>
+         
+{{/userEntity}}
   </div>
     <br>
 <form method='get' action='/gamejam/{{id}}/register+team'>
@@ -71,22 +75,12 @@
 
 <ul style="list-style: none;"> {{#teams}}
   <li>
-    <from method='get' action='/creategame'
-          <center>
-             
-          </center>
+    <from method='get' action='/creategame'>
     <div class="GamesCard">
           <h4><b>{{teamName}}</b></h4>
-          {{^videogame}}
-      <center>
-       <form method='get' action="/game/{{id}}">
-        </form>
-        <button id="show" onclick="" class="randomButton">Upload Game</button>
-      </form>
-      </center>
-          {{/videogame}}
+         
           <h4><b>{{#videogame}}
-            <a href="/createGame"> {{title}} </a>
+            <a href="/game/{{id}}"> {{title}} </a>
           {{/videogame}} </b> </h4>
           <form method='get' action='/gamejam/{{gamejam.id}}/join+team/{{id}}'>
             <center>

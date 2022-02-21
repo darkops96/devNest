@@ -1,150 +1,105 @@
 /* Style the header with a grey background and some padding */
 .header {
-  overflow: hidden;
-  background-color: #008B8B;
-  padding: 20px 10px;
-  border-radius: 16px
-}
-
-/* Style the header links */
-.header a {
-  float: left;
-  color: white;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 16px
-}
-.header2 {
-  overflow: hidden;
-  background-color: #008B8B;
-  padding: 20px 10px;
-  border-radius: 16px;
-  text-align: center;
-}
-.header2 c {
-  color: white;
-  text-align: center;
-  padding: 15px;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 16px
-}
-
-.header b{
-  font-size:34px;
-  color:white;
-}
-
-/* Change the background color on mouse-over */
-.header a:hover {
-  background-color: #FFFFFF;
-  color: black;
-}
-.header2 c:hover {
-  background-color: #FFFFFF;
-  color: black;
-}
-
-/* Float the link section to the right */
-.header-right {
-  float: right;
-}
-
-/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-@media screen and (max-width: 500px) {
+    overflow: hidden;
+    background-color: #008B8B;
+    padding: 20px 10px;
+    border-radius: 16px
+  }
+  
+  /* Style the header links */
   .header a {
-    float: none;
-    display: block;
-    text-align: left;
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 16px
   }
+  
+  .header b{
+    font-size:34px;
+    color:white;
+  }
+  
+  /* Change the background color on mouse-over */
+  .header a:hover {
+    background-color: #FFFFFF;
+    color: black;
+  }
+  
+  /* Float the link section to the right */
   .header-right {
-    float: none;
+    float: right;
   }
-}
-
-/*Change Background Color*/
-.webBack{
-  background-color: #E0FFFF;
-}
   
-.bigTitle 
- {
-  font-size: 15px; 
-  padding: 10px;
-  text-align: center;
-  text-shadow: 2px 2px 4px #333333;
-  background-color: #008B8B;
-  color: white;
-  border-radius: 16px
-}
-
-.profileTitle{
-  font-size:30px;
-  padding: 10px;  
-}
+  /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+  @media screen and (max-width: 500px) {
+    .header a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    .header-right {
+      float: none;
+    }
+  }
   
-.GameJamData{
-  font-size: 20px; 
-  padding: 15px;
-  line-height:40px;
-  text-align: center;
-  text-shadow: 2px 2px 4px #333333;
-  background-color: #008B5B;
-  color: white;
-  margin: auto;
-  width: 50%;
-  margin: auto;
-  border: 3px solid green;
-  padding: 10px;
-  border-radius: 16px
-}
-.ThemeData{
-  font-size: 15px; 
-  padding: 15px;
-  line-height:40px;
-  text-align: center;
-  text-shadow: 2px 2px 4px #333333;
-  background-color: #008B5B;
-  color: white;
-  margin: auto;
-  width: 50%;
-  margin: auto;
-  border: 3px solid green;
-  padding: 10px;
-  border-radius: 16px
-}
-
-.ThemeTitle{
-  font-size: 25px; 
-  padding: 15px;
-  line-height:40px;
-  text-align: center;
-  text-shadow: 2px 2px 4px #333333;
-  background-color: #008B5B;
-  color: white;
-  margin: auto;
-  width: 50%;
-  margin: auto;
-}
-
-.GamesCard{
-  font-size: 15px; 
-  padding: 15px;
-  text-align: center;
-  text-shadow: 2px 2px 4px #333333;
-  background-color: #008B5B;
-  color: white;
-  margin: auto;
-  width: 30%;
-  border: 3px solid green;
-  padding: 10px;
-  border-radius: 16px
-}
-
-
-a {
-  color: dodgerblue;
-}
+  /*Change Background Color*/
+  .webBack{
+    background-color: #E0FFFF;
+  }
+    
+  .bigTitle 
+   {
+    font-size: 15px; 
+    padding: 10px;
+    text-align: left;
+    text-shadow: 2px 2px 4px #333333;
+    background-color: #008B8B;
+    color: white;
+    border-radius: 16px
+  }
+  
+  .GameTitle{
+    font-size:30px;
+    padding: 10px;  
+  }
+    
+  .GameData{
+    font-size: 20px; 
+    padding: 15px;
+    line-height:40px;
+    text-align: left;
+    text-shadow: 2px 2px 4px #333333;
+    background-color: #008B5B;
+    color: white;
+    width: 90%;
+    margin: left;
+    border: 3px solid green;
+    padding: 10px;
+    border-radius: 16px
+  }
+  
+  .GamesCard{
+    font-size: 15px; 
+    padding: 15px;
+    text-align: left;
+    text-shadow: 2px 2px 4px #333333;
+    background-color: #008B5B;
+    color: white;
+    margin: left;
+    width: 80%;
+    border: 3px solid green;
+    padding: 10px;
+    border-radius: 16px
+  }
+  p{
+    font-size: 20px;
+  }
+  
+  a {
+    font-size:30 px;
+    color: dodgerblue;
+  }
