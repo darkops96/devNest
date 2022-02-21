@@ -17,7 +17,7 @@
 
   * Las notificaciones se envían al correo electrónico.  
   * Randomizador que devuelve 2 palabras aleatorias de una pool para proponer temas. 
-  * Descarga archivos de juego 
+  * Sistema de descarga archivos de videojuegos (.zip, .rar o .exe).
   
 ## Páginas Web:
 ![Diagrama de pantallas](https://user-images.githubusercontent.com/49963607/155017804-c55d094a-5b66-47c8-b7fc-689157e39b23.png)
