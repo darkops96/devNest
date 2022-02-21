@@ -30,7 +30,7 @@
     {{#userEntity}}
     <div class="ProfileTitle">
         {{#profilePicture}}
-        <img src="img_avatar" alt="{{profilePicture}}">
+        <img src="/{{id}}/image">
         <br>
         {{/profilePicture}}
         <label for="Profile"><b>{{alias}}</b></label>
@@ -47,7 +47,7 @@
 
         <p>Edit Profile</p>
         <!-- php???-->
-        <form method='post' action="/editProfile" >
+        <form method='post' enctype="multipart/form-data" action="/editProfile">
             <label for="description">Description</label>
             <textArea type="text" name="description" id="description" rows="4" cols="28" required>Enter a small description..
             </textArea>
