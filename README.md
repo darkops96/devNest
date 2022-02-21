@@ -58,7 +58,6 @@
 ![image](https://user-images.githubusercontent.com/49963607/155025181-36fbad1f-b8b8-42fd-a5fb-a7957bc9b509.png)
 
 ## Diagrama Entidad-Relación
-![Diagrama-Entidad-Relacion](https://user-images.githubusercontent.com/58952176/155031985-ab01311b-bc36-4234-a001-4280dddbe5a7.PNG)
-
+![devNest](https://user-images.githubusercontent.com/49963607/155033958-148594e1-fba8-4f3e-b4fc-04cf6cc01ef0.png)
 
 
