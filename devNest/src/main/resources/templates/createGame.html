@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<form method='post' action="/createGame">
+<form method='post' enctype="multipart/form-data" action="/createGame">
     <br>
     <div class="request">
         <!-- Nombre del juego -->
@@ -28,7 +28,7 @@
         <!-- Descripción del juego -->
         <label for="description"><b>Description</b></label>
         <br>
-        <input type="text" placeholder="Enter a small description" name="description" id="description" required>
+        <textArea type="text" style="resize: none" name="description"  placeholder="Enter a small description..." id="description" rows="4" cols="50" required></textArea>
         <br>
         <!-- categorias del juego -->
         <label for="category"><b>Categories</b></label>

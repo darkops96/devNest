@@ -63,7 +63,18 @@
   color: white;
   border-radius: 16px
 }
-
+.randomButton{
+  font-size: 20px;
+  color: white;
+  padding-top: 0.55em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  margin-bottom: 0.65em;
+  background-color: #008B8B;
+  border-radius: 6px;
+  border-color: #006363;
+}
 /*User Name Title*/
 .profileTitle{
 font-size:30px;

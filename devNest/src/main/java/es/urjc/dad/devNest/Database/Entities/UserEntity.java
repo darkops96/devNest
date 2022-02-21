@@ -96,8 +96,8 @@ public class UserEntity {
         profilePicture = _profilePicture;
     }
 
-    public String getPPictureFile() {
-        return profilePicture;
+    public Blob getPPictureFile() {
+        return pPictureFile;
     }
 
     public void setPPictureFile(Blob _pPictureFile) {
@@ -113,7 +113,7 @@ public class UserEntity {
     }
 
     @Override
-	public String toString() {
-		return "User [username=" + alias + ", email=" + email + "]";
-	}
+    public String toString() {
+        return "User [username=" + alias + ", email=" + email + "]";
+    }
 }
