@@ -92,10 +92,8 @@
     <div class="GamesCard">
       {{#userEntity}}
     {{alias}}
-    <form action="/game/{{game.id}}/addComment" id="UserCommentBox">
-  <textarea id="UserCommentBox" name="UserCommentBox" rows="4" cols="50">
-  Leave a comment...
-  </textarea>
+    <form action="/game/{{game.id}}/addComment" id="userCommentBox">
+  <textarea id="userCommentBox" placeholder="Leave a comment..." name="userCommentBox" rows="4" cols="50"></textarea>
         <br><br>
   <input type="submit" value="Submit">
     </form>
