@@ -1,5 +1,6 @@
 package es.urjc.dad.devNest;
 
+import es.urjc.dad.devNest.Database.Entities.GamejamEntity;
 import es.urjc.dad.devNest.Database.Entities.TeamEntity;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
@@ -36,6 +37,8 @@ public class DevNestController {
     private GameJamService gameJamService;
     @Autowired
     private GameService gameService;
+    @Autowired
+    private CommentService commentService;
     @Autowired
     private RandomWord randomWord;
 
@@ -198,32 +201,40 @@ public class DevNestController {
 
     //region game controller
     @RequestMapping(value = "/game/{gId}")
-    public String gamePage(Model model, @PathVariable long gId, @RequestParam String comment) {
+    public String gamePage(Model model, @PathVariable long gId) {
 
         UserEntity myUser = userService.getMyUser();
         model.addAttribute("userEntity", myUser);
-        model.addAttribute("game", null);
+        model.addAttribute("game", gameService.getGame(gId));
         return "gameWeb";
     }
 
-    @RequestMapping(value = "/createGame")
-    public ModelAndView createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam String _teamName, @RequestParam MultipartFile _file) throws IOException {
+    @RequestMapping(value = "/createGame/{tName}")
+    public ModelAndView createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable String tName) throws IOException {
         //team by name
-        TeamEntity team = gameJamService.getTeam(_teamName);
+        TeamEntity team = gameJamService.getTeam(tName);
         //current date
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
+
         //file
-        Blob file = BlobProxy.generateProxy(_file.getInputStream(), _file.getSize());
+        Blob file = null;
         URI location = fromCurrentRequest().build().toUri();
+        if (!_file.isEmpty()) {
+            file = BlobProxy.generateProxy(_file.getInputStream(), _file.getSize());
+        }
 
-        VideogameEntity videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, team, location.toString(), file);
-
-        boolean result = gameService.addNewGame(videogame);
+        boolean result = false;
+        if(file != null)
+        {
+            VideogameEntity videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, team, location.toString(), file);
+            result = gameService.addNewGame(videogame, tName);
+        }
+        
         if (result) {
             return new ModelAndView("redirect:/");
         } else {
-            return new ModelAndView("redirect:/createGame");
+            return new ModelAndView("redirect:/createGame/"+tName);
         }
     }
 
@@ -237,11 +248,43 @@ public class DevNestController {
         return new ModelAndView("redirect:/gamejam/" + gjId);
     }
 
-    @GetMapping("/registerGame")
-    public String goCreateGame(Model model) {
+    @RequestMapping("/registerGame/{gId}")
+    public ModelAndView goCreateGame(@PathVariable long gId) {
         UserEntity myUser = userService.getMyUser();
-        model.addAttribute("userEntity", myUser);
+        GamejamEntity gj = gameJamService.getJam(gId);
+        
+        long check = gameJamService.checkIfIsInTeam(gj, myUser);
+        if(check != -1)
+        {
+            return new ModelAndView("redirect:/uploadGame/"+check);
+        }
+        else
+            return new ModelAndView("redirect:/gamejam/" + gId);        
+    }
+
+    @RequestMapping("/uploadGame/{tId}")
+    public String uploadGamePage(Model model, @PathVariable long tId)
+    {
+        UserEntity myUser = userService.getMyUser();
+        model.addAttribute("userEntity", myUser);        
+        model.addAttribute("tName", gameJamService.getTeam(tId).getTeamName());
         return "createGame";
+    }
+
+    @RequestMapping("/game/{gId}/addComment")
+    public ModelAndView addComment(@PathVariable long gId, @RequestParam String userCommentBox)
+    {
+        UserEntity myUser = userService.getMyUser();
+        commentService.addComment(gId, myUser.getId(), userCommentBox);
+        return new ModelAndView("redirect:/game/"+gId);
+    }
+
+    @RequestMapping("/game/{gId}/answerComment+{cId}")
+    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox)
+    {
+        UserEntity myUser = userService.getMyUser();
+        commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
+        return new ModelAndView("redirect:/game/"+gId);
     }
 //endregion
 

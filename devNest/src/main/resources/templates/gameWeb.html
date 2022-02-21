@@ -55,12 +55,12 @@
     {{^platform}}
     -
     {{/platform}}</c>
-  <c>Download link: {{#filepath}}
+  <c>Download link: {{#filePath}}
     <a href="#"> {{title}}</a>
-    {{/filepath}}
-    {{^filepath}}
+    {{/filePath}}
+    {{^filePath}}
     -
-    {{/filepath}}
+    {{/filePath}}
   </c>
   <br>
 </div>
@@ -69,23 +69,7 @@
     <div class="bigTitle">
       <h1>Comments</h1>
         <hr>
-    </div>
-  <div class="GamesCard">
-      {{#userEntity}}
-    {{name}}
-    <form action="/comment_box.php" id="UserCommentBox">
-  <textarea id="UserCommentBox" name="UserCommentBox" rows="4" cols="50">
-  Leave a comment...
-  </textarea>
-        <br><br>
-  <input type="submit" value="Submit">
-    </form>
-  {{/userEntity}}}}
-
-{{^userEntity}}
-    <a href="/login"> Log in</a> to comment on this post
-{{/userEntity}}
-   </div>
+    </div>  
     <br>
     <ul>{{#comments}}
       
@@ -104,7 +88,20 @@
         </div>
       </li>
     {{/comments}}</ul>
-    {{/game}}
-  
-  
-</form>
+
+    <div class="GamesCard">
+      {{#userEntity}}
+    {{alias}}
+    <form action="/game/{{game.id}}/addComment" id="userCommentBox">
+  <textarea id="userCommentBox" placeholder="Leave a comment..." name="userCommentBox" rows="4" cols="50"></textarea>
+        <br><br>
+  <input type="submit" value="Submit">
+    </form>
+  {{/userEntity}}
+
+  {{^userEntity}}
+      <a href="/login"> Log in to comment on this post</a>
+  {{/userEntity}}
+   </div>
+
+    {{/game}}    

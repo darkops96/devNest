@@ -1,4 +1,18 @@
 @startuml devNest
-skinparam Style strictuml
-A -> B : Hello
+
+GameJamService -- GameJamRepository : > has a
+GameJamService -- TeamRepository : > has a
+GameJamService -- DevNestController : < has a
+
+GameService -- VideogameeRepository : > has a
+GameService -- DevNestController : < has a
+
+RandomWordService -- DevNestController : < has a
+
+UserService -- UserRepository : > has a
+UserService -- TeamRepository : > has a
+UserService -- DevNestController : < has a
+
+CommentService -- CommentRepository : > has a
+CommentService -- DevNestController : < has a
 @enduml
