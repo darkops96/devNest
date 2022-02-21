@@ -104,6 +104,10 @@ public class VideogameEntity {
         this.title = title;
     }
 
+    public void setComments(List<CommentEntity> _comments) {
+        this.comments = _comments;
+    }
+
     //endregion
 
     //region GETTERS
@@ -138,6 +142,10 @@ public class VideogameEntity {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
     }
 
     //endregion
