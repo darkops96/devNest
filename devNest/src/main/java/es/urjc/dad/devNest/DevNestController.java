@@ -8,24 +8,18 @@ import es.urjc.dad.devNest.Internal_Services.*;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.nio.file.Path;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -132,26 +126,39 @@ public class DevNestController {
     @GetMapping("/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id)
             throws SQLException, MalformedURLException {
-
+/*
         UserEntity user = userService.getMyUser();
         Path imagePath = Path.of(user.getProfilePicture());
         Resource image = (Resource) new UrlResource(imagePath.toUri());
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "image/png")
-                .body(image);
+                .body(image);*/
+        UserEntity myUser = userService.getUser(id);
+        if (myUser.getProfilePicture() != null) {
+            InputStreamResource file = new InputStreamResource(
+                    myUser.getPPictureFile().getBinaryStream());
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, "image/png","image/jpg","image/jpeg","image/gif")
+                    .contentLength(myUser.getPPictureFile().length())
+                    .body(file);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
-    @RequestMapping(value = "/editProfile")
-    public ModelAndView goToProfile(@RequestParam String description, @RequestParam MultipartFile myfile) throws IOException {
+    @PostMapping("/editProfile")
+    public ModelAndView updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile) throws IOException {
         UserEntity user = userService.getMyUser();
         user.setDescription(description);
         URI location = fromCurrentRequest().build().toUri();
-        user.setProfilePicture(location.toString());
-        if (myfile != null) user.setPPictureFile(BlobProxy.generateProxy(myfile.getInputStream(), myfile.getSize()));
+        if (!myfile.isEmpty()) {
+            user.setProfilePicture(location.toString());
+            user.setPPictureFile(BlobProxy.generateProxy(myfile.getInputStream(), myfile.getSize()));
+        }
         userService.updateUser(user);
         return new ModelAndView("redirect:/myProfile");
     }
-
 
     //endregion
 

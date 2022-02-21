@@ -96,11 +96,7 @@ public class UserEntity {
         profilePicture = _profilePicture;
     }
 
-    public String getPPictureFile() {
-        return profilePicture;
-    }
-
-    public Blob getBlobPPictureFile() {
+    public Blob getPPictureFile() {
         return pPictureFile;
     }
 

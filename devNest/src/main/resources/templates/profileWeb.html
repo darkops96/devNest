@@ -3,7 +3,6 @@
 
 <body class="webBack">
 <!-- Start your code here -->
-
 <div class="header">
     <b>Profile</b>
     <div class="header-right">
@@ -24,13 +23,11 @@
     </div>
 </div>
 <br>
-<!-- php???-->
-
 <div class="UserData">
     {{#userEntity}}
     <div class="ProfileTitle">
         {{#profilePicture}}
-        <img src="/{{id}}/image">
+        <img src="/{{id}}/image" height="300" width="auto" style="border-radius: 15px">
         <br>
         {{/profilePicture}}
         <label for="Profile"><b>{{alias}}</b></label>
@@ -44,22 +41,24 @@
     {{/description}}
     <br>
     <dialog id="ms">
-
-        <p>Edit Profile</p>
-        <!-- php???-->
+        <h2>Edit Profile</h2>
         <form method='post' enctype="multipart/form-data" action="/editProfile">
-            <label for="description">Description</label>
-            <textArea type="text" name="description" id="description" rows="4" cols="28" required>Enter a small description..
-            </textArea>
+            <h3 >Description</h3>
             <br>
-            <label for="myfile">Select a file:</label>
-            <input type="file" id="myfile" name="myfile">
+            <textArea type="text" style="resize: none" name="description" placeholder="Enter a small description ..."
+                      id="description" rows="4" cols="50"></textArea>
             <br>
-            <button type="submit" class="editprofile"> Update</button>
+            <br>
+            <h3>Select a file:</h3>
+            <br>
+            <input type="file" id="myfile" name="myfile" accept=".png,.jpg,.jpeg,.gif">
+            <br>
+            <br>
+            <button type="submit" class="randomButton"> Update</button>
         </form>
-        <button id="close" onclick="document.getElementById('ms').close()">Close</button>
+        <button id="close" onclick="document.getElementById('ms').close()" class="randomButton">Close</button>
     </dialog>
-    <button id="show" onclick="document.getElementById('ms').show()">Edit</button>
+    <button id="show" onclick="document.getElementById('ms').show()" class="randomButton">Edit</button>
     <br>
 </div>
 <br>
