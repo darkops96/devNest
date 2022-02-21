@@ -55,9 +55,7 @@
 * Los usuarios con sesión iniciada podrán comentar.
 
 ## Diagrama UML
-![image](https://user-images.githubusercontent.com/49963607/155025181-36fbad1f-b8b8-42fd-a5fb-a7957bc9b509.png)
-
+![devNest](https://user-images.githubusercontent.com/49963607/155034005-160ecb9a-391a-4ddc-ac33-074fe1df03ac.png)
 ## Diagrama Entidad-Relación
-![devNest](https://user-images.githubusercontent.com/49963607/155033958-148594e1-fba8-4f3e-b4fc-04cf6cc01ef0.png)
 
 
