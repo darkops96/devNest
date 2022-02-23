@@ -28,6 +28,7 @@ public class CommentEntity {
     public CommentEntity() {
     }
 
+    //comentario padre
     public CommentEntity(VideogameEntity _videogame, UserEntity _user, String _date, String _comment) {
         super();
         videogame = _videogame;
@@ -36,6 +37,7 @@ public class CommentEntity {
         textComment = _comment;
     }
 
+    //comentario hijo
     public CommentEntity(VideogameEntity _videogame, UserEntity _user, CommentEntity _commentParent, String _date, String _comment) {
         super();
         videogame = _videogame;
@@ -102,7 +104,7 @@ public class CommentEntity {
     //endregion
 
     @Override
-	public String toString() {
-		return "Comment [comment=" + textComment + ", user=" + user.getAlias() + "]";
-	}
+    public String toString() {
+        return "Comment [comment=" + textComment + ", user=" + user.getAlias() + "]";
+    }
 }

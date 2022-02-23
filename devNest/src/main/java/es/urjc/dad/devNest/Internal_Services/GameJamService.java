@@ -62,7 +62,6 @@ public class GameJamService {
 
     public TeamEntity getTeam(long id) {
         Optional<TeamEntity> t = teamRepository.findById(id);
-
         if (t.isPresent())
             return t.get();
         else
