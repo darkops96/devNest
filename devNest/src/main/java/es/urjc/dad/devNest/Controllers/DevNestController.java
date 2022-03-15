@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -35,15 +34,6 @@ public class DevNestController {
         return "initialWeb";
     }
     //endregion  
-
-    @RequestMapping(value = "/gamejam/{gjId}/join+team/{tId}")
-    public ModelAndView joinTeam(@PathVariable long gjId, @PathVariable long tId) {
-        UserEntity myUser = userService.getMyUser();
-        if (myUser != null) {
-            gameJamService.joinTeam(gjId, tId, myUser);
-        }
-        return new ModelAndView("redirect:/gamejam/" + gjId);
-    }  
 
     //region PRIVATE METHODS
     private void randomWordAction(Model model) {
