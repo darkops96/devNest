@@ -53,50 +53,7 @@ public class DevNestController {
         return "initialWeb";
     }
 
-    //endregion    
-
-    //region gamejam controller
-    @RequestMapping("/gamejam/{gjId}")
-    public String jamPage(Model model, @PathVariable long gjId) {
-        UserEntity myUser = userService.getMyUser();
-        model.addAttribute("userEntity", myUser);
-
-        gameJamService.deleteEmptyTeams(gjId);
-        model.addAttribute("gamejam", gameJamService.getJam(gjId));
-        return "gameJamWeb";
-    }
-
-
-    @RequestMapping(value = "/gamejam/{gjId}/register+team")
-    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname) {
-        UserEntity myUser = userService.getMyUser();
-        if (myUser != null) {
-            gameJamService.addNewTeam(gjId, teamname, myUser);
-        }
-        return new ModelAndView("redirect:/gamejam/" + gjId);
-    }
-    //endregion
-
-    //region register jam controller
-    @GetMapping("/registerJam")
-    public String goToOrganizeJam(Model model) {
-        UserEntity myUser = userService.getMyUser();
-        model.addAttribute("userEntity", myUser);
-
-        randomWordAction(model);
-        return "createJam";
-    }
-
-    @RequestMapping(value = "/registerGameJam")
-    public ModelAndView createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate) {
-        boolean result = gameJamService.addNewJam(jamName, description, userService.getMyUser(), topic, sDate, eDate);
-        if (result) {
-            return new ModelAndView("redirect:/");
-        } else {
-            return new ModelAndView("redirect:/createJam");
-        }
-    }
-    //endregion
+    //endregion      
 
     //region game controller
     @RequestMapping(value = "/game/{gId}")
@@ -185,8 +142,7 @@ public class DevNestController {
         commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
         return new ModelAndView("redirect:/game/"+gId);
     }
-//endregion
-
+    //endregion
 
     //region PRIVATE METHODS
     private void randomWordAction(Model model) {
@@ -194,7 +150,5 @@ public class DevNestController {
         model.addAttribute("topic1", randomWord.getRandomWord());
         model.addAttribute("topic2", randomWord.getRandomWord());
     }
-
     //endregion
-
 }
