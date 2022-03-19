@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/emails")
+@RequestMapping("localhost:8080/emails")
 public class EmailController {
 
     @Autowired
