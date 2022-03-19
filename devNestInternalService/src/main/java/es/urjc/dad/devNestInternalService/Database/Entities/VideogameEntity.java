@@ -11,6 +11,9 @@ public class VideogameEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(nullable = false)
+    private String title;
+
     private String filePath;
 
     @Lob
@@ -36,7 +39,10 @@ public class VideogameEntity {
     public long getId() {
         return id;
     }
-    
+
+    public String getTitle() {
+        return title;
+    }
     //endregion
 
 }

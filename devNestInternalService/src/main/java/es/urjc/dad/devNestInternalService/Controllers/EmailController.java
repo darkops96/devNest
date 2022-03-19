@@ -2,8 +2,10 @@ package es.urjc.dad.devNestInternalService.Controllers;
 
 import es.urjc.dad.devNestInternalService.Database.Entities.GamejamEntity;
 import es.urjc.dad.devNestInternalService.Database.Entities.UserEntity;
+import es.urjc.dad.devNestInternalService.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNestInternalService.Database.Repositories.GamejamRepository;
 import es.urjc.dad.devNestInternalService.Database.Repositories.UserRepository;
+import es.urjc.dad.devNestInternalService.Database.Repositories.VideogameRepository;
 import es.urjc.dad.devNestInternalService.Internal_Services.EmailService;
 import es.urjc.dad.devNestInternalService.Objets.Email;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class EmailController {
     private UserRepository userRepository;
     @Autowired
     private GamejamRepository gamejamRepository;
+    @Autowired
+    private VideogameRepository videogameRepository;
 
     //email when you register
     @GetMapping("/registration-email/{id}")
@@ -60,13 +64,15 @@ public class EmailController {
     }
 
     //email when you submit a videogame
-    @GetMapping("/submit-game/{id}")
-    public ResponseEntity<Email> sendSubmitGameEmail(@PathVariable long id) {
+    @GetMapping("/submit-game/{id}{idUser}")
+    public ResponseEntity<Email> sendSubmitGameEmail(@PathVariable long id, @PathVariable long idUser) {
 
-        UserEntity user = userRepository.findById(id).get();
+        UserEntity user = userRepository.findById(idUser).get();
+        VideogameEntity videogame = videogameRepository.findById(id).get();
+
         String userEmail = user.getEmail();
 
-        Email email = new Email(userEmail, "Registro devNest ", "Enhorabuena, te has tegistrado como usuario de devNest con usuario " + user.getAlias() + " y contraseña " + user.getPassword());
+        Email email = new Email(userEmail, "Subiste el juego " + videogame.getTitle(), "Enhorabuena, tu juego " + videogame.getTitle() + " se ha subido con exito");
         emailService.sendEmail(email);
         return ResponseEntity.ok(email);
     }
