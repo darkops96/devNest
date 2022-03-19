@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -26,12 +27,16 @@ public class UserService {
     @Autowired
     private TeamRepository teamRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private UserEntity myUser;
 
     //region INIT
     @PostConstruct
-    private void addAdmin() {
-        UserEntity ue = new UserEntity("admin", "admin", "admin@devnest.es");
+    private void addAdmin()
+    {
+        UserEntity ue = new UserEntity("admin", passwordEncoder.encode("admin"), "admin@devnest.es", "USER", "ADMIN");
         Optional<UserEntity> u = userRepository.findByAlias(ue.getAlias());
 
         if (!u.isPresent()) {
@@ -61,7 +66,7 @@ public class UserService {
         Optional<UserEntity> u = userRepository.findByAlias(username);
 
         if (!u.isPresent()) {
-            myUser = new UserEntity(username, password, email);
+            myUser = new UserEntity(username, passwordEncoder.encode(password), email, "USER");
             userRepository.save(myUser);
             return true;
         } else {

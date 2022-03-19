@@ -19,7 +19,7 @@
 
 <br>
 
-<form method='post' action="/loginUser">
+<form method='post' action="/login">
     <div class="request">
         <label for="username"><b>Username</b></label>
         <br>
@@ -38,7 +38,7 @@
     <center>
         <br>
         <button type="submit" class="registerbtn"> Log in</button>
-        </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </center>
     <br>
 

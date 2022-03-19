@@ -19,6 +19,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 
@@ -29,21 +31,10 @@ public class UserController {
     private UserService userService;
 
     //region login controller
-    @GetMapping("/login")
-    public String goToLogin() {
+    @GetMapping(value = "/login")
+    public String login(Model model, HttpServletRequest request) {
         return "loginWeb";
     }
-
-    @RequestMapping(value = "/loginUser")
-    public String login(@RequestParam String username, @RequestParam String psw) {
-        boolean result = userService.login(username, psw);
-        if (result) {
-            return "redirect:/";
-        } else {
-            return "redirect:/login";
-        }
-    }
-
     //endregion
 
     //region register user controller

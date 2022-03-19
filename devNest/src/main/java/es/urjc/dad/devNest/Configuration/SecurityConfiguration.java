@@ -1,12 +1,30 @@
 package es.urjc.dad.devNest.Configuration;
 
+import java.security.SecureRandom;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import es.urjc.dad.devNest.Internal_Services.UserRepositoryAuthenticationProvider;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
+    @Autowired
+    public UserRepositoryAuthenticationProvider authenticationProvider;
+
+    @Bean
+    public PasswordEncoder passwordEncoder()
+    {
+        return new BCryptPasswordEncoder(10, new SecureRandom());
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {        
@@ -14,13 +32,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
         http.authorizeRequests().antMatchers("/").permitAll();        
         http.authorizeRequests().antMatchers("/profile/**").permitAll();
-        http.authorizeRequests().antMatchers("/{id}/image").permitAll();
+        http.authorizeRequests().antMatchers("/{id}/image").permitAll();        
+        http.authorizeRequests().antMatchers("/login").permitAll();
         
-        http.authorizeRequests().antMatchers("/login").anonymous();
         http.authorizeRequests().antMatchers("/register").anonymous();
-        http.authorizeRequests().antMatchers("/loginerror").anonymous();
         http.authorizeRequests().antMatchers("/registererror").anonymous();
 
-        http.authorizeRequests().anyRequest().authenticated();        
+        http.authorizeRequests().anyRequest().authenticated();   
+        
+        
+        // Login form
+        http.formLogin().loginPage("/login");
+        http.formLogin().usernameParameter("username");
+        http.formLogin().passwordParameter("psw");
+        http.formLogin().defaultSuccessUrl("/");
+        http.formLogin().failureUrl("/login");
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception
+    {
+        auth.authenticationProvider(authenticationProvider);
     }
 }

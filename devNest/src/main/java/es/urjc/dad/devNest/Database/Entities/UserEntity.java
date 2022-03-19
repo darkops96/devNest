@@ -1,15 +1,19 @@
 package es.urjc.dad.devNest.Database.Entities;
 
 import java.sql.Blob;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class UserEntity {
@@ -37,23 +41,28 @@ public class UserEntity {
     @Column(length = 512)
     private String description;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
+
     public UserEntity() {
     }
 
-    public UserEntity(String _alias, String _password, String _email) {
+    public UserEntity(String _alias, String _password, String _email, String... roles) {
         super();
         alias = _alias;
         password = _password;
-        email = _email;
+        email = _email;        
+        this.roles = List.of(roles);
     }
 
-    public UserEntity(String _alias, String _password, String _email, String _profilePicture, Blob _picture) {
+    public UserEntity(String _alias, String _password, String _email, String _profilePicture, Blob _picture, String... roles) {
         super();
         alias = _alias;
         password = _password;
         email = _email;
         profilePicture = _profilePicture;
-        pPictureFile = _picture;
+        pPictureFile = _picture; 
+        this.roles = List.of(roles);
     }
 
     public long getId() {
@@ -110,6 +119,16 @@ public class UserEntity {
 
     public void setDescription(String _description) {
         description = _description;
+    }
+
+    public List<String> getRoles()
+    {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles)
+    {
+        this.roles = roles;
     }
 
     @Override
