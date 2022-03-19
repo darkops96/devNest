@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByAlias(String alias);
-
+    Optional<UserEntity> findById(Long Id);
 }
+

@@ -1,5 +1,6 @@
 package es.urjc.dad.devNestInternalService.Internal_Services;
 
+import es.urjc.dad.devNestInternalService.Database.Repositories.UserRepository;
 import es.urjc.dad.devNestInternalService.Objets.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
+
+
 
     //Pasamos por parametro: destinatario, asunto y el mensaje
     public void sendEmail(Email e) {
