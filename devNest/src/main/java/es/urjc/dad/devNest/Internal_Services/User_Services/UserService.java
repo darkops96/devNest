@@ -1,4 +1,4 @@
-package es.urjc.dad.devNest.Internal_Services;
+package es.urjc.dad.devNest.Internal_Services.User_Services;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.stereotype.Service;
 
 import es.urjc.dad.devNest.Database.Entities.TeamEntity;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
@@ -17,8 +17,7 @@ import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.UserRepository;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
 
-@Component
-@SessionScope
+@Service
 public class UserService {
 
     @Autowired
@@ -30,15 +29,17 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Value("${security.adminPassword}")
+    private String adminPassword;
+
     //region INIT
     @PostConstruct
-    private void addAdmin()
+    private void initDatabase()
     {
-        UserEntity ue = new UserEntity("admin", passwordEncoder.encode("admin"), "admin@devnest.es", "USER", "ADMIN");
-        Optional<UserEntity> u = userRepository.findByAlias(ue.getAlias());
+        Optional<UserEntity> u = userRepository.findByAlias("admin");
 
         if (!u.isPresent()) {
-            userRepository.save(ue);
+            userRepository.save(new UserEntity("admin", adminPassword, "admin@devnest.es", "USER", "ADMIN"));
         }
     }
     //endregion

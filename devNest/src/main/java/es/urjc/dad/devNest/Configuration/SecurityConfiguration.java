@@ -11,18 +11,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import es.urjc.dad.devNest.Internal_Services.UserRepositoryAuthenticationProvider;
+import es.urjc.dad.devNest.Internal_Services.User_Services.RepositoryUserDetailsService;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     @Autowired
-    public UserRepositoryAuthenticationProvider authenticationProvider;
+    public RepositoryUserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder()
     {
-        return new BCryptPasswordEncoder(10, new SecureRandom());
+        return new BCryptPasswordEncoder(12, new SecureRandom());
     }
 
     @Override
@@ -36,9 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         http.authorizeRequests().antMatchers("/login").permitAll();     
         http.authorizeRequests().antMatchers("/login-error").permitAll();     
         http.authorizeRequests().antMatchers("/register").permitAll();
-        http.authorizeRequests().antMatchers("/register-error").permitAll();
+        http.authorizeRequests().antMatchers("/registerUser").permitAll();
+        http.authorizeRequests().antMatchers("/logout").permitAll();   
 
-        http.authorizeRequests().anyRequest().authenticated(); 
+        http.authorizeRequests().anyRequest().hasRole("USER"); 
         
         // Log in form
         http.formLogin().loginPage("/login");
@@ -55,6 +56,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
-        auth.authenticationProvider(authenticationProvider);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }

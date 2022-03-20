@@ -1,7 +1,7 @@
 package es.urjc.dad.devNest.Controllers;
 
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
-import es.urjc.dad.devNest.Internal_Services.*;
+import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
