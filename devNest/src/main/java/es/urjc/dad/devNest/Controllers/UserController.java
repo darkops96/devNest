@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.security.Principal;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,13 @@ public class UserController {
     @GetMapping(value = "/login")
     public String login(Model model, HttpServletRequest request) {
         return "loginWeb";
+    }
+
+    @GetMapping(value = "/login-error")
+    public ModelAndView failedLogin() {
+        ModelAndView error = new ModelAndView("redirect:/login");
+        error.addObject("error", true);
+        return error;
     }
     //endregion
 
@@ -58,18 +66,15 @@ public class UserController {
     }
     //endregion
 
-    //region logout controller
-    @GetMapping("/logout")
-    public ModelAndView logout() {
-        userService.logout();
-        return new ModelAndView("redirect:/");
-    }
-    //endregion
-
     //region my profile controller
     @GetMapping("/myProfile")
-    public String goToMyProfile(Model model) {
-        UserEntity myUser = userService.getMyUser();
+    public String goToMyProfile(Model model, HttpServletRequest request) {
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+        {
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+        }
         model.addAttribute("userEntity", myUser);
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(myUser.getId())));
         return "profileWeb";
@@ -100,15 +105,23 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    public ModelAndView updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile) throws IOException {
-        UserEntity user = userService.getMyUser();
-        user.setDescription(description);
-        URI location = fromCurrentRequest().build().toUri();
-        if (!myfile.isEmpty()) {
-            user.setProfilePicture(location.toString());
-            user.setPPictureFile(BlobProxy.generateProxy(myfile.getInputStream(), myfile.getSize()));
+    public ModelAndView updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {
+        UserEntity user = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+        {
+            user = userService.getUser(request.getUserPrincipal().getName());
         }
-        userService.updateUser(user);
+        if(user != null)
+        {
+            user.setDescription(description);
+            URI location = fromCurrentRequest().build().toUri();
+            if (!myfile.isEmpty()) {
+                user.setProfilePicture(location.toString());
+                user.setPPictureFile(BlobProxy.generateProxy(myfile.getInputStream(), myfile.getSize()));
+            }
+            userService.updateUser(user);
+        }        
         return new ModelAndView("redirect:/myProfile");
     }
 

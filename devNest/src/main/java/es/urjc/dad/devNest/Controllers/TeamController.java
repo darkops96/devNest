@@ -3,6 +3,10 @@ package es.urjc.dad.devNest.Controllers;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.*;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +23,15 @@ public class TeamController {
 
     //region teams controller
     @RequestMapping(value = "/gamejam/{gjId}/join+team/{tId}")
-    public ModelAndView joinTeam(@PathVariable long gjId, @PathVariable long tId) {
-        UserEntity myUser = userService.getMyUser();
-        if (myUser != null) {
+    public ModelAndView joinTeam(@PathVariable long gjId, @PathVariable long tId, HttpServletRequest request) {
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+        {
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+        }
+        if (myUser != null)
+        {
             gameJamService.joinTeam(gjId, tId, myUser);
         }
         return new ModelAndView("redirect:/gamejam/" + gjId);

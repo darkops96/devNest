@@ -27,26 +27,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
-    {        
+    {    
         http.authorizeRequests().antMatchers("/css/**").permitAll();
 
         http.authorizeRequests().antMatchers("/").permitAll();        
-        http.authorizeRequests().antMatchers("/profile/**").permitAll();
-        http.authorizeRequests().antMatchers("/{id}/image").permitAll();        
-        http.authorizeRequests().antMatchers("/login").permitAll();
-        
-        http.authorizeRequests().antMatchers("/register").anonymous();
-        http.authorizeRequests().antMatchers("/registererror").anonymous();
+        http.authorizeRequests().antMatchers("/profile/*").permitAll();
+        http.authorizeRequests().antMatchers("/*/image").permitAll();        
+        http.authorizeRequests().antMatchers("/login").permitAll();        
+        http.authorizeRequests().antMatchers("/register").permitAll();
+        http.authorizeRequests().antMatchers("/registererror").permitAll();
 
-        http.authorizeRequests().anyRequest().authenticated();   
+        http.authorizeRequests().anyRequest().authenticated(); 
         
-        
-        // Login form
+        // Log in form
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("username");
         http.formLogin().passwordParameter("psw");
         http.formLogin().defaultSuccessUrl("/");
-        http.formLogin().failureUrl("/login");
+        http.formLogin().failureUrl("/login-error");
+
+        // Log out
+        http.logout().logoutUrl("/logout");
+        http.logout().logoutSuccessUrl("/");
     }
 
     @Override

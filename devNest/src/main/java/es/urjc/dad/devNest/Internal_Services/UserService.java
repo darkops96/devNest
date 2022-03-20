@@ -30,8 +30,6 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private UserEntity myUser;
-
     //region INIT
     @PostConstruct
     private void addAdmin()
@@ -45,46 +43,28 @@ public class UserService {
     }
     //endregion
 
-
-    public boolean login(String username, String password) {
-        Optional<UserEntity> u = userRepository.findByAlias(username);
-
-        if (u.isPresent()) {
-            if (u.get().getPassword().equals(password)) {
-                myUser = u.get();
-                return true;
-            } else {
-                myUser = null;
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
     public boolean register(String username, String password, String email) {
         Optional<UserEntity> u = userRepository.findByAlias(username);
 
         if (!u.isPresent()) {
-            myUser = new UserEntity(username, passwordEncoder.encode(password), email, "USER");
+            UserEntity myUser = new UserEntity(username, passwordEncoder.encode(password), email, "USER");
             userRepository.save(myUser);
             return true;
         } else {
-            myUser = null;
             return false;
         }
-    }
-
-    public void logout() {
-        myUser = null;
     }
 
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public UserEntity getMyUser() {
-        return myUser;
+    public UserEntity getUser(String name) {
+        Optional<UserEntity> u = userRepository.findByAlias(name);        
+        if(u.isPresent())
+            return u.get();
+        else
+            return null;
     }
 
     public UserEntity getUser(long id) {

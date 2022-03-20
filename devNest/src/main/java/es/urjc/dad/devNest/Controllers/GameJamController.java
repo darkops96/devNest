@@ -3,6 +3,10 @@ package es.urjc.dad.devNest.Controllers;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.*;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +26,13 @@ public class GameJamController {
 
     //region gamejam controller
     @RequestMapping("/gamejam/{gjId}")
-    public String jamPage(Model model, @PathVariable long gjId) {
-        UserEntity myUser = userService.getMyUser();
+    public String jamPage(Model model, @PathVariable long gjId, HttpServletRequest request)
+    {
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+        
         model.addAttribute("userEntity", myUser);
 
         gameJamService.deleteEmptyTeams(gjId);
@@ -33,9 +42,15 @@ public class GameJamController {
 
 
     @RequestMapping(value = "/gamejam/{gjId}/register+team")
-    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname) {
-        UserEntity myUser = userService.getMyUser();
-        if (myUser != null) {
+    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname, HttpServletRequest request) {
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+        {
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+        }
+        if (myUser != null) 
+        {
             gameJamService.addNewTeam(gjId, teamname, myUser);
         }
         return new ModelAndView("redirect:/gamejam/" + gjId);
@@ -44,8 +59,12 @@ public class GameJamController {
 
     //region register jam controller
     @GetMapping("/registerJam")
-    public String goToOrganizeJam(Model model) {
-        UserEntity myUser = userService.getMyUser();
+    public String goToOrganizeJam(Model model, HttpServletRequest request) {
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+
         model.addAttribute("userEntity", myUser);
 
         randomWordAction(model);
@@ -53,8 +72,13 @@ public class GameJamController {
     }
 
     @RequestMapping(value = "/registerGameJam")
-    public ModelAndView createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate) {
-        boolean result = gameJamService.addNewJam(jamName, description, userService.getMyUser(), topic, sDate, eDate);
+    public ModelAndView createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate, HttpServletRequest request) {
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+        
+        boolean result = gameJamService.addNewJam(jamName, description, myUser, topic, sDate, eDate);
         if (result) {
             return new ModelAndView("redirect:/");
         } else {

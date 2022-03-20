@@ -11,8 +11,8 @@
     <div class="header-right">
       <a href="/">Home</a>
           {{#userEntity}}
-              <!-- button that loads the register html -->
-              <a href="/logout"> Log out</a>
+          <!-- button that logs the user out -->
+          <form action="/logout" method="post"><input type="submit" value="Log out"/></form>
           {{/userEntity}}
     </div>
   </div>

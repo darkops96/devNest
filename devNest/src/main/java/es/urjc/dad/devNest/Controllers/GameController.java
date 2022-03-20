@@ -16,9 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.*;
 import java.net.URI;
+import java.security.Principal;
 import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
@@ -37,9 +40,13 @@ public class GameController {
 
     //region game controller
     @RequestMapping(value = "/game/{gId}")
-    public String gamePage(Model model, @PathVariable long gId) {
+    public String gamePage(Model model, @PathVariable long gId, HttpServletRequest request) {
 
-        UserEntity myUser = userService.getMyUser();
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+
         model.addAttribute("userEntity", myUser);
         model.addAttribute("game", gameService.getGame(gId));
         return "gameWeb";
@@ -75,8 +82,12 @@ public class GameController {
     }    
 
     @RequestMapping("/registerGame/{gId}")
-    public ModelAndView goCreateGame(@PathVariable long gId) {
-        UserEntity myUser = userService.getMyUser();
+    public ModelAndView goCreateGame(@PathVariable long gId, HttpServletRequest request) {
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+
         GamejamEntity gj = gameJamService.getJam(gId);
         
         long check = gameJamService.checkIfIsInTeam(gj, myUser);
@@ -89,27 +100,40 @@ public class GameController {
     }
 
     @RequestMapping("/uploadGame/{tId}")
-    public String uploadGamePage(Model model, @PathVariable long tId)
+    public String uploadGamePage(Model model, @PathVariable long tId, HttpServletRequest request)
     {
-        UserEntity myUser = userService.getMyUser();
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+
         model.addAttribute("userEntity", myUser);        
         model.addAttribute("tName", gameJamService.getTeam(tId).getTeamName());
         return "createGame";
     }
 
     @RequestMapping("/game/{gId}/addComment")
-    public ModelAndView addComment(@PathVariable long gId, @RequestParam String userCommentBox)
+    public ModelAndView addComment(@PathVariable long gId, @RequestParam String userCommentBox, HttpServletRequest request)
     {
-        UserEntity myUser = userService.getMyUser();
-        commentService.addComment(gId, myUser.getId(), userCommentBox);
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null){
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+            commentService.addComment(gId, myUser.getId(), userCommentBox);
+        }            
         return new ModelAndView("redirect:/game/"+gId);
     }
 
     @RequestMapping("/game/{gId}/answerComment+{cId}")
-    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox)
+    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox, HttpServletRequest request)
     {
-        UserEntity myUser = userService.getMyUser();
-        commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+        {
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+            commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
+        }            
         return new ModelAndView("redirect:/game/"+gId);
     }
     //endregion    

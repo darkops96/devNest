@@ -3,6 +3,10 @@ package es.urjc.dad.devNest.Controllers;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.*;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +25,17 @@ public class DevNestController {
 
     //region initial web controller
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request) {
 
         //Random generator
         randomWordAction(model);
 
         model.addAttribute("gamejams", gameJamService.getAllJams());
 
-        UserEntity myUser = userService.getMyUser();
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
         model.addAttribute("userEntity", myUser);
 
         return "initialWeb";

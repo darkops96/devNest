@@ -12,8 +12,8 @@
         <a href="/myProfile"> {{alias}}</a>
 
         <a href="/registerJam"> Organize a Jam!</a>
-        <!-- button that loads the register html -->
-        <a href="/logout"> Log out</a>
+        <!-- button that logs the user out -->
+        <form action="/logout" method="post"><input type="submit" value="Log out"/></form>
         {{/userEntity}}
         
         {{^userEntity}}
