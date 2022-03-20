@@ -13,7 +13,7 @@
 
         <a href="/registerJam"> Organize a Jam!</a>
         <!-- button that logs the user out -->
-        <form action="/logout" method="post"><input type="submit" value="Log out"/></form>
+        <form action="/logout" method="post"><input type="submit" value="Log out"/><input type="hidden" name="_csrf" value="{{token}}"/></form>
         {{/userEntity}}
         
         {{^userEntity}}
@@ -98,6 +98,7 @@
             <br>
             <br>
           <button type="submit" class="answerButton"> Answer </button>
+          <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
         <button id="close" onclick="document.getElementById('ms').close()" class="randomButton">Close</button>
     </dialog>
@@ -116,6 +117,7 @@
   <textarea id="userCommentBox" placeholder="Leave a comment..." name="userCommentBox" rows="4" cols="50"></textarea>
         <br><br>
   <input type="submit" value="Submit">
+  <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
   {{/userEntity}}
 

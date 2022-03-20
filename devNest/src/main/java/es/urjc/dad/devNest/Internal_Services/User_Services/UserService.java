@@ -45,11 +45,13 @@ public class UserService {
     //endregion
 
     public boolean register(String username, String password, String email) {
+        System.out.println("***************STARTS REGISTER**************");
         Optional<UserEntity> u = userRepository.findByAlias(username);
 
         if (!u.isPresent()) {
             UserEntity myUser = new UserEntity(username, passwordEncoder.encode(password), email, "USER");
             userRepository.save(myUser);
+            System.out.println("***************USER REGISTERED**************");
             return true;
         } else {
             return false;

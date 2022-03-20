@@ -13,7 +13,7 @@
 
         <a href="/registerJam"> Organize a Jam!</a>
         <!-- button that logs the user out -->
-        <form action="/logout" method="post"><input type="submit" value="Log out"/></form>
+        <form action="/logout" method="post"><input type="submit" value="Log out"/><input type="hidden" name="_csrf" value="{{token}}"/></form>
         {{/userEntity}}
 
         {{^userEntity}}
@@ -69,6 +69,7 @@
         </div>
         <br>
         <input type='submit' value='Create new team'>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </center>
 </form>
 
@@ -84,6 +85,7 @@
           <form method='get' action='/gamejam/{{gamejam.id}}/join+team/{{id}}'>
             <center>
               <input type='submit' value='Join {{teamName}}'>
+              <input type="hidden" name="_csrf" value="{{token}}"/>
             </center>
           </form>
     </div>

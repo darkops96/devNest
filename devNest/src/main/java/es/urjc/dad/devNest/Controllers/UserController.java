@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.*;
@@ -40,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/login-error")
-    public String failedLogin(RedirectAttributes redirectAttributes) {
+    public String failedLogin(RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addAttribute("error", true);
         return "redirect:/login";
     }
@@ -48,21 +47,21 @@ public class UserController {
 
     //region register user controller
     @GetMapping("/register")
-    public String goToRegister() {
+    public String goToRegister(HttpServletRequest request) {
         return "registerWeb";
     }
 
-    @RequestMapping(value = "/registerUser")
-    public ModelAndView register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat) {
+    @PostMapping(value = "/registerUser")
+    public String register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat, HttpServletRequest request) {
         if (psw.equals(pswRepeat)) {
             boolean result = userService.register(username, psw, email);
             if (result) {
-                return new ModelAndView("redirect:/");
+                return "redirect:/";
             } else {
-                return new ModelAndView("redirect:/register");
+                return "redirect:/register";
             }
         } else {
-            return new ModelAndView("redirect:/register");
+            return "redirect:/register";
         }
     }
     //endregion
@@ -82,7 +81,7 @@ public class UserController {
     }
 
     @RequestMapping("/profile/{uId}")
-    public String goToProfile(Model model, @PathVariable long uId) {
+    public String goToProfile(Model model, @PathVariable long uId, HttpServletRequest request) {
         UserEntity user = userService.getUser(uId);
         model.addAttribute("userEntity", user);
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(uId)));
@@ -106,7 +105,7 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    public ModelAndView updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {
+    public String updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {
         UserEntity user = null;
         Principal up = request.getUserPrincipal();  
         if(up != null)
@@ -123,7 +122,7 @@ public class UserController {
             }
             userService.updateUser(user);
         }        
-        return new ModelAndView("redirect:/myProfile");
+        return "redirect:/myProfile";
     }
 
     //endregion  
