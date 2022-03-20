@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -33,15 +34,15 @@ public class UserController {
 
     //region login controller
     @GetMapping(value = "/login")
-    public String login(Model model, HttpServletRequest request) {
+    public String login(Model model, @RequestParam(name = "error", required = false) boolean error, HttpServletRequest request) {   
+        model.addAttribute("error", error);     
         return "loginWeb";
     }
 
     @GetMapping(value = "/login-error")
-    public ModelAndView failedLogin() {
-        ModelAndView error = new ModelAndView("redirect:/login");
-        error.addObject("error", true);
-        return error;
+    public String failedLogin(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("error", true);
+        return "redirect:/login";
     }
     //endregion
 
