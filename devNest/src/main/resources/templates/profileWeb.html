@@ -7,19 +7,22 @@
     <b>Profile</b>
     <div class="header-right">
         <a href="/">Home</a>
-        {{#userEntity}}
+        {{#myUserEntity}}        
+        {{^myProfile}}
+        <a href="/profile/{{myUserEntity.id}}"> {{myUserEntity.alias}}</a>
+        {{/myProfile}}
         <!-- button that loads the registerJam html -->
         <a href="/registerJam"> Organize a Jam!</a>
         <!-- button that logs the user out -->
         <form action="/logout" method="post"><input type="submit" value="Log out"/><input type="hidden" name="_csrf" value="{{token}}"/></form>
-        {{/userEntity}}
+        {{/myUserEntity}}
 
-        {{^userEntity}}
+        {{^myUserEntity}}
         <!-- button that loads the login html -->
         <a href="/login"> Log in</a>
         <!-- button that loads the register html -->
         <a href="/register"> Register</a>
-        {{/userEntity}}
+        {{/myUserEntity}}
     </div>
 </div>
 <br>
@@ -40,6 +43,7 @@
     -
     {{/description}}
     <br>
+    {{#myProfile}}
     <dialog id="ms" style="background-color: #006363;">
         <h2 style="color: white;">Edit Profile</h2>
         <form method='post' enctype="multipart/form-data" action="/editProfile">
@@ -58,6 +62,7 @@
     </dialog>
     <button id="show" onclick="document.getElementById('ms').show()" class="randomButton">Edit</button>
     <br>
+{{/myProfile}}
 </div>
 <br>
 {{/userEntity}}

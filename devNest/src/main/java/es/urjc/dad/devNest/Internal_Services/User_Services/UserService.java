@@ -5,11 +5,17 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import es.urjc.dad.devNest.Database.Entities.TeamEntity;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
@@ -28,6 +34,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Value("${security.adminPassword}")
     private String adminPassword;
@@ -55,6 +64,14 @@ public class UserService {
         } else {
             return false;
         }
+    }    
+
+    public void authAfterRegister(HttpServletRequest request, String username, String psw)
+    {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, psw);
+        token.setDetails(new WebAuthenticationDetails(request));
+        Authentication authentication = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public List<UserEntity> getAllUsers() {

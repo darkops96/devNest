@@ -56,6 +56,7 @@ public class UserController {
         if (psw.equals(pswRepeat)) {
             boolean result = userService.register(username, psw, email);
             if (result) {
+                userService.authAfterRegister(request, username, psw);
                 return "redirect:/";
             } else {
                 return "redirect:/register";
@@ -66,23 +67,25 @@ public class UserController {
     }
     //endregion
 
-    //region my profile controller
-    @GetMapping("/myProfile")
-    public String goToMyProfile(Model model, HttpServletRequest request) {
+    //region my profile controller   
+    @RequestMapping("/profile/{uId}")
+    public String goToProfile(Model model, @PathVariable long uId, HttpServletRequest request) {
+        UserEntity user = userService.getUser(uId);
+
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();  
         if(up != null)
         {
             myUser = userService.getUser(request.getUserPrincipal().getName());
         }
-        model.addAttribute("userEntity", myUser);
-        model.addAttribute("videogame", userService.getGames(userService.getUserTeams(myUser.getId())));
-        return "profileWeb";
-    }
 
-    @RequestMapping("/profile/{uId}")
-    public String goToProfile(Model model, @PathVariable long uId, HttpServletRequest request) {
-        UserEntity user = userService.getUser(uId);
+        model.addAttribute("myUserEntity", myUser);
+
+        if(myUser != null && myUser.getId() == user.getId())
+            model.addAttribute("myProfile", true);
+        else     
+            model.addAttribute("myProfile", false);
+
         model.addAttribute("userEntity", user);
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(uId)));
         return "profileWeb";
@@ -122,7 +125,7 @@ public class UserController {
             }
             userService.updateUser(user);
         }        
-        return "redirect:/myProfile";
+        return "redirect:/profile/" + user.getId();
     }
 
     //endregion  
