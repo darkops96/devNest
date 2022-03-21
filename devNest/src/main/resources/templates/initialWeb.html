@@ -34,11 +34,11 @@
     <div class="header-right">
         {{#userEntity}}
         <!-- button that loads the login html -->
-        <a href="/myProfile"> {{alias}}</a>
+        <a href="/profile/{{id}}"> {{alias}}</a>
         <!-- button that takes you to organize a jam -->
         <a href="/registerJam"> Organize a Jam!</a>
-        <!-- button that loads the register html -->
-        <a href="/logout"> Log out</a>
+        <!-- button that logs the user out -->
+        <form action="/logout" method="post"><input type="submit" value="Log out"/><input type="hidden" name="_csrf" value="{{token}}"/></form>
         {{/userEntity}}
 
         {{^userEntity}}

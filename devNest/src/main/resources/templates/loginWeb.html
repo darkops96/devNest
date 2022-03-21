@@ -19,7 +19,7 @@
 
 <br>
 
-<form method='post' action="/loginUser">
+<form method='post' action="/login">
     <div class="request">
         <label for="username"><b>Username</b></label>
         <br>
@@ -31,6 +31,9 @@
         <br>
         <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
         <br>
+        {{#error}}
+        <p>Invalid credentials. Try again</p>
+        {{/error}}
 
         <p>Don't have an account? <a href="/register"> Register now </a></p>
     </div>
@@ -38,7 +41,7 @@
     <center>
         <br>
         <button type="submit" class="registerbtn"> Log in</button>
-        </button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </center>
     <br>
 

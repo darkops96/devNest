@@ -9,11 +9,11 @@
     <a href="/">Home</a>
     {{#userEntity}}
         <!-- button that loads the login html -->
-        <a href="/myProfile"> {{alias}}</a>
+        <a href="/profile/{{id}}"> {{alias}}</a>
 
         <a href="/registerJam"> Organize a Jam!</a>
-        <!-- button that loads the register html -->
-        <a href="/logout"> Log out</a>
+        <!-- button that logs the user out -->
+        <form action="/logout" method="post"><input type="submit" value="Log out"/><input type="hidden" name="_csrf" value="{{token}}"/></form>
         {{/userEntity}}
 
         {{^userEntity}}
@@ -58,7 +58,8 @@
     <h1>Videogames Uploaded</h1>
      <hr>
        {{#userEntity}}
-      <center><form method='post' action='/registerGame/{{gamejam.id}}'> <input type='submit' value='Upload Game'></form></center>         
+      <center><form method='post' action='/registerGame/{{gamejam.id}}'> <input type='submit' value='Upload Game'>
+        <input type="hidden" name="_csrf" value="{{token}}"/></form></center>         
       {{/userEntity}}
   </div>
     <br>
@@ -69,6 +70,7 @@
         </div>
         <br>
         <input type='submit' value='Create new team'>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </center>
 </form>
 
@@ -84,6 +86,7 @@
           <form method='get' action='/gamejam/{{gamejam.id}}/join+team/{{id}}'>
             <center>
               <input type='submit' value='Join {{teamName}}'>
+              <input type="hidden" name="_csrf" value="{{token}}"/>
             </center>
           </form>
     </div>

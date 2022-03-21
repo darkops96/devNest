@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import es.urjc.dad.devNest.Database.Entities.CommentEntity;
 import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.CommentRepository;
+import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
 @Service
 public class CommentService {

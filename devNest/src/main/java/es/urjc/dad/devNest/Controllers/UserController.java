@@ -1,7 +1,7 @@
 package es.urjc.dad.devNest.Controllers;
 
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
-import es.urjc.dad.devNest.Internal_Services.*;
+import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.security.Principal;
 import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
@@ -29,64 +32,60 @@ public class UserController {
     private UserService userService;
 
     //region login controller
-    @GetMapping("/login")
-    public String goToLogin() {
+    @GetMapping(value = "/login")
+    public String login(Model model, @RequestParam(name = "error", required = false) boolean error, HttpServletRequest request) {   
+        model.addAttribute("error", error);     
         return "loginWeb";
     }
 
-    @RequestMapping(value = "/loginUser")
-    public String login(@RequestParam String username, @RequestParam String psw) {
-        boolean result = userService.login(username, psw);
-        if (result) {
-            return "redirect:/";
-        } else {
-            return "redirect:/login";
-        }
+    @GetMapping(value = "/login-error")
+    public String failedLogin(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        redirectAttributes.addAttribute("error", true);
+        return "redirect:/login";
     }
-
     //endregion
 
     //region register user controller
     @GetMapping("/register")
-    public String goToRegister() {
+    public String goToRegister(HttpServletRequest request) {
         return "registerWeb";
     }
 
-    @RequestMapping(value = "/registerUser")
-    public ModelAndView register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat) {
+    @PostMapping(value = "/registerUser")
+    public String register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat, HttpServletRequest request) {
         if (psw.equals(pswRepeat)) {
             boolean result = userService.register(username, psw, email);
             if (result) {
-                return new ModelAndView("redirect:/");
+                userService.authAfterRegister(request, username, psw);
+                return "redirect:/";
             } else {
-                return new ModelAndView("redirect:/register");
+                return "redirect:/register";
             }
         } else {
-            return new ModelAndView("redirect:/register");
+            return "redirect:/register";
         }
     }
     //endregion
 
-    //region logout controller
-    @GetMapping("/logout")
-    public ModelAndView logout() {
-        userService.logout();
-        return new ModelAndView("redirect:/");
-    }
-    //endregion
-
-    //region my profile controller
-    @GetMapping("/myProfile")
-    public String goToMyProfile(Model model) {
-        UserEntity myUser = userService.getMyUser();
-        model.addAttribute("userEntity", myUser);
-        model.addAttribute("videogame", userService.getGames(userService.getUserTeams(myUser.getId())));
-        return "profileWeb";
-    }
-
+    //region my profile controller   
     @RequestMapping("/profile/{uId}")
-    public String goToProfile(Model model, @PathVariable long uId) {
+    public String goToProfile(Model model, @PathVariable long uId, HttpServletRequest request) {
         UserEntity user = userService.getUser(uId);
+
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+        {
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+        }
+
+        model.addAttribute("myUserEntity", myUser);
+
+        if(myUser != null && myUser.getId() == user.getId())
+            model.addAttribute("myProfile", true);
+        else     
+            model.addAttribute("myProfile", false);
+
         model.addAttribute("userEntity", user);
         model.addAttribute("videogame", userService.getGames(userService.getUserTeams(uId)));
         return "profileWeb";
@@ -109,16 +108,24 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    public ModelAndView updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile) throws IOException {
-        UserEntity user = userService.getMyUser();
-        user.setDescription(description);
-        URI location = fromCurrentRequest().build().toUri();
-        if (!myfile.isEmpty()) {
-            user.setProfilePicture(location.toString());
-            user.setPPictureFile(BlobProxy.generateProxy(myfile.getInputStream(), myfile.getSize()));
+    public String updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {
+        UserEntity user = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+        {
+            user = userService.getUser(request.getUserPrincipal().getName());
         }
-        userService.updateUser(user);
-        return new ModelAndView("redirect:/myProfile");
+        if(user != null)
+        {
+            user.setDescription(description);
+            URI location = fromCurrentRequest().build().toUri();
+            if (!myfile.isEmpty()) {
+                user.setProfilePicture(location.toString());
+                user.setPPictureFile(BlobProxy.generateProxy(myfile.getInputStream(), myfile.getSize()));
+            }
+            userService.updateUser(user);
+        }        
+        return "redirect:/profile/" + user.getId();
     }
 
     //endregion  
