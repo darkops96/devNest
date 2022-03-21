@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -24,7 +23,7 @@ public class TeamController {
 
     //region teams controller
     @RequestMapping(value = "/gamejam/{gjId}/join+team/{tId}")
-    public ModelAndView joinTeam(@PathVariable long gjId, @PathVariable long tId, HttpServletRequest request) {
+    public String joinTeam(@PathVariable long gjId, @PathVariable long tId, HttpServletRequest request) {
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();  
         if(up != null)
@@ -35,7 +34,7 @@ public class TeamController {
         {
             gameJamService.joinTeam(gjId, tId, myUser);
         }
-        return new ModelAndView("redirect:/gamejam/" + gjId);
+        return "redirect:/gamejam/" + gjId;
     }  
     //endregion
 }

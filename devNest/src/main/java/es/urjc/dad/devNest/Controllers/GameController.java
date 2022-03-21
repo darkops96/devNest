@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.*;
 import java.net.URI;
@@ -54,7 +53,7 @@ public class GameController {
     }
 
     @RequestMapping(value = "/createGame/{tName}")
-    public ModelAndView createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable String tName) throws IOException {
+    public String createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable String tName) throws IOException {
         //team by name
         TeamEntity team = gameJamService.getTeam(tName);
         //current date
@@ -76,14 +75,14 @@ public class GameController {
         }
         
         if (result) {
-            return new ModelAndView("redirect:/");
+            return "redirect:/";
         } else {
-            return new ModelAndView("redirect:/createGame/"+tName);
+            return "redirect:/createGame/"+tName;
         }
     }    
 
     @RequestMapping("/registerGame/{gId}")
-    public ModelAndView goCreateGame(@PathVariable long gId, HttpServletRequest request) {
+    public String goCreateGame(@PathVariable long gId, HttpServletRequest request) {
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();  
         if(up != null)
@@ -94,10 +93,10 @@ public class GameController {
         long check = gameJamService.checkIfIsInTeam(gj, myUser);
         if(check != -1)
         {
-            return new ModelAndView("redirect:/uploadGame/"+check);
+            return "redirect:/uploadGame/"+check;
         }
         else
-            return new ModelAndView("redirect:/gamejam/" + gId);        
+            return "redirect:/gamejam/" + gId;        
     }
 
     @RequestMapping("/uploadGame/{tId}")
@@ -114,7 +113,7 @@ public class GameController {
     }
 
     @RequestMapping("/game/{gId}/addComment")
-    public ModelAndView addComment(@PathVariable long gId, @RequestParam String userCommentBox, HttpServletRequest request)
+    public String addComment(@PathVariable long gId, @RequestParam String userCommentBox, HttpServletRequest request)
     {
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();  
@@ -122,11 +121,11 @@ public class GameController {
             myUser = userService.getUser(request.getUserPrincipal().getName());
             commentService.addComment(gId, myUser.getId(), userCommentBox);
         }            
-        return new ModelAndView("redirect:/game/"+gId);
+        return "redirect:/game/"+gId;
     }
 
     @RequestMapping("/game/{gId}/answerComment+{cId}")
-    public ModelAndView answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox, HttpServletRequest request)
+    public String answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox, HttpServletRequest request)
     {
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();  
@@ -135,7 +134,7 @@ public class GameController {
             myUser = userService.getUser(request.getUserPrincipal().getName());
             commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
         }            
-        return new ModelAndView("redirect:/game/"+gId);
+        return "redirect:/game/"+gId;
     }
     //endregion    
 }

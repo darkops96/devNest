@@ -38,14 +38,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     {    
         http.authorizeRequests().antMatchers("/css/**").permitAll();
 
-        http.authorizeRequests().antMatchers("/").permitAll();        
-        http.authorizeRequests().antMatchers("/profile/*").permitAll();
-        http.authorizeRequests().antMatchers("/*/image").permitAll();        
+        http.authorizeRequests().antMatchers("/").permitAll(); 
+        http.authorizeRequests().antMatchers("/game/*").permitAll();  
+        http.authorizeRequests().antMatchers("/gamejam/*").permitAll();  
+              
         http.authorizeRequests().antMatchers("/login").permitAll();     
         http.authorizeRequests().antMatchers("/login-error").permitAll();     
         http.authorizeRequests().antMatchers("/register").permitAll();
         http.authorizeRequests().antMatchers("/registerUser").permitAll();
-        http.authorizeRequests().antMatchers("/logout").permitAll();   
+        http.authorizeRequests().antMatchers("/logout").permitAll();         
+        http.authorizeRequests().antMatchers("/profile/*").permitAll();
+        http.authorizeRequests().antMatchers("/*/image").permitAll();  
 
         http.authorizeRequests().anyRequest().hasRole("USER"); 
         

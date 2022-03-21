@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -43,7 +42,7 @@ public class GameJamController {
 
 
     @RequestMapping(value = "/gamejam/{gjId}/register+team")
-    public ModelAndView registerTeam(@PathVariable long gjId, @RequestParam String teamname, HttpServletRequest request) {
+    public String registerTeam(@PathVariable long gjId, @RequestParam String teamname, HttpServletRequest request) {
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();  
         if(up != null)
@@ -54,7 +53,7 @@ public class GameJamController {
         {
             gameJamService.addNewTeam(gjId, teamname, myUser);
         }
-        return new ModelAndView("redirect:/gamejam/" + gjId);
+        return "redirect:/gamejam/" + gjId;
     }
     //endregion
 
@@ -73,7 +72,7 @@ public class GameJamController {
     }
 
     @RequestMapping(value = "/registerGameJam")
-    public ModelAndView createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate, HttpServletRequest request) {
+    public String createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate, HttpServletRequest request) {
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();  
         if(up != null)
@@ -81,9 +80,9 @@ public class GameJamController {
         
         boolean result = gameJamService.addNewJam(jamName, description, myUser, topic, sDate, eDate);
         if (result) {
-            return new ModelAndView("redirect:/");
+            return "redirect:/";
         } else {
-            return new ModelAndView("redirect:/createJam");
+            return "redirect:/createJam";
         }
     }
     //endregion 

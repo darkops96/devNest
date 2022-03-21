@@ -58,7 +58,8 @@
     <h1>Videogames Uploaded</h1>
      <hr>
        {{#userEntity}}
-      <center><form method='post' action='/registerGame/{{gamejam.id}}'> <input type='submit' value='Upload Game'></form></center>         
+      <center><form method='post' action='/registerGame/{{gamejam.id}}'> <input type='submit' value='Upload Game'>
+        <input type="hidden" name="_csrf" value="{{token}}"/></form></center>         
       {{/userEntity}}
   </div>
     <br>
