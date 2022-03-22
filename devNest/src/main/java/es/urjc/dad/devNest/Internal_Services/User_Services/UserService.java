@@ -56,7 +56,7 @@ public class UserService {
         Optional<UserEntity> u = userRepository.findByAlias("admin");
 
         if (!u.isPresent()) {
-            userRepository.save(new UserEntity("admin", adminPassword, "admin@devnest.es", "USER", "ADMIN"));
+            userRepository.save(new UserEntity("admin", adminPassword, "devnestofficial@gmail.com", "USER", "ADMIN"));
         }
     }
     //endregion
