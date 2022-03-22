@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,12 +29,11 @@ public class EmailController {
     @Autowired
     private VideogameRepository videogameRepository;
 
-    //email when you register
-    @Async
+    //email when you register    
     @PostMapping("/registration-email")
     public void sendRegistrationEmail(@RequestBody List<String> data)
     {
-        Email email = new Email(data.get(1), "Registro devNest ", "Enhorabuena, te has tegistrado como usuario de devNest con usuario " + data.get(0));
+        Email email = new Email(data.get(1), "Registro devNest ", "¡Enhorabuena "+ data.get(0) + "!\nTe has registrado como usuario de devNest.\n\nDisfruta de tu experiencia con nosotros :D");
         emailService.sendEmail(email);
     }
 
