@@ -40,31 +40,8 @@
         <!-- button that logs the user out -->
         <form action="/logout" method="post"><input type="submit" value="Log out"/><input type="hidden" name="_csrf" value="{{token}}"/></form>
         {{/userEntity}}
-
-        {{^userEntity}}
-        <!-- button that loads the login html -->
-        <a href="/login"> Log in</a>
-        <!-- button that loads the register html -->
-        <a href="/register"> Register</a>
-        {{/userEntity}}
     </div>
 </div>
-
-<!-- random topic generator -->
-
-<!-- random button -->
-<h2 class="smallTitle"> Random Topic Generator</h2>
-<center>
-    <form action="/">
-        <input class="randomButton" type='submit' value='Get Topics!'/>
-    </form>
-</center>
-<!-- word displays -->
-<center>
-    <fieldset class="randomWordDisplay">{{topic1}}</fieldset>
-    <fieldset class="randomWordDisplay">{{topic2}}</fieldset>
-</center>
-
 
 <!-- game jams table -->
 
@@ -84,17 +61,10 @@
             <td>{{startDate}}</td>
             <td>{{endDate}}</td>
             <td>{{#winner}} {{alias}} {{/winner}} {{^winner}} - {{/winner}}</td>
-            <!-- <td>{{#teams}} {{teamName}} {{/teams}} {{^teams}} - {{/teams}}</td>-->
+            <td><form action="/admin/delete-jam/{{id}}"><input type="submit" value="Delete"/><input type="hidden" name="_csrf" value="{{token}}"/></form></td>
         </tr>
         {{/gamejams}}
     </table>
-    {{#isAdmin}}
-    <br>
-    <form action="/admin">
-        <input class="randomButton" type='submit' value='Delete Game Jams'/>
-        <input type="hidden" name="_csrf" value="{{token}}"/>
-    </form>
-    {{/isAdmin}}
 </center>
 </p>
 <!-- End your code here -->
