@@ -5,9 +5,14 @@ import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
 import es.urjc.dad.devNest.Database.Repositories.VideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 @Component
@@ -45,6 +50,20 @@ public class GameService {
     public void updateGame(VideogameEntity v)
     {
         videogameRepository.save(v);
+    }
+
+    public ResponseEntity<ByteArrayResource> downloadGame(long id){
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = null;
+        try {
+            url = new URI("http://localhost:8080/download-videogame/"+id+"/");
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return restTemplate.getForEntity(url, ByteArrayResource.class);
+        
+
     }
 
 }

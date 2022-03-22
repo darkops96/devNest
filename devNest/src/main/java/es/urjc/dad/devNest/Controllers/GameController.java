@@ -9,6 +9,8 @@ import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -135,6 +137,12 @@ public class GameController {
             commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
         }            
         return "redirect:/game/"+gId;
+    }
+
+    @GetMapping(value = "/game/{gId}/download-game", produces="application/zip")
+    public ResponseEntity<ByteArrayResource> download(@PathVariable long gId, HttpServletRequest request)
+    {
+        return gameService.downloadGame(gId);
     }
     //endregion    
 }
