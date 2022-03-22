@@ -8,13 +8,17 @@ import es.urjc.dad.devNestInternalService.Database.Repositories.UserRepository;
 import es.urjc.dad.devNestInternalService.Database.Repositories.VideogameRepository;
 import es.urjc.dad.devNestInternalService.Internal_Services.EmailService;
 import es.urjc.dad.devNestInternalService.Objets.Email;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("localhost:8080/emails")
+@RequestMapping("/emails")
 public class EmailController {
 
     @Autowired
@@ -27,15 +31,12 @@ public class EmailController {
     private VideogameRepository videogameRepository;
 
     //email when you register
-    @GetMapping("/registration-email/{id}")
-    public ResponseEntity<Email> sendRegistrationEmail(@PathVariable long id) {
-
-        UserEntity user = userRepository.findById(id).get();
-        String userEmail = user.getEmail();
-
-        Email email = new Email(userEmail, "Registro devNest ", "Enhorabuena, te has tegistrado como usuario de devNest con usuario " + user.getAlias() + " y contraseña " + user.getPassword());
+    @Async
+    @PostMapping("/registration-email")
+    public void sendRegistrationEmail(@RequestBody List<String> data)
+    {
+        Email email = new Email(data.get(1), "Registro devNest ", "Enhorabuena, te has tegistrado como usuario de devNest con usuario " + data.get(0));
         emailService.sendEmail(email);
-        return ResponseEntity.ok(email);
     }
 
     //email when you create a jam

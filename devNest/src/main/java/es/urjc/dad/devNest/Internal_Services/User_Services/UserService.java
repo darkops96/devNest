@@ -1,5 +1,8 @@
 package es.urjc.dad.devNest.Internal_Services.User_Services;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -72,6 +80,23 @@ public class UserService {
         token.setDetails(new WebAuthenticationDetails(request));
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    public void sendRegisterEmail(String username, String email) throws RestClientException, URISyntaxException
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = new URI("http://localhost:8080/emails/registration-email/");
+
+        List<String> data = new ArrayList<>(2);
+        data.add(username);
+        data.add(email);        
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<List> requestEntity = new HttpEntity<>(data, headers);
+
+        restTemplate.postForEntity(url, requestEntity, String.class);
     }
 
     public List<UserEntity> getAllUsers() {
