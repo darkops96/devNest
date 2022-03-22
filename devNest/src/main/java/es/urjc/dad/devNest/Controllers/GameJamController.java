@@ -4,6 +4,7 @@ import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.*;
 import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
+import java.net.URISyntaxException;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
 
 
 @Controller
@@ -22,7 +24,7 @@ public class GameJamController {
     @Autowired
     private GameJamService gameJamService;
     @Autowired
-    private RandomWord randomWord;     
+    private RandomWordService randomWord;     
 
     //region gamejam controller
     @RequestMapping("/gamejam/{gjId}")
@@ -80,6 +82,15 @@ public class GameJamController {
         
         boolean result = gameJamService.addNewJam(jamName, description, myUser, topic, sDate, eDate);
         if (result) {
+            try {
+                gameJamService.sendRegisterJam(myUser.getAlias(), myUser.getEmail(), jamName);
+            } catch (RestClientException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             return "redirect:/";
         } else {
             return "redirect:/createJam";
@@ -90,8 +101,12 @@ public class GameJamController {
     //region PRIVATE METHODS
     private void randomWordAction(Model model) {
         //Random generator
-        model.addAttribute("topic1", randomWord.getRandomWord());
-        model.addAttribute("topic2", randomWord.getRandomWord());
+        int i = 1;
+        for(String topic : randomWord.getRandomWord())
+        {
+            model.addAttribute("topic" + i, topic);
+            i++;
+        }        
     }
     //endregion
 }

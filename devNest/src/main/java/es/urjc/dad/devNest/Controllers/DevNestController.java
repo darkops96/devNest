@@ -22,7 +22,7 @@ public class DevNestController {
     @Autowired
     private GameJamService gameJamService;
     @Autowired
-    private RandomWord randomWord;
+    private RandomWordService randomWord;
 
     //region initial web controller
     @GetMapping("/")
@@ -68,8 +68,12 @@ public class DevNestController {
     //region PRIVATE METHODS
     private void randomWordAction(Model model) {
         //Random generator
-        model.addAttribute("topic1", randomWord.getRandomWord());
-        model.addAttribute("topic2", randomWord.getRandomWord());
+        int i = 1;
+        for(String topic : randomWord.getRandomWord())
+        {
+            model.addAttribute("topic" + i, topic);
+            i++;
+        }      
     }
     //endregion
 }

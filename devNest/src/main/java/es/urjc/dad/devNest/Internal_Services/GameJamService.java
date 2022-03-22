@@ -1,12 +1,19 @@
 package es.urjc.dad.devNest.Internal_Services;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import es.urjc.dad.devNest.Database.Entities.GamejamEntity;
 import es.urjc.dad.devNest.Database.Entities.TeamEntity;
@@ -50,6 +57,24 @@ public class GameJamService {
             return true;
         } else
             return false;
+    }
+
+    public void sendRegisterJam(String username, String email, String jam) throws RestClientException, URISyntaxException
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = new URI("http://localhost:8080/emails/create-jam/");
+
+        List<String> data = new ArrayList<>(3);
+        data.add(username);
+        data.add(email); 
+        data.add(jam);   
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<List> requestEntity = new HttpEntity<>(data, headers);
+
+        restTemplate.postForEntity(url, requestEntity, String.class);
     }
 
     public void deleteJam(long id)
@@ -112,6 +137,17 @@ public class GameJamService {
                 gj.getTeams().add(t);
                 gamejamRepository.save(gj);
                 needsUpdate = true;
+
+                try {
+                    sendJoinTeam(user.getAlias(), user.getEmail(), teamName);
+                } catch (RestClientException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                };
+
                 return true;
             }
             else
@@ -120,6 +156,25 @@ public class GameJamService {
         else
             return false;
     }
+
+    private void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = new URI("http://localhost:8080/emails/join-team/");
+
+        List<String> data = new ArrayList<>(3);
+        data.add(username);
+        data.add(email); 
+        data.add(team);   
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<List> requestEntity = new HttpEntity<>(data, headers);
+
+        restTemplate.postForEntity(url, requestEntity, String.class);
+    }
+
     public TeamEntity getTeam(String teamName) {
         Optional<TeamEntity> t = teamRepository.findByTeamName(teamName);
 
@@ -148,7 +203,18 @@ public class GameJamService {
                         members.add(user);                
                         teamRepository.save(t);
                         gamejamRepository.save(gj);  
-                        needsUpdate = true;              
+                        needsUpdate = true;  
+                        
+                        try {
+                            sendJoinTeam(user.getAlias(), user.getEmail(), t.getTeamName());
+                        } catch (RestClientException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (URISyntaxException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
                         return true;
                     }
                     else
