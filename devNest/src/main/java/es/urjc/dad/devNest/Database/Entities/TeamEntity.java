@@ -18,7 +18,7 @@ public class TeamEntity {
     @ManyToMany
     private List<UserEntity> members;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private VideogameEntity videogame;
 
     @ManyToOne
