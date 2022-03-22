@@ -41,7 +41,7 @@ public class RandomWordService {
     }
 
     static String getResourceFile() throws IOException {
-        File resource = new ClassPathResource("static/Text_Files/topicsPool.txt").getFile();
+        File resource = new ClassPathResource("static/topicsPool.txt").getFile();
         return resource.getAbsolutePath();
     }
 }
