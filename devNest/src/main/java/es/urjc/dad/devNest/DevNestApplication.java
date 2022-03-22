@@ -6,6 +6,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DevNestApplication {
     public static void main(String[] args) {
+        String newLine = System.lineSeparator();
+        System.out.println(newLine +
+                           "*******************************" + newLine +
+                           "*********** DEVNEST ***********" + newLine +
+                           "*******************************" + newLine +
+                           "Developed by:" + newLine +
+                           "- Pablo de la Hoz Menendez" + newLine +
+                           "- Carlos Chamizo Cano" + newLine +
+                           "- Juan Jose Perez Abad" + newLine +
+                           "*******************************" + newLine);
+
         SpringApplication.run(DevNestApplication.class, args);
     }
 }

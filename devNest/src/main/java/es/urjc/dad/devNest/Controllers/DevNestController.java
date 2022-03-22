@@ -38,8 +38,30 @@ public class DevNestController {
         if(up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
         model.addAttribute("userEntity", myUser);
+        model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
 
         return "initialWeb";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage(Model model, HttpServletRequest request)
+    {
+        model.addAttribute("gamejams", gameJamService.getAllJams());
+
+        UserEntity myUser = null;
+        Principal up = request.getUserPrincipal();  
+        if(up != null)
+            myUser = userService.getUser(request.getUserPrincipal().getName());
+        model.addAttribute("userEntity", myUser);
+
+        return "adminWeb";
+    }
+
+    @GetMapping("/admin/delete-jam/{id}")
+    public String deleteJam(@PathVariable long id)
+    {
+        gameJamService.deleteJam(id);
+        return "redirect:/admin";
     }
     //endregion  
 

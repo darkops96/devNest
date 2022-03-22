@@ -52,6 +52,16 @@ public class GameJamService {
             return false;
     }
 
+    public void deleteJam(long id)
+    {
+        Optional<GamejamEntity> jam = gamejamRepository.findById(id);
+        if (jam.isPresent())
+        {
+            gamejamRepository.delete(jam.get());
+            needsUpdate = true;
+        }
+    }
+
     public GamejamEntity getJam(long id) {
         Optional<GamejamEntity> u = gamejamRepository.findById(id);
         if (u.isPresent())
