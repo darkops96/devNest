@@ -39,18 +39,4 @@ public class EmailController {
         emailService.sendEmail(email);
     }
 
-    //email when you submit a videogame (Game name, number of members, emails)
-    @PostMapping("/submit-game")
-    public void sendSubmitGameEmail(@RequestBody List<String> data)
-    {
-        int numEmails = Integer.parseInt(data.get(1));
-
-        for(int i = 2; i < 2 + numEmails; i++)
-        {
-            Email email = new Email(data.get(i), "Tu juego " + data.get(0) + " se ha subido con exito", "Enhorabuena, tu juego " + data.get(0) + " se ha subido con exito.");
-            emailService.sendEmail(email);
-        }        
-    }
-
-
 }

@@ -32,7 +32,7 @@ public class TeamController {
         }
         if (myUser != null)
         {
-            gameJamService.joinTeam(gjId, tId, myUser);
+            gameJamService.joinTeam(gjId, tId, myUser);            
         }
         return "redirect:/gamejam/" + gjId;
     }  

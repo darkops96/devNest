@@ -64,7 +64,7 @@ public class GameJamService {
         RestTemplate restTemplate = new RestTemplate();
         URI url = new URI("http://localhost:8080/emails/create-jam/");
 
-        List<String> data = new ArrayList<>(2);
+        List<String> data = new ArrayList<>(3);
         data.add(username);
         data.add(email); 
         data.add(jam);   
@@ -137,6 +137,17 @@ public class GameJamService {
                 gj.getTeams().add(t);
                 gamejamRepository.save(gj);
                 needsUpdate = true;
+
+                try {
+                    sendJoinTeam(user.getAlias(), user.getEmail(), teamName);
+                } catch (RestClientException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                };
+
                 return true;
             }
             else
@@ -145,6 +156,25 @@ public class GameJamService {
         else
             return false;
     }
+
+    private void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = new URI("http://localhost:8080/emails/join-team/");
+
+        List<String> data = new ArrayList<>(3);
+        data.add(username);
+        data.add(email); 
+        data.add(team);   
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<List> requestEntity = new HttpEntity<>(data, headers);
+
+        restTemplate.postForEntity(url, requestEntity, String.class);
+    }
+
     public TeamEntity getTeam(String teamName) {
         Optional<TeamEntity> t = teamRepository.findByTeamName(teamName);
 
@@ -173,7 +203,18 @@ public class GameJamService {
                         members.add(user);                
                         teamRepository.save(t);
                         gamejamRepository.save(gj);  
-                        needsUpdate = true;              
+                        needsUpdate = true;  
+                        
+                        try {
+                            sendJoinTeam(user.getAlias(), user.getEmail(), t.getTeamName());
+                        } catch (RestClientException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (URISyntaxException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
                         return true;
                     }
                     else
