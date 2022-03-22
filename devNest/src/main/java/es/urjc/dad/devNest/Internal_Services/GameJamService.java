@@ -82,6 +82,7 @@ public class GameJamService {
         Optional<GamejamEntity> jam = gamejamRepository.findById(id);
         if (jam.isPresent())
         {
+            teamRepository.deleteAll(jam.get().getTeams());
             gamejamRepository.delete(jam.get());
             needsUpdate = true;
         }

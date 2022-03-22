@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         http.authorizeRequests().antMatchers("/logout").permitAll();         
         http.authorizeRequests().antMatchers("/profile/*").permitAll();
         http.authorizeRequests().antMatchers("/*/image").permitAll();  
+        http.authorizeRequests().antMatchers("/game/{gId}/download-game").permitAll();
 
         http.authorizeRequests().antMatchers("/admin").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");

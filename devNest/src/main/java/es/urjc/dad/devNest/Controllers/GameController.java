@@ -55,7 +55,7 @@ public class GameController {
     }
 
     @RequestMapping(value = "/createGame/{tName}")
-    public String createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable String tName) throws IOException {
+    public String createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable String tName, HttpServletRequest request) throws IOException {
         //team by name
         TeamEntity team = gameJamService.getTeam(tName);
         //current date
