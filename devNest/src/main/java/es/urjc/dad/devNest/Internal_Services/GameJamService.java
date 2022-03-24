@@ -22,6 +22,9 @@ import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.GamejamRepository;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
 
+/**
+ * Class responsible of the management of Gam Jams. It provides service to control the accions with the gamejams
+ */
 @Service
 public class GameJamService {
     @Autowired
@@ -32,13 +35,18 @@ public class GameJamService {
     private List<GamejamEntity> allJams;
     private boolean needsUpdate;
 
-    public GameJamService() {
-        needsUpdate = true;
-    }    
 
+    public GameJamService() {
+        //incates that the copy in memory of the jam list is outdated
+        needsUpdate = true;
+    }
+
+    /**
+     * updates the list of current jams with the jams present in the database
+     */
     public void refreshJamList() {
         allJams = gamejamRepository.findAll();
-        needsUpdate = false;
+        needsUpdate = false; //indicates that the jam list is updated
     }
 
     public List<GamejamEntity> getAllJams() {
@@ -48,8 +56,8 @@ public class GameJamService {
         return allJams;
     }
 
-    public boolean addNewJam(String _name,String description, UserEntity _userEntity, String _topic, String _startDate, String _endDate) {
-        GamejamEntity newJam = new GamejamEntity(_name, _userEntity, description,_topic, _startDate, _endDate);
+    public boolean addNewJam(String _name, String description, UserEntity _userEntity, String _topic, String _startDate, String _endDate) {
+        GamejamEntity newJam = new GamejamEntity(_name, _userEntity, description, _topic, _startDate, _endDate);
         Optional<GamejamEntity> u = gamejamRepository.findById(newJam.getId());
         if (!u.isPresent()) {
             gamejamRepository.save(newJam);
@@ -59,15 +67,14 @@ public class GameJamService {
             return false;
     }
 
-    public void sendRegisterJam(String username, String email, String jam) throws RestClientException, URISyntaxException
-    {
+    public void sendRegisterJam(String username, String email, String jam) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         URI url = new URI("http://localhost:8080/emails/create-jam/");
 
         List<String> data = new ArrayList<>(3);
         data.add(username);
-        data.add(email); 
-        data.add(jam);   
+        data.add(email);
+        data.add(jam);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -77,11 +84,9 @@ public class GameJamService {
         restTemplate.postForEntity(url, requestEntity, String.class);
     }
 
-    public void deleteJam(long id)
-    {
+    public void deleteJam(long id) {
         Optional<GamejamEntity> jam = gamejamRepository.findById(id);
-        if (jam.isPresent())
-        {
+        if (jam.isPresent()) {
             teamRepository.deleteAll(jam.get().getTeams());
             gamejamRepository.delete(jam.get());
             needsUpdate = true;
@@ -114,23 +119,19 @@ public class GameJamService {
         return null;
     }
 
-    public boolean addNewTeam(long jamId, String teamName, UserEntity user)
-    {
+    public boolean addNewTeam(long jamId, String teamName, UserEntity user) {
         leaveTeam(jamId, user);
         GamejamEntity gj = getJam(jamId);
-        if(gj != null)
-        {
+        if (gj != null) {
             List<TeamEntity> teams = gj.getTeams();
             boolean duplicateName = false;
             for (TeamEntity teamEntity : teams) {
-                if(teamEntity.getTeamName().equalsIgnoreCase(teamName))
-                {
+                if (teamEntity.getTeamName().equalsIgnoreCase(teamName)) {
                     duplicateName = true;
                 }
             }
 
-            if(!duplicateName)
-            {
+            if (!duplicateName) {
                 List<UserEntity> members = new ArrayList<UserEntity>();
                 members.add(user);
                 TeamEntity t = new TeamEntity(teamName, members, gj);
@@ -147,26 +148,23 @@ public class GameJamService {
                 } catch (URISyntaxException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                };
-
+                }
+                ;
                 return true;
-            }
-            else
-                return false;            
-        }
-        else
+            } else
+                return false;
+        } else
             return false;
     }
 
-    private void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException
-    {
+    private void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         URI url = new URI("http://localhost:8080/emails/join-team/");
 
         List<String> data = new ArrayList<>(3);
         data.add(username);
-        data.add(email); 
-        data.add(team);   
+        data.add(email);
+        data.add(team);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -185,27 +183,22 @@ public class GameJamService {
             return null;
     }
 
-    public boolean joinTeam(long jamId, long teamId, UserEntity user)
-    {        
-        GamejamEntity gj = getJam(jamId);        
+    public boolean joinTeam(long jamId, long teamId, UserEntity user) {
+        GamejamEntity gj = getJam(jamId);
         long oldTeamId = checkIfIsInTeam(gj, user);
 
-        if(oldTeamId != teamId)
-        {
+        if (oldTeamId != teamId) {
             leaveTeam(jamId, user);
-            if(gj != null)
-            {  
+            if (gj != null) {
                 TeamEntity t = getTeam(teamId);
-                if(t != null)
-                {
-                    if(teamId != oldTeamId)
-                    {
+                if (t != null) {
+                    if (teamId != oldTeamId) {
                         List<UserEntity> members = t.getMembers();
-                        members.add(user);                
+                        members.add(user);
                         teamRepository.save(t);
-                        gamejamRepository.save(gj);  
-                        needsUpdate = true;  
-                        
+                        gamejamRepository.save(gj);
+                        needsUpdate = true;
+
                         try {
                             sendJoinTeam(user.getAlias(), user.getEmail(), t.getTeamName());
                         } catch (RestClientException e) {
@@ -217,80 +210,62 @@ public class GameJamService {
                         }
 
                         return true;
-                    }
-                    else
-                        return false;                
-                }
-                else
+                    } else
+                        return false;
+                } else
                     return false;
-            }
-            else
+            } else
                 return false;
-        }
-        else
-            return false;       
+        } else
+            return false;
     }
 
-    public void leaveTeam(long jamId, UserEntity user)
-    {
+    public void leaveTeam(long jamId, UserEntity user) {
         GamejamEntity gj = getJam(jamId);
-        if(gj != null)
-        {
+        if (gj != null) {
             long oldTeamId = checkIfIsInTeam(gj, user);
-            if(oldTeamId != -1)
-            {
+            if (oldTeamId != -1) {
                 TeamEntity t = getTeam(oldTeamId);
-                List<UserEntity> members = t.getMembers();                              
-                
-                if(members.size() == 1)
-                {
+                List<UserEntity> members = t.getMembers();
+
+                if (members.size() == 1) {
                     gj.getTeams().remove(t);
                     teamRepository.deleteById(t.getId());
-                }                    
-                else
-                {
-                    members.remove(user);  
+                } else {
+                    members.remove(user);
                     teamRepository.save(t);
                 }
-                gamejamRepository.save(gj); 
-                needsUpdate = true;                
+                gamejamRepository.save(gj);
+                needsUpdate = true;
             }
         }
     }
 
-    public long checkIfIsInTeam(GamejamEntity gj, UserEntity user)
-    {
+    public long checkIfIsInTeam(GamejamEntity gj, UserEntity user) {
         List<TeamEntity> teams = gj.getTeams();
-        for (TeamEntity teamEntity : teams)
-        {
-            for (UserEntity u : teamEntity.getMembers())
-            {
-                if(u.getId() == user.getId())
-                {
+        for (TeamEntity teamEntity : teams) {
+            for (UserEntity u : teamEntity.getMembers()) {
+                if (u.getId() == user.getId()) {
                     return teamEntity.getId();
                 }
-            }  
+            }
         }
         return -1;
     }
 
-    public void deleteEmptyTeams(long jamId)
-    {
+    public void deleteEmptyTeams(long jamId) {
         GamejamEntity gj = getJam(jamId);
-        if(gj != null)
-        {
+        if (gj != null) {
             List<TeamEntity> teams = gj.getTeams();
             List<Long> emptyTeams = new ArrayList<Long>();
-            for (TeamEntity teamEntity : teams)
-            {
-                if(teamEntity.getMembers().size() == 0)
-                {
+            for (TeamEntity teamEntity : teams) {
+                if (teamEntity.getMembers().size() == 0) {
                     emptyTeams.add(teamEntity.getId());
-                }  
+                }
             }
             teamRepository.deleteAllById(emptyTeams);
-            gamejamRepository.save(gj); 
-            needsUpdate = true;    
+            gamejamRepository.save(gj);
+            needsUpdate = true;
         }
     }
 }

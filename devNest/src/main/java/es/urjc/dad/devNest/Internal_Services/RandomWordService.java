@@ -9,23 +9,29 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this class is responsible of requesting to the REST the service corresponding to random words
+ */
 @Service
-public class RandomWordService
-{
+public class RandomWordService {
+    /**
+     * Asks the REST for 2 new topics
+     *
+     * @return obtains the 2 words inside an arraylist
+     */
     public List<String> getRandomWord() {
         RestTemplate restTemplate = new RestTemplate();
         URI url = null;
         try {
+            //url of the controller in the REST
             url = new URI("http://localhost:8080/random-topics/");
         } catch (URISyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        //gets the 2 words in an arrayList from the rest which goes inside the responsebody
         ResponseEntity<ArrayList> responseEntity = restTemplate.getForEntity(url, ArrayList.class);
-
         ArrayList<String> topics = responseEntity.getBody();
-
         return topics;
     }
 }

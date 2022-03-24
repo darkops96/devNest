@@ -75,11 +75,12 @@ public class GameController {
             VideogameEntity videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, team, location.toString(), file);
             result = gameService.addNewGame(videogame, tName);
         }
-        
+        System.out.printf("/////////////////////////////////////////////////////////////////////");
+        System.out.println(result);
         if (result) {
             return "redirect:/";
         } else {
-            return "redirect:/createGame/"+tName;
+            return "redirect:/uploadGame/"+tName;
         }
     }    
 
