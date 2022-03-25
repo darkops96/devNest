@@ -24,17 +24,27 @@ public class GameService {
     TeamRepository teamRepository;
 
     //add a new game
-    public boolean addNewGame(VideogameEntity videogame, String tName) {
+    public boolean addNewGame(VideogameEntity videogame, long tId) {
         Optional<VideogameEntity> u = videogameRepository.findById(videogame.getId());
-        if (!u.isPresent()) {
-            videogameRepository.save(videogame);
-            TeamEntity t = teamRepository.findByTeamName(tName).get();
-            t.setVideogame(videogame);
-            teamRepository.save(t);            
+        if (!u.isPresent())
+        {              
+            setTeamGame(tId, videogame);                   
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
+    }
+
+    private void setTeamGame(long tId, VideogameEntity v)
+    {
+        Optional<TeamEntity> t = teamRepository.findById(tId);
+        if(t.isPresent())
+        {
+            t.get().setVideogame(v);
+            teamRepository.save(t.get());  
+        }        
     }
 
     //get a game
