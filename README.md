@@ -9,7 +9,7 @@
 
   * **Game Jam**: ID, Nombre de la Game Jam, Usuario Administrador, Descripción, Temática, Equipos, Equipo Ganador, Fecha de Inicio y Fecha de Fin.  
   * **Equipos**: ID, Nombre del equipo, Miembros, Videojuego y Game Jam en la que participa (los equipos se crean para una Game Jam en concreto).  
-  * **Usuarios**: ID, Alias Único, Contraseña, Correo Electrónico, Foto de Perfil (opcional) y Descripción (opcional).  
+  * **Usuarios**: ID, Alias Único, Contraseña, Correo Electrónico, Foto de Perfil (opcional), Descripción (opcional) y Roles (para controlar el acceso a cada URL de la web).  
   * **Videojuegos**: ID, Título, Fecha de subida, Descripción, Categoría, Plataformas, Fichero y Comentarios.  
   * **Comentario**: ID, Juego, Usuario, Fecha, Texto y Comentario al que responde (opcional).
   
