@@ -24,7 +24,9 @@ public class GameJamController {
     @Autowired
     private GameJamService gameJamService;
     @Autowired
-    private RandomWordService randomWord;     
+    private RandomWordService randomWord;  
+    @Autowired
+    private AsyncEmailService asyncEmailService;   
 
     //region gamejam controller
     @RequestMapping("/gamejam/{gjId}")
@@ -83,7 +85,7 @@ public class GameJamController {
         boolean result = gameJamService.addNewJam(jamName, description, myUser, topic, sDate, eDate);
         if (result) {
             try {
-                gameJamService.sendRegisterJam(myUser.getAlias(), myUser.getEmail(), jamName);
+                asyncEmailService.sendRegisterJam(myUser.getAlias(), myUser.getEmail(), jamName);
             } catch (RestClientException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

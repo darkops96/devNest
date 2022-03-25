@@ -27,7 +27,7 @@ public class EmailController {
     @PostMapping("/create-jam")
     public void sendCreationOfJamEmail(@RequestBody List<String> data)
     {
-        Email email = new Email(data.get(1), "Tu Jam ha sido registrada", "Enhorabuena" + data.get(0) + ", tu Jam " + data.get(2) + " ha sido registrada con exito");
+        Email email = new Email(data.get(1), "Tu Jam ha sido registrada", "Enhorabuena " + data.get(0) + ", tu Jam " + data.get(2) + " ha sido registrada con exito");
         emailService.sendEmail(email);
     }
 

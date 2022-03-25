@@ -1,6 +1,7 @@
 package es.urjc.dad.devNest.Controllers;
 
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
+import es.urjc.dad.devNest.Internal_Services.AsyncEmailService;
 import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -33,6 +34,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AsyncEmailService asyncEmailService;
+
     //region login controller
     @GetMapping(value = "/login")
     public String login(Model model, @RequestParam(name = "error", required = false) boolean error, HttpServletRequest request) {   
@@ -60,7 +64,7 @@ public class UserController {
             if (result) {
                 userService.authAfterRegister(request, username, psw);
                 try {
-                    userService.sendRegisterEmail(username, email);
+                    asyncEmailService.sendRegisterEmail(username, email);
                 } catch (RestClientException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

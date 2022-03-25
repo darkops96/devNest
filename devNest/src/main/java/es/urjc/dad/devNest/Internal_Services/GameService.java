@@ -7,17 +7,16 @@ import es.urjc.dad.devNest.Database.Repositories.VideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-@Component
-@SessionScope
-public class GameService {
+@Service
+public class GameService
+{
     @Autowired
     VideogameRepository videogameRepository;
     @Autowired
