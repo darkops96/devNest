@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>es.urjc.dad</groupId>
 	<artifactId>devNest</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>devNest</name>
 	<description>A digital place to organize GameJams</description>
 	<properties>
