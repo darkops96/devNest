@@ -54,10 +54,10 @@ public class GameController {
         return "gameWeb";
     }
 
-    @RequestMapping(value = "/createGame/{tName}")
-    public String createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable String tName, HttpServletRequest request) throws IOException {
+    @RequestMapping(value = "/createGame/{tID}")
+    public String createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable long tID, HttpServletRequest request) throws IOException {
         //team by name
-        TeamEntity team = gameJamService.getTeam(tName);
+        TeamEntity team = gameJamService.getTeam(tID);
         //current date
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
@@ -70,17 +70,19 @@ public class GameController {
         }
 
         boolean result = false;
+        VideogameEntity videogame = null;
         if(file != null)
         {
-            VideogameEntity videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, team, location.toString(), file);
-            result = gameService.addNewGame(videogame, tName);
+            videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, location.toString(), file);
+            result = gameService.addNewGame(videogame, tID);
         }
-        System.out.printf("/////////////////////////////////////////////////////////////////////");
-        System.out.println(result);
-        if (result) {
-            return "redirect:/";
+
+        
+        if (result)
+        {
+            return "redirect:/gamejam/" + team.getGamejam().getId();
         } else {
-            return "redirect:/uploadGame/"+tName;
+            return "redirect:/uploadGame/"+tID;
         }
     }    
 
@@ -111,7 +113,7 @@ public class GameController {
             myUser = userService.getUser(request.getUserPrincipal().getName());
 
         model.addAttribute("userEntity", myUser);        
-        model.addAttribute("tName", gameJamService.getTeam(tId).getTeamName());
+        model.addAttribute("tID", tId);
         return "createGame";
     }
 

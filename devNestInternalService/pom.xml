@@ -10,9 +10,9 @@
     </parent>
     <groupId>es.urjc.dad</groupId>
     <artifactId>devNestInternalService</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>devNestInternalService</name>
-    <description>A digital place to organize GameJams</description>
+    <description>Internal services for devNest web application</description>
     <properties>
         <java.version>17</java.version>
     </properties>
