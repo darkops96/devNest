@@ -76,6 +76,7 @@ public class GameController {
             videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, location.toString(), file);
             result = gameService.addNewGame(videogame, tID);
         }
+
         
         if (result)
         {
