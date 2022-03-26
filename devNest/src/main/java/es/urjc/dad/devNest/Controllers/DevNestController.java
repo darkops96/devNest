@@ -34,8 +34,8 @@ public class DevNestController {
         model.addAttribute("gamejams", gameJamService.getAllJams());
 
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
         model.addAttribute("userEntity", myUser);
         model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
@@ -44,13 +44,12 @@ public class DevNestController {
     }
 
     @GetMapping("/admin")
-    public String adminPage(Model model, HttpServletRequest request)
-    {
+    public String adminPage(Model model, HttpServletRequest request) {
         model.addAttribute("gamejams", gameJamService.getAllJams());
 
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
         model.addAttribute("userEntity", myUser);
 
@@ -58,8 +57,7 @@ public class DevNestController {
     }
 
     @GetMapping("/admin/delete-jam/{id}")
-    public String deleteJam(@PathVariable long id)
-    {
+    public String deleteJam(@PathVariable long id) {
         gameJamService.deleteJam(id);
         return "redirect:/admin";
     }
@@ -69,11 +67,10 @@ public class DevNestController {
     private void randomWordAction(Model model) {
         //Random generator
         int i = 1;
-        for(String topic : randomWord.getRandomWord())
-        {
+        for (String topic : randomWord.getRandomWord()) {
             model.addAttribute("topic" + i, topic);
             i++;
-        }      
+        }
     }
     //endregion
 }

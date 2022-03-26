@@ -25,16 +25,14 @@ public class TeamController {
     @RequestMapping(value = "/gamejam/{gjId}/join+team/{tId}")
     public String joinTeam(@PathVariable long gjId, @PathVariable long tId, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
-        {
+        Principal up = request.getUserPrincipal();
+        if (up != null) {
             myUser = userService.getUser(request.getUserPrincipal().getName());
         }
-        if (myUser != null)
-        {
-            gameJamService.joinTeam(gjId, tId, myUser);            
+        if (myUser != null) {
+            gameJamService.joinTeam(gjId, tId, myUser);
         }
         return "redirect:/gamejam/" + gjId;
-    }  
+    }
     //endregion
 }

@@ -24,19 +24,18 @@ public class GameJamController {
     @Autowired
     private GameJamService gameJamService;
     @Autowired
-    private RandomWordService randomWord;  
+    private RandomWordService randomWord;
     @Autowired
-    private AsyncEmailService asyncEmailService;   
+    private AsyncEmailService asyncEmailService;
 
     //region gamejam controller
     @RequestMapping("/gamejam/{gjId}")
-    public String jamPage(Model model, @PathVariable long gjId, HttpServletRequest request)
-    {
+    public String jamPage(Model model, @PathVariable long gjId, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
-        
+
         model.addAttribute("userEntity", myUser);
 
         gameJamService.deleteEmptyTeams(gjId);
@@ -48,13 +47,11 @@ public class GameJamController {
     @RequestMapping(value = "/gamejam/{gjId}/register+team")
     public String registerTeam(@PathVariable long gjId, @RequestParam String teamname, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
-        {
+        Principal up = request.getUserPrincipal();
+        if (up != null) {
             myUser = userService.getUser(request.getUserPrincipal().getName());
         }
-        if (myUser != null) 
-        {
+        if (myUser != null) {
             gameJamService.addNewTeam(gjId, teamname, myUser);
         }
         return "redirect:/gamejam/" + gjId;
@@ -65,8 +62,8 @@ public class GameJamController {
     @GetMapping("/registerJam")
     public String goToOrganizeJam(Model model, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
 
         model.addAttribute("userEntity", myUser);
@@ -78,10 +75,10 @@ public class GameJamController {
     @RequestMapping(value = "/registerGameJam")
     public String createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
-        
+
         boolean result = gameJamService.addNewJam(jamName, description, myUser, topic, sDate, eDate);
         if (result) {
             try {
@@ -104,11 +101,10 @@ public class GameJamController {
     private void randomWordAction(Model model) {
         //Random generator
         int i = 1;
-        for(String topic : randomWord.getRandomWord())
-        {
+        for (String topic : randomWord.getRandomWord()) {
             model.addAttribute("topic" + i, topic);
             i++;
-        }        
+        }
     }
     //endregion
 }
