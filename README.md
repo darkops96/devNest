@@ -19,7 +19,7 @@
   1. Instalar el JRE de Java 17 o posterior y MySQL Server en la máquina virtual.
   2. Cargar los 2 archivos .jar compilados anteriormente al sistema.
   3. Abrir una terminal y desplazarse hasta el directorio donde se hayan guardado ambos archivos.
-  4. Ejecutar el comando ```java -jar ```*nombre del archivo* para cada uno de ellos.
+  4. Ejecutar el comando ```java -jar *nombre del archivo*``` para cada uno de ellos.
 
 ## Entidades:
 
