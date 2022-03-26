@@ -10,10 +10,10 @@
   1. Instalar el JDK de Java 17 o posterior y MySQL Server en la máquina donde se vayan a compilar los proyectos.
   2. Descargar y descomprimir Maven en la carpeta que el usuario desee.
   3. Comprobar que la variable del sistema JAVA_HOME apunta al directorio raíz del JDK (suele hacerse automáticamente al instalar el JDK).
-  4. Comprobar que la variable del sistema PATH apunta a los directorios "bin" del JDK (también suele hacerse automáticamente al instalarlo) y de Maven.
+  4. Comprobar que la variable del sistema PATH apunta a los directorios *bin* del JDK (también suele hacerse automáticamente al instalarlo) y de Maven.
   5. Abrir una terminal (por ejemplo, PowerShell en Windows) y desplazarse hasta el directorio raíz del proyecto de la aplicación web (devNest).
   6. Ejecutar el comando `mvn clean package`.
-  7. El ejecutable (archivo con extensión .jar) se guardará en el directorio "target" del proyecto.
+  7. El ejecutable (archivo con extensión .jar) se guardará en el directorio *target* del proyecto.
   8. Repetir los pasos 5, 6 y 7 con el proyecto del servicio interno (devNestInternalService).
   ### Despliegue en Máquina Virtual:
   1. Instalar el JRE de Java 17 o posterior y MySQL Server en la máquina virtual.
