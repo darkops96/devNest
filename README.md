@@ -5,6 +5,12 @@
 
 **De forma privada**, los usuarios se registraran con un alias (que debe ser único) y una contraseña. Tendrán un muro donde aparecerán sus juegos publicados. Por otro lado, podrán apuntarse y organizar jams, definiendo un nombre y una fecha. La temática puede elegirse libremente o hacer uso del randomizador para obtener 2 palabras que la definan. Dentro de la organización de la Jam, podrán avisar de novedades a los usuarios apuntados. Al apuntarse a una Jam, tendrán la posibilidad de subir un juego durante la duración de la misma.
 
+## Instrucciones para el despliegue la aplicación:
+  ### Compilación:
+  1. Paso 1:
+  ### Despliegue en Máquina Virtual:
+  1. Paso 1:
+
 ## Entidades:
 
   * **Game Jam**: ID, Nombre de la Game Jam, Usuario Administrador, Descripción, Temática, Equipos, Equipo Ganador, Fecha de Inicio y Fecha de Fin.  
