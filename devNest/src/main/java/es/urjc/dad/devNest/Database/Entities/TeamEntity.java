@@ -76,8 +76,7 @@ public class TeamEntity {
         this.videogame = _videogame;
     }
 
-    public GamejamEntity getGamejam()
-    {
+    public GamejamEntity getGamejam() {
         return gamejam;
     }
 
@@ -86,7 +85,7 @@ public class TeamEntity {
     }
 
     @Override
-	public String toString() {
-		return "Team [name=" + teamName + "]";
-	}
+    public String toString() {
+        return "Team [name=" + teamName + "]";
+    }
 }
