@@ -57,6 +57,7 @@ public class GameJamService {
 
     /**
      * Add a new jam to the database
+     *
      * @param _name
      * @param description
      * @param _userEntity creator of the jam
@@ -78,6 +79,7 @@ public class GameJamService {
 
     /**
      * if the jam exists it deletes it from the database and indicates that the internal list must be updated
+     *
      * @param id of the jam that needs to be deleted
      */
     public void deleteJam(long id) {
@@ -91,6 +93,7 @@ public class GameJamService {
 
     /**
      * Get an especific jam
+     *
      * @param id
      * @return
      */
@@ -104,6 +107,7 @@ public class GameJamService {
 
     /**
      * Get an especific team
+     *
      * @param id
      * @return
      */
@@ -117,6 +121,7 @@ public class GameJamService {
 
     /**
      * Get the game corresponding to a team
+     *
      * @param id
      * @return
      */
@@ -132,6 +137,7 @@ public class GameJamService {
 
     /**
      * Add a new team to the database and joins the current user to the game
+     *
      * @param jamId
      * @param teamName
      * @param user
@@ -176,6 +182,7 @@ public class GameJamService {
 
     /**
      * get a team by its name from the database
+     *
      * @param teamName
      * @return
      */
@@ -190,6 +197,7 @@ public class GameJamService {
 
     /**
      * Join a new team and leave the old if necessary
+     *
      * @param jamId
      * @param teamId
      * @param user
@@ -234,6 +242,7 @@ public class GameJamService {
 
     /**
      * Leave a team if it was in one
+     *
      * @param jamId
      * @param user
      */
@@ -260,6 +269,7 @@ public class GameJamService {
 
     /**
      * checks if the current user is in a team
+     *
      * @param gj
      * @param user
      * @return
@@ -278,6 +288,7 @@ public class GameJamService {
 
     /**
      * looks for all the teams with no members and deletes them
+     *
      * @param jamId
      */
     public void deleteEmptyTeams(long jamId) {

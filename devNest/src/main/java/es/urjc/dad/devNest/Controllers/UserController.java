@@ -39,8 +39,8 @@ public class UserController {
 
     //region login controller
     @GetMapping(value = "/login")
-    public String login(Model model, @RequestParam(name = "error", required = false) boolean error, HttpServletRequest request) {   
-        model.addAttribute("error", error);     
+    public String login(Model model, @RequestParam(name = "error", required = false) boolean error, HttpServletRequest request) {
+        model.addAttribute("error", error);
         return "loginWeb";
     }
 
@@ -88,17 +88,16 @@ public class UserController {
         UserEntity user = userService.getUser(uId);
 
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
-        {
+        Principal up = request.getUserPrincipal();
+        if (up != null) {
             myUser = userService.getUser(request.getUserPrincipal().getName());
         }
 
         model.addAttribute("myUserEntity", myUser);
 
-        if(myUser != null && myUser.getId() == user.getId())
+        if (myUser != null && myUser.getId() == user.getId())
             model.addAttribute("myProfile", true);
-        else     
+        else
             model.addAttribute("myProfile", false);
 
         model.addAttribute("userEntity", user);
@@ -113,7 +112,7 @@ public class UserController {
             InputStreamResource file = new InputStreamResource(
                     myUser.getPPictureFile().getBinaryStream());
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_TYPE, "image/png","image/jpg","image/jpeg","image/gif")
+                    .header(HttpHeaders.CONTENT_TYPE, "image/png", "image/jpg", "image/jpeg", "image/gif")
                     .contentLength(myUser.getPPictureFile().length())
                     .body(file);
         } else {
@@ -125,13 +124,11 @@ public class UserController {
     @PostMapping("/editProfile")
     public String updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {
         UserEntity user = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
-        {
+        Principal up = request.getUserPrincipal();
+        if (up != null) {
             user = userService.getUser(request.getUserPrincipal().getName());
         }
-        if(user != null)
-        {
+        if (user != null) {
             user.setDescription(description);
             URI location = fromCurrentRequest().build().toUri();
             if (!myfile.isEmpty()) {
@@ -139,7 +136,7 @@ public class UserController {
                 user.setPPictureFile(BlobProxy.generateProxy(myfile.getInputStream(), myfile.getSize()));
             }
             userService.updateUser(user);
-        }        
+        }
         return "redirect:/profile/" + user.getId();
     }
 

@@ -33,7 +33,7 @@ public class AsyncEmailService {
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
         URI url = new URI("http://localhost:8080/emails/registration-email/");
-        //sends the user and its email in a arraylist
+        //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(2);
         data.add(username);
         data.add(email);
@@ -56,8 +56,9 @@ public class AsyncEmailService {
     @Async
     public void sendRegisterJam(String username, String email, String jam) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
+        //URL of the controller in charge of sending the emails
         URI url = new URI("http://localhost:8080/emails/create-jam/");
-
+        //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(3);
         data.add(username);
         data.add(email);
@@ -72,17 +73,18 @@ public class AsyncEmailService {
     /**
      * Asks the Rest to send an email when the user correctly joins a team
      *
-     * @param username
-     * @param email
-     * @param team
+     * @param username user username
+     * @param email    user email
+     * @param team     team user is joining
      * @throws RestClientException
      * @throws URISyntaxException
      */
     @Async
     public void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
+        //URL of the controller in charge of sending the emails
         URI url = new URI("http://localhost:8080/emails/join-team/");
-
+        //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(3);
         data.add(username);
         data.add(email);
@@ -91,8 +93,6 @@ public class AsyncEmailService {
         HttpEntity<List> requestEntity = getListHttpEntity(data);
         restTemplate.postForEntity(url, requestEntity, String.class);
     }
-
-    //if something fails could be because I extracted this method
 
     /**
      * Auxiliar method for packaging the information we need to send to the REST
