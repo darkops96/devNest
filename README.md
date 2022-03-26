@@ -5,6 +5,24 @@
 
 **De forma privada**, los usuarios se registraran con un alias (que debe ser único) y una contraseña. Tendrán un muro donde aparecerán sus juegos publicados. Por otro lado, podrán apuntarse y organizar jams, definiendo un nombre y una fecha. La temática puede elegirse libremente o hacer uso del randomizador para obtener 2 palabras que la definan. Dentro de la organización de la Jam, podrán avisar de novedades a los usuarios apuntados. Al apuntarse a una Jam, tendrán la posibilidad de subir un juego durante la duración de la misma.
 
+## Instrucciones para el despliegue la aplicación:
+  ### Compilación:
+  1. Instalar el JDK de Java 17 o posterior y MySQL Server en la máquina donde se vayan a compilar los proyectos.
+  2. Descargar y descomprimir Maven en la carpeta que el usuario desee.
+  3. Comprobar que la variable del sistema JAVA_HOME apunta al directorio raíz del JDK (suele hacerse automáticamente al instalar el JDK).
+  4. Comprobar que la variable del sistema PATH apunta a los directorios *bin* del JDK (también suele hacerse automáticamente al instalarlo) y de Maven.
+  5. Abrir una terminal (por ejemplo, PowerShell en Windows) y desplazarse hasta el directorio raíz del proyecto de la aplicación web (devNest).
+  6. Ejecutar el comando `mvn clean package`.
+  7. El ejecutable (archivo con extensión .jar) se guardará en el directorio *target* del proyecto.
+  8. Repetir los pasos 5, 6 y 7 con el proyecto del servicio interno (devNestInternalService).
+  ### Despliegue en Máquina Virtual:
+  1. Instalar el JRE de Java 17 o posterior y MySQL Server en la máquina virtual.
+  2. Cargar los 2 archivos .jar compilados anteriormente al sistema. En caso de no poder realizar el proceso de compilación, pueden obtenerse aquí:
+     * [devNest](https://github.com/darkops96/devNest/raw/main/builds/devNest-1.0.0.jar)
+     * [devNest Internal Service](https://github.com/darkops96/devNest/raw/main/builds/devNestInternalService-1.0.0.jar)
+  3. Abrir una terminal y desplazarse hasta el directorio donde se hayan guardado ambos archivos.
+  4. Ejecutar los comandos `java -jar devNest-1.0.0.jar` y `java -jar devNestInternalService-1.0.0.jar` para lanzar la aplicación web y la API REST del servicio interno.
+
 ## Entidades:
 
   * **Game Jam**: ID, Nombre de la Game Jam, Usuario Administrador, Descripción, Temática, Equipos, Equipo Ganador, Fecha de Inicio y Fecha de Fin.  

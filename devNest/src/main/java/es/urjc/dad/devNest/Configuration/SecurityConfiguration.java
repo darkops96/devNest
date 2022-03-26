@@ -35,7 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
-    {    
+    {       
+        // Set public URLs
         http.authorizeRequests().antMatchers("/css/**").permitAll();
 
         http.authorizeRequests().antMatchers("/").permitAll(); 
@@ -51,8 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         http.authorizeRequests().antMatchers("/*/image").permitAll();  
         http.authorizeRequests().antMatchers("/game/{gId}/download-game").permitAll();
 
+        // Set private admin URLs
         http.authorizeRequests().antMatchers("/admin").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
+
+        // Set private user URLs
         http.authorizeRequests().anyRequest().hasRole("USER"); 
         
         // Log in form
@@ -69,7 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
-    {
+    {        
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }

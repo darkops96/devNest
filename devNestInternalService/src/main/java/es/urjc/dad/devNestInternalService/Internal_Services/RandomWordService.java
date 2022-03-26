@@ -1,18 +1,28 @@
 package es.urjc.dad.devNestInternalService.Internal_Services;
-import org.springframework.core.io.ClassPathResource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.PostConstruct;
+
 @Service
 public class RandomWordService {
 
     private List<String> words;
 
-    public RandomWordService() {
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    @PostConstruct
+    public void initRandomWord() {
         words = initializeList();
     }
 
@@ -20,7 +30,7 @@ public class RandomWordService {
         List<String> aux = new ArrayList<>();
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader(getResourceFile()));
+            reader = new BufferedReader(new InputStreamReader(getResourceFile()));
             String line = reader.readLine();
             while (line != null) {
                 aux.add(line);
@@ -40,8 +50,8 @@ public class RandomWordService {
         return words.get(rn.nextInt(0, words.size() - 1));
     }
 
-    static String getResourceFile() throws IOException {
-        File resource = new ClassPathResource("static/topicsPool.txt").getFile();
-        return resource.getAbsolutePath();
+    private InputStream getResourceFile() throws IOException {
+        Resource randomPool = resourceLoader.getResource(ResourceUtils.CLASSPATH_URL_PREFIX + "static/topicsPool.txt");
+        return randomPool.getInputStream();
     }
 }
