@@ -12,14 +12,14 @@
   3. Comprobar que la variable del sistema JAVA_HOME apunta al directorio raíz del JDK (suele hacerse automáticamente al instalar el JDK).
   4. Comprobar que la variable del sistema PATH apunta a los directorios "bin" del JDK (también suele hacerse automáticamente al instalarlo) y de Maven.
   5. Abrir una terminal (por ejemplo, PowerShell en Windows) y desplazarse hasta el directorio raíz del proyecto de la aplicación web (devNest).
-  6. Ejecutar el comando ```mvn clean package```.
+  6. Ejecutar el comando `mvn clean package`.
   7. El ejecutable (archivo con extensión .jar) se guardará en el directorio "target" del proyecto.
   8. Repetir los pasos 5, 6 y 7 con el proyecto del servicio interno (devNestInternalService).
   ### Despliegue en Máquina Virtual:
   1. Instalar el JRE de Java 17 o posterior y MySQL Server en la máquina virtual.
   2. Cargar los 2 archivos .jar compilados anteriormente al sistema.
   3. Abrir una terminal y desplazarse hasta el directorio donde se hayan guardado ambos archivos.
-  4. Ejecutar el comando ```java -jar *nombre del archivo*``` para cada uno de ellos.
+  4. Ejecutar los comandos `java -jar devNest-1.0.0.jar` y `java -jar devNestInternalService-1.0.0.jar` para lanzar la aplicación web y la API REST del servicio interno.
 
 ## Entidades:
 
