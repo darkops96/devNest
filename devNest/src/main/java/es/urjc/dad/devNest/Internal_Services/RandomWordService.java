@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class RandomWordService {
     /**
-     * Asks the REST for 2 new topics
+     * Asks the REST for 2 new topics and will be used in the
      *
      * @return obtains the 2 words inside an arraylist
      */
