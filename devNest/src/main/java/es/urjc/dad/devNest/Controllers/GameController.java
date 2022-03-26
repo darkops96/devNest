@@ -38,15 +38,15 @@ public class GameController {
     @Autowired
     private GameService gameService;
     @Autowired
-    private CommentService commentService;     
+    private CommentService commentService;
 
     //region game controller
     @RequestMapping(value = "/game/{gId}")
     public String gamePage(Model model, @PathVariable long gId, HttpServletRequest request) {
 
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
 
         model.addAttribute("userEntity", myUser);
@@ -71,80 +71,71 @@ public class GameController {
 
         boolean result = false;
         VideogameEntity videogame = null;
-        if(file != null)
-        {
+        if (file != null) {
             videogame = new VideogameEntity(_title, dtf.format(now), _descrition, _category, _platform, location.toString(), file);
             result = gameService.addNewGame(videogame, tID);
         }
 
-        
-        if (result)
-        {
+
+        if (result) {
             return "redirect:/gamejam/" + team.getGamejam().getId();
         } else {
-            return "redirect:/uploadGame/"+tID;
+            return "redirect:/uploadGame/" + tID;
         }
-    }    
+    }
 
     @RequestMapping("/registerGame/{gId}")
     public String goCreateGame(@PathVariable long gId, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
 
         GamejamEntity gj = gameJamService.getJam(gId);
-        
+
         long check = gameJamService.checkIfIsInTeam(gj, myUser);
-        if(check != -1)
-        {
-            return "redirect:/uploadGame/"+check;
-        }
-        else
-            return "redirect:/gamejam/" + gId;        
+        if (check != -1) {
+            return "redirect:/uploadGame/" + check;
+        } else
+            return "redirect:/gamejam/" + gId;
     }
 
     @RequestMapping("/uploadGame/{tId}")
-    public String uploadGamePage(Model model, @PathVariable long tId, HttpServletRequest request)
-    {
+    public String uploadGamePage(Model model, @PathVariable long tId, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
+        Principal up = request.getUserPrincipal();
+        if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
 
-        model.addAttribute("userEntity", myUser);        
+        model.addAttribute("userEntity", myUser);
         model.addAttribute("tID", tId);
         return "createGame";
     }
 
     @RequestMapping("/game/{gId}/addComment")
-    public String addComment(@PathVariable long gId, @RequestParam String userCommentBox, HttpServletRequest request)
-    {
+    public String addComment(@PathVariable long gId, @RequestParam String userCommentBox, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null){
+        Principal up = request.getUserPrincipal();
+        if (up != null) {
             myUser = userService.getUser(request.getUserPrincipal().getName());
             commentService.addComment(gId, myUser.getId(), userCommentBox);
-        }            
-        return "redirect:/game/"+gId;
+        }
+        return "redirect:/game/" + gId;
     }
 
     @RequestMapping("/game/{gId}/answerComment+{cId}")
-    public String answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox, HttpServletRequest request)
-    {
+    public String answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox, HttpServletRequest request) {
         UserEntity myUser = null;
-        Principal up = request.getUserPrincipal();  
-        if(up != null)
-        {
+        Principal up = request.getUserPrincipal();
+        if (up != null) {
             myUser = userService.getUser(request.getUserPrincipal().getName());
             commentService.answerComment(gId, myUser.getId(), cId, userCommentBox);
-        }            
-        return "redirect:/game/"+gId;
+        }
+        return "redirect:/game/" + gId;
     }
 
-    @GetMapping(value = "/game/{gId}/download-game", produces="application/zip")
-    public ResponseEntity<ByteArrayResource> download(@PathVariable long gId, HttpServletRequest request)
-    {
+    @GetMapping(value = "/game/{gId}/download-game", produces = "application/zip")
+    public ResponseEntity<ByteArrayResource> download(@PathVariable long gId, HttpServletRequest request) {
         return gameService.downloadGame(gId);
     }
     //endregion    

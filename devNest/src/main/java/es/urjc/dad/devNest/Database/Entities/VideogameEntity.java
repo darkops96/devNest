@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.sql.Blob;
 import java.util.List;
+
 @Entity
 public class VideogameEntity {
     @Id
@@ -58,6 +59,7 @@ public class VideogameEntity {
         gameFile = _gameFile;
 
     }
+
     public VideogameEntity(String _title, String _date, String _description, String _category, String _platform, Blob _gameFile) {
         super();
         title = _title;
@@ -151,8 +153,8 @@ public class VideogameEntity {
     //endregion
 
     @Override
-	public String toString() {
-		return "Videogame [title=" + title + ", date=" + date + "]";
-	}
+    public String toString() {
+        return "Videogame [title=" + title + ", date=" + date + "]";
+    }
 }
 
