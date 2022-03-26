@@ -17,7 +17,9 @@
   8. Repetir los pasos 5, 6 y 7 con el proyecto del servicio interno (devNestInternalService).
   ### Despliegue en Máquina Virtual:
   1. Instalar el JRE de Java 17 o posterior y MySQL Server en la máquina virtual.
-  2. Cargar los 2 archivos .jar compilados anteriormente al sistema.
+  2. Cargar los 2 archivos .jar compilados anteriormente al sistema. En caso de no poder realizar el proceso de compilación, pueden obtenerse aquí:
+     * [devNest](https://github.com/darkops96/devNest/raw/main/builds/devNest-1.0.0.jar)
+     * [devNest Internal Service](https://github.com/darkops96/devNest/raw/main/builds/devNestInternalService-1.0.0.jar)
   3. Abrir una terminal y desplazarse hasta el directorio donde se hayan guardado ambos archivos.
   4. Ejecutar los comandos `java -jar devNest-1.0.0.jar` y `java -jar devNestInternalService-1.0.0.jar` para lanzar la aplicación web y la API REST del servicio interno.
 
