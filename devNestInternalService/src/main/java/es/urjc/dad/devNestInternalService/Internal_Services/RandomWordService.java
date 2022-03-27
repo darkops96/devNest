@@ -13,6 +13,9 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * Class in vharge of reading the file words file and selecting 2 random ones
+ */
 @Service
 public class RandomWordService {
 
@@ -21,11 +24,18 @@ public class RandomWordService {
     @Autowired
     private ResourceLoader resourceLoader;
 
+    /**
+     * reads the file and makes an arraylist with all the words so it can be used easier
+     */
     @PostConstruct
     public void initRandomWord() {
         words = initializeList();
     }
 
+    /**
+     * Auxiliar method to read the TXT
+     * @return  an arraylist with all the words
+     */
     List<String> initializeList() {
         List<String> aux = new ArrayList<>();
         BufferedReader reader;
@@ -45,11 +55,20 @@ public class RandomWordService {
         return aux;
     }
 
+    /**
+     * selects a random word from the words array
+     * @return a word
+     */
     public String getRandomWord() {
         Random rn = new Random();
         return words.get(rn.nextInt(0, words.size() - 1));
     }
 
+    /**
+     * Access the resource file
+     * @return the whole file in a inputStream
+     * @throws IOException
+     */
     private InputStream getResourceFile() throws IOException {
         Resource randomPool = resourceLoader.getResource(ResourceUtils.CLASSPATH_URL_PREFIX + "static/topicsPool.txt");
         return randomPool.getInputStream();

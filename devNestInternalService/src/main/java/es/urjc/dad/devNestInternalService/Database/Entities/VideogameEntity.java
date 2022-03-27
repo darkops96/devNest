@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.sql.Blob;
 
+/**
+ * videogame entity so the REST can read the necessary info from the data base
+ */
 @Entity
 public class VideogameEntity {
     @Id
@@ -21,13 +24,10 @@ public class VideogameEntity {
     @Column(nullable = false)
     private Blob gameFile;
 
-    public VideogameEntity() {
-    }
+    public VideogameEntity() {}
 
 
     //region GETTERS
-
-
     public Blob getGameFile() {
         return gameFile;
     }

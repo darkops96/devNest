@@ -6,12 +6,18 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service in charge of actually sending the email to the destinatary
+ */
 @Service
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    //Pasamos por parametro: destinatario, asunto y el mensaje
+    /**
+     * Actually sends the email
+     * @param e email which conteins the subject, destinatary, and body
+     */
     public void sendEmail(Email e) {
 
         SimpleMailMessage email = new SimpleMailMessage();
