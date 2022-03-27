@@ -23,6 +23,9 @@ import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.UserRepository;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
 
+/**
+ * Class that provides service to actions related to users
+ */
 @Service
 public class UserService {
 
@@ -42,9 +45,12 @@ public class UserService {
     private String adminPassword;
 
     //region INIT
+
+    /**
+     * Inserts the admin in the database with the roles ADMIN and USER
+     */
     @PostConstruct
-    private void initDatabase()
-    {
+    private void initDatabase() {
         Optional<UserEntity> u = userRepository.findByAlias("admin");
 
         if (!u.isPresent()) {
@@ -53,8 +59,15 @@ public class UserService {
     }
     //endregion
 
-    public boolean register(String username, String password, String email)
-    {
+    /**
+     * Inserts a user in the database it wasnt register before
+     *
+     * @param username
+     * @param password
+     * @param email
+     * @return true if the user was registered, false if it already existed
+     */
+    public boolean register(String username, String password, String email) {
         Optional<UserEntity> u = userRepository.findByAlias(username);
 
         if (!u.isPresent()) {
@@ -64,28 +77,50 @@ public class UserService {
         } else {
             return false;
         }
-    }    
+    }
 
-    public void authAfterRegister(HttpServletRequest request, String username, String psw)
-    {
+    /**
+     * Logs you in after you register automatically
+     * @param request
+     * @param username
+     * @param psw
+     */
+    public void authAfterRegister(HttpServletRequest request, String username, String psw) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, psw);
         token.setDetails(new WebAuthenticationDetails(request));
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-    }    
+    }
 
+    /**
+     * requests to the database all the users
+     *
+     * @return arraylist with all the users
+     */
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * asks the database for a espacific user
+     *
+     * @param name username of the user we need
+     * @return the user or null if it doesn't exist
+     */
     public UserEntity getUser(String name) {
-        Optional<UserEntity> u = userRepository.findByAlias(name);        
-        if(u.isPresent())
+        Optional<UserEntity> u = userRepository.findByAlias(name);
+        if (u.isPresent())
             return u.get();
         else
             return null;
     }
 
+    /**
+     * asks the database for a espacific user
+     *
+     * @param id of the user we need
+     * @return the user or null if it doesn't exist
+     */
     public UserEntity getUser(long id) {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isPresent())
@@ -94,14 +129,29 @@ public class UserService {
             return null;
     }
 
+    /**
+     * asks the database to update the information of a user
+     *
+     * @param user user updated
+     */
     public void updateUser(UserEntity user) {
         userRepository.save(user);
     }
 
+    /**
+     * Asks for all the teams a member is in because a user can be in diferente teams if they are from different jams
+     * @param id of the user
+     * @return a list with all the teams the user is in
+     */
     public List<TeamEntity> getUserTeams(long id) {
         return teamRepository.findByMembersId(id);
     }
 
+    /**
+     * gets all the games from all the teams a user is in
+     * @param teams teams the user is in
+     * @return a list of videogames
+     */
     public List<VideogameEntity> getGames(List<TeamEntity> teams) {
         List<VideogameEntity> games = new LinkedList<VideogameEntity>();
 
