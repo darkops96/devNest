@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 
-
+/**
+ * Class which contains the controllers corresponding to Game jam actions: register a jam, go to jam page...
+ */
 @Controller
 public class GameJamController {
 
@@ -29,6 +31,15 @@ public class GameJamController {
     private AsyncEmailService asyncEmailService;
 
     //region gamejam controller
+
+    /**
+     * goes to a jam html and deletes all the jams that are empty
+     *
+     * @param model
+     * @param gjId
+     * @param request
+     * @return
+     */
     @RequestMapping("/gamejam/{gjId}")
     public String jamPage(Model model, @PathVariable long gjId, HttpServletRequest request) {
         UserEntity myUser = null;
@@ -37,13 +48,20 @@ public class GameJamController {
             myUser = userService.getUser(request.getUserPrincipal().getName());
 
         model.addAttribute("userEntity", myUser);
-
+        //delete all teams that are empty
         gameJamService.deleteEmptyTeams(gjId);
         model.addAttribute("gamejam", gameJamService.getJam(gjId));
         return "gameJamWeb";
     }
 
-
+    /**
+     * Registers a new team to a jam and automatically the user joins the team
+     *
+     * @param gjId game jam id
+     * @param teamname name of the new team
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/gamejam/{gjId}/register+team")
     public String registerTeam(@PathVariable long gjId, @RequestParam String teamname, HttpServletRequest request) {
         UserEntity myUser = null;
@@ -59,6 +77,13 @@ public class GameJamController {
     //endregion
 
     //region register jam controller
+
+    /**
+     * redirects to the html to create a new game jam and suggests 2 random topics
+     * @param model
+     * @param request
+     * @return
+     */
     @GetMapping("/registerJam")
     public String goToOrganizeJam(Model model, HttpServletRequest request) {
         UserEntity myUser = null;
@@ -72,6 +97,16 @@ public class GameJamController {
         return "createJam";
     }
 
+    /**
+     * tries to create a jam and if it was succesfully created it sends a confirmation email
+     * @param jamName
+     * @param description
+     * @param topic
+     * @param sDate
+     * @param eDate
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/registerGameJam")
     public String createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate, HttpServletRequest request) {
         UserEntity myUser = null;

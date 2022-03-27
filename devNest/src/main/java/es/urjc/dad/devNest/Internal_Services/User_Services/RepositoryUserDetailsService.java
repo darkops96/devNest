@@ -14,11 +14,21 @@ import org.springframework.stereotype.Service;
 import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Database.Repositories.UserRepository;
 
+/**
+ * looks for the roles a user have an gives that information to spring security
+ */
 @Service
 public class RepositoryUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * sets the in the session the username, the password and the roles of the current user
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByAlias(username).orElseThrow(() -> new UsernameNotFoundException("Wrong username"));

@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * Class which contains the controllers corresponding to Team actions (join a team)
+ */
 @Controller
 public class TeamController {
 
@@ -22,6 +24,14 @@ public class TeamController {
     private GameJamService gameJamService;
 
     //region teams controller
+
+    /**
+     * joins a user to a team
+     * @param gjId game jam id
+     * @param tId team id
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/gamejam/{gjId}/join+team/{tId}")
     public String joinTeam(@PathVariable long gjId, @PathVariable long tId, HttpServletRequest request) {
         UserEntity myUser = null;

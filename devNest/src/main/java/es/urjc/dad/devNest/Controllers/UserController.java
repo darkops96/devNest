@@ -27,7 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
-
+/**
+ * Class which contains the controllers corresponding to user actions such as login, register, travel through
+ * the different pages
+ */
 @Controller
 public class UserController {
 
@@ -38,12 +41,28 @@ public class UserController {
     private AsyncEmailService asyncEmailService;
 
     //region login controller
+
+    /**
+     * goes to the login html, but if it has failed to login previously, it goes to the loguin error controller
+     *
+     * @param model
+     * @param error
+     * @param request
+     * @return
+     */
     @GetMapping(value = "/login")
     public String login(Model model, @RequestParam(name = "error", required = false) boolean error, HttpServletRequest request) {
         model.addAttribute("error", error);
         return "loginWeb";
     }
 
+    /**
+     * Enables in the html an indication that tells you that you have failed to login
+     *
+     * @param redirectAttributes
+     * @param request
+     * @return redirects to login html
+     */
     @GetMapping(value = "/login-error")
     public String failedLogin(RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addAttribute("error", true);
@@ -52,18 +71,39 @@ public class UserController {
     //endregion
 
     //region register user controller
+
+    /**
+     * takes to the register html
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/register")
     public String goToRegister(HttpServletRequest request) {
         return "registerWeb";
     }
 
+    /**
+     * Register a user in the database, log in and sends a registration email
+     *
+     * @param username  of the user
+     * @param psw       password
+     * @param email     email
+     * @param pswRepeat again the password to ensuere the user wrote it correctly
+     * @param request
+     * @return redirects to home page or register depending of the result of the registration
+     */
     @PostMapping(value = "/registerUser")
     public String register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat, HttpServletRequest request) {
+        //check the passwors match
         if (psw.equals(pswRepeat)) {
+            //attempts to register a user
             boolean result = userService.register(username, psw, email);
             if (result) {
+                //logs in the user
                 userService.authAfterRegister(request, username, psw);
                 try {
+                    //send the registration email
                     asyncEmailService.sendRegisterEmail(username, email);
                 } catch (RestClientException e) {
                     // TODO Auto-generated catch block
@@ -82,7 +122,16 @@ public class UserController {
     }
     //endregion
 
-    //region my profile controller   
+    //region my profile controller
+
+    /**
+     * goes to the profile page and sets all the information needed
+     *
+     * @param model
+     * @param uId
+     * @param request
+     * @return
+     */
     @RequestMapping("/profile/{uId}")
     public String goToProfile(Model model, @PathVariable long uId, HttpServletRequest request) {
         UserEntity user = userService.getUser(uId);
@@ -105,6 +154,14 @@ public class UserController {
         return "profileWeb";
     }
 
+    /**
+     * Downloads the picture from the database and puts it in the html so it can be shown when someone enters the profile
+     *
+     * @param id of the user
+     * @return
+     * @throws SQLException
+     * @throws MalformedURLException
+     */
     @GetMapping("/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException, MalformedURLException {
         UserEntity myUser = userService.getUser(id);
@@ -121,6 +178,15 @@ public class UserController {
 
     }
 
+    /**
+     * edit the user profile info meaning that it can change the description, and the profile picture
+     *
+     * @param description
+     * @param myfile
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/editProfile")
     public String updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {
         UserEntity user = null;

@@ -14,6 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import es.urjc.dad.devNest.Internal_Services.User_Services.RepositoryUserDetailsService;
 
+/**
+ * Class in charge of spring security
+ */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
@@ -33,6 +36,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         return super.authenticationManagerBean();
     }
 
+    /**
+     * sets the all the URLS all users have access to, the private URLS only own users can access to and the URLs only the admin
+     * has access to
+     * Also sets in spring security the URLS for the different actions in the login and logout
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {       
@@ -70,6 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         http.logout().logoutUrl("/logout");
         http.logout().logoutSuccessUrl("/");
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
