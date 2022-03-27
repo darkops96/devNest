@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * Class which contains the controllers corresponding to the home page and admin funtions (delete a jam button)
+ */
 @Controller
 public class DevNestController {
 
@@ -25,19 +27,29 @@ public class DevNestController {
     private RandomWordService randomWord;
 
     //region initial web controller
+
+    /**
+     * Loads the home xml, asks the internal service for random words and if the user is the admin, then it enables
+     * in the html the delete jam button
+     *
+     * @param model
+     * @param request cookie
+     * @return initial web html
+     */
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request) {
 
-        //Random generator
+        //Random word generator
         randomWordAction(model);
-
+        //list of jams
         model.addAttribute("gamejams", gameJamService.getAllJams());
-
+        //current user
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null)
             myUser = userService.getUser(request.getUserPrincipal().getName());
         model.addAttribute("userEntity", myUser);
+        //we give the html the role so if it is user the delete jam button appears
         model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
 
         return "initialWeb";
