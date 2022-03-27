@@ -55,6 +55,13 @@ public class DevNestController {
         return "initialWeb";
     }
 
+    /**
+     * Takes you to a page that only the admin has access to. At that page, the admin can delete game Jams.
+     *
+     * @param model
+     * @param request
+     * @return the html where the admin can delete jams
+     */
     @GetMapping("/admin")
     public String adminPage(Model model, HttpServletRequest request) {
         model.addAttribute("gamejams", gameJamService.getAllJams());
@@ -68,6 +75,12 @@ public class DevNestController {
         return "adminWeb";
     }
 
+    /**
+     * Calls the service to delete a jam
+     *
+     * @param id of the jam that has to be deleted
+     * @return redirects to the same page it was
+     */
     @GetMapping("/admin/delete-jam/{id}")
     public String deleteJam(@PathVariable long id) {
         gameJamService.deleteJam(id);
@@ -76,6 +89,12 @@ public class DevNestController {
     //endregion  
 
     //region PRIVATE METHODS
+
+    /**
+     * Auxiliar method that requests for random words to the service and places them in the html
+     *
+     * @param model
+     */
     private void randomWordAction(Model model) {
         //Random generator
         int i = 1;
