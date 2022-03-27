@@ -1,5 +1,8 @@
 package es.urjc.dad.devNestInternalService.Objets;
 
+/**
+ * Auxiliar class to compact email information
+ */
 public class Email {
     private String destination;
     private String subject;

@@ -76,7 +76,6 @@ public class GameController {
             result = gameService.addNewGame(videogame, tID);
         }
 
-
         if (result) {
             return "redirect:/gamejam/" + team.getGamejam().getId();
         } else {
