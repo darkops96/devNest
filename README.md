@@ -8,6 +8,7 @@
 ## Instrucciones para el despliegue la aplicación:
   ### Compilación:
   1. Instalar el JDK de Java 17 o posterior y MySQL Server en la máquina donde se vayan a compilar los proyectos.
+    * En MySQL Server se debe crear una base de datos llamada 'devnest' y un usuario 'devnest' con contraseña 'devnest1234' con permisos de administrador.
   2. Descargar y descomprimir Maven en la carpeta que el usuario desee.
   3. Comprobar que la variable del sistema JAVA_HOME apunta al directorio raíz del JDK (suele hacerse automáticamente al instalar el JDK).
   4. Comprobar que la variable del sistema PATH apunta a los directorios *bin* del JDK (también suele hacerse automáticamente al instalarlo) y de Maven.
