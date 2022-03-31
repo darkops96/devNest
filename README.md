@@ -7,6 +7,7 @@
 
 ## Instrucciones para el despliegue la aplicación:
   ### Compilación:
+  Las siguientes instrucciones se corresponden con la compilación de la aplicación y su servicio interno en una máquina con un sistema operativo Windows. Si se buscase compilar el proyecto en un sistema distinto (por ejemplo, una distribución de Linux), los pasos necesarios serían los mismos, pero adaptados a los comandos de dicho sistema.
   1. Instalar el JDK de Java 17 o posterior y MySQL Server en la máquina donde se vayan a compilar los proyectos:
      * En MySQL Server se debe crear una base de datos llamada 'devnest' y un usuario 'devnest' con contraseña 'devnest1234' con permisos de administrador.
   2. Descargar y descomprimir Maven en la carpeta que el usuario desee.
@@ -17,6 +18,7 @@
   7. El ejecutable (archivo con extensión .jar) se guardará en el directorio *target* del proyecto.
   8. Repetir los pasos 5, 6 y 7 con el proyecto del servicio interno (devNestInternalService).
   ### Despliegue en Máquina Virtual:
+  Las siguientes instrucciones se corresponden con el despliegue de la aplicación y su servicio interno en una máquina virtual con un sistema operativo Ubuntu (o derivado de este). Si se buscase desplegar el proyecto en un sistema distinto (por ejemplo, Windows), los pasos necesarios serían los mismos, pero adaptados a los comandos de dicho sistema.
   1. Instalar el JRE de Java 17 o posterior: `sudo apt install openjdk-17-jre-headless`
   2. MySQL Server en la máquina virtual: 
       1. `sudo apt install mysql-server-8.0`
@@ -24,9 +26,11 @@
       3. `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'devnest1234';`
       4.  `quit;`
       5.  `mysql -u root -p`: introducir contraseña 'devnest1234'
-      6.  `ALTER USER 'devnest'@'localhost' IDENTIFIED BY 'devnest1234';`
-      7.  `flush privileges;`
-      8.  `quit;`
+      6.  `CREATE DATABASE devnest;`
+      7.  `CREATE USER 'devnest'@'localhost' IDENTIFIED BY 'devnest1234';`
+      8.  `GRANT ALL PRIVILEGES ON devnest.*  TO 'devnest'@'localhost';`
+      9.  `flush privileges;`
+      10.  `quit;`
   3. Cargar los 2 archivos .jar compilados anteriormente al sistema. En caso de no poder realizar el proceso de compilación, pueden obtenerse aquí:
      * [devNest](https://github.com/darkops96/devNest/raw/main/builds/devNest-1.0.0.jar)
      * [devNest Internal Service](https://github.com/darkops96/devNest/raw/main/builds/devNestInternalService-1.0.0.jar)
