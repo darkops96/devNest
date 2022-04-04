@@ -55,11 +55,15 @@
 ![Diagrama de pantallas](https://user-images.githubusercontent.com/49963607/155017804-c55d094a-5b66-47c8-b7fc-689157e39b23.png)
 
 **Home**: Página inicial. 
+
 * El usuario puede registrarse o iniciar sesión desde la cabecera. Si tiene la sesión iniciada, puede ir a su perfil, crear una GameJam o cerrar sesión.
 * Como característica principal, puede utilizar el "Random Topic Generator" para conseguir dos temas aleatorios.
 * Además, se puede ver un listado con todas las GameJams existentes y entrar en las respectivas páginas de cada una.
+* En el caso del administrador, puede pulsar un botón para borrar las GameJams existentes
 
 ![initialWeb](https://user-images.githubusercontent.com/58952176/155036300-fd914655-298b-46be-bd32-f6b5968b8ee2.PNG)
+
+![initialWeb-Admin](https://user-images.githubusercontent.com/58952176/161638122-7d1345b5-d15b-46f0-8226-c3d5eac8081b.PNG)
 
 **Register**
 : Página de registro de usuario.
@@ -104,6 +108,12 @@
 * Los usuarios con sesión iniciada podrán comentar.
 
 ![GameWeb](https://user-images.githubusercontent.com/58952176/155036403-3bc9326f-66d7-431c-8f86-3e4ae49ccaff.PNG)
+
+**Delete GameJam: Página para eliminar GameJams existentes
+* Página que lista todas GameJams existentes junto a un botón para eliminarlas.
+* Sólo puede acceder un usuario administrador
+
+![Admin-deleteJams](https://user-images.githubusercontent.com/58952176/161638292-7f261d39-6de2-4197-a27c-16ac4888a1eb.PNG)
 
 ## Diagrama UML
 ![devNest](https://user-images.githubusercontent.com/49963607/155034005-160ecb9a-391a-4ddc-ac33-074fe1df03ac.png)
