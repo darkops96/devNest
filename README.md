@@ -109,7 +109,7 @@
 
 ![GameWeb](https://user-images.githubusercontent.com/58952176/155036403-3bc9326f-66d7-431c-8f86-3e4ae49ccaff.PNG)
 
-**Delete GameJam: Página para eliminar GameJams existentes
+**Delete GameJam**: Página para eliminar GameJams existentes
 * Página que lista todas GameJams existentes junto a un botón para eliminarlas.
 * Sólo puede acceder un usuario administrador
 
