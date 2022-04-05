@@ -1,0 +1,19 @@
+@startuml
+
+package "Web Application"{
+component AsyncEmailService
+component GameService
+component RandomWordService
+
+}
+package "Rest Services"{
+component EmailController
+component FileController
+component RandomWordController
+}
+AsyncEmailService-->EmailController: Post send email request
+GameService-->FileController:Get zip file request
+FileController-->GameService:Get zip file response
+RandomWordService-->RandomWordController:Get random words request
+RandomWordService<--RandomWordController:Get random words response
+@enduml
