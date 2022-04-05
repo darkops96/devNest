@@ -32,8 +32,8 @@
       9.  `flush privileges;`
       10.  `quit;`
   3. Cargar los 2 archivos .jar compilados anteriormente al sistema. En caso de no poder realizar el proceso de compilación, pueden obtenerse aquí:
-     * [devNest](https://github.com/darkops96/devNest/raw/main/builds/devNest-1.0.0.jar)
-     * [devNest Internal Service](https://github.com/darkops96/devNest/raw/main/builds/devNestInternalService-1.0.0.jar)
+     * [devNest](https://github.com/darkops96/devNest/raw/main/builds/devNest-1.0.0.jar): `wget https://github.com/darkops96/devNest/raw/main/builds/devNest-1.0.0.jar`
+     * [devNest Internal Service](https://github.com/darkops96/devNest/raw/main/builds/devNestInternalService-1.0.0.jar): `wget https://github.com/darkops96/devNest/raw/main/builds/devNestInternalService-1.0.0.jar`
   4. Abrir una terminal y desplazarse hasta el directorio donde se hayan guardado ambos archivos.
   5. Ejecutar los comandos `sudo java -jar devNest-1.0.0.jar` y `sudo java -jar devNestInternalService-1.0.0.jar` para lanzar la aplicación web y la API REST del servicio interno.
 
