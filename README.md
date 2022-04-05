@@ -117,7 +117,10 @@
 ![devNest](https://user-images.githubusercontent.com/58952176/161655299-3d3b1bf0-5399-4c4d-9fcc-41c676149917.png)
 
 ## Diagrama UML - devNest Internal Services
-![devNest](https://user-images.githubusercontent.com/58952176/161655834-6924bdd4-7909-4868-b0a9-7d7da12d49f9.png)
+![devNestInternalService](https://user-images.githubusercontent.com/49963607/161751437-dc828561-9381-45f8-9c7b-00a09a6086f5.png)
+
+## Diagrama UML - Rest Template connections
+![Template](https://user-images.githubusercontent.com/49963607/161751674-e5aa9961-f049-4669-aa85-7d440dcdf5c3.png)
 
 ## Diagrama Entidad-Relación
 ![Diagrama-Entidad-Relacion](https://user-images.githubusercontent.com/58952176/155035518-28213136-7775-4a52-815b-81e821234202.PNG)
