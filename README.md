@@ -115,9 +115,11 @@
 
 ![Admin-deleteJams](https://user-images.githubusercontent.com/58952176/161638292-7f261d39-6de2-4197-a27c-16ac4888a1eb.PNG)
 
-## Diagrama UML
+## Diagrama UML - devNest
 ![devNest](https://user-images.githubusercontent.com/58952176/161655299-3d3b1bf0-5399-4c4d-9fcc-41c676149917.png)
 
+## Diagrama UML - devNest Internal Services
+![devNest](https://user-images.githubusercontent.com/58952176/161655834-6924bdd4-7909-4868-b0a9-7d7da12d49f9.png)
 
 ## Diagrama Entidad-Relación
 ![Diagrama-Entidad-Relacion](https://user-images.githubusercontent.com/58952176/155035518-28213136-7775-4a52-815b-81e821234202.PNG)
