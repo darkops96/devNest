@@ -65,8 +65,7 @@
 
 ![initialWeb-Admin](https://user-images.githubusercontent.com/58952176/161638122-7d1345b5-d15b-46f0-8226-c3d5eac8081b.PNG)
 
-**Register**: Público a todos los usuarios. 
-: Página de registro de usuario.
+**Register**: Página de registro de usuario. Pública a todos los usuarios. 
 * Desde la cabecera se puede ir a la página de inicio de sesión o a la página principal.
 * El usuario puede introducir sus datos para registrar una cuenta, para ello ha de introducir: Alias (irrepetible), correo electrónico,
 
