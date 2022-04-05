@@ -1,0 +1,26 @@
+@startuml devNest
+
+package "Respositories"{
+    component VideogameRepository
+}
+
+package "Services"{
+    component EmailService 
+    component FileService
+    component RandomWordService
+
+}
+
+package "Controller"{
+    component EmailController 
+    component FileController
+    component RandomWordController
+}
+
+FileService --> VideogameRepository
+
+RandomWordController --> RandomWordService
+FileController --> FileService
+EmailController --> EmailService
+
+@enduml

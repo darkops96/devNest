@@ -1,20 +1,67 @@
 @startuml devNest
 
-GameJamService -- GameJamRepository : > has a
-GameJamService -- TeamRepository : > has a
-GameJamService -- DevNestController : < has a
+package "Respositories"{
+    component GamejamRepository 
+    component TeamRepository 
+    component VideogameRepository
+    component UserRepository
+    component CommentRepository
+}
 
-GameService -- VideogameeRepository : > has a
-GameService -- DevNestController : < has a
+package "Services"{
+    component gameJamService 
+    component GameService 
+    component RandomWordService
+    component UserService
+    component CommentService
+    component AsyncEmailService
+}
 
-RandomWordService -- DevNestController : < has a
+package "Controller"{
+    component DevNestController 
+    component GameController 
+    component GameJamController
+    component TeamController
+    component UserController
+}
 
-UserService -- UserRepository : > has a
-UserService -- TeamRepository : > has a
-UserService -- DevNestController : < has a
+gameJamService --> GamejamRepository
+gameJamService --> TeamRepository 
+gameJamService <-- DevNestController 
 
-CommentService -- CommentRepository : > has a
-CommentService -- UserService : > has a
-CommentService -- GameJamService : > has a
-CommentService -- DevNestController : < has a
+GameService --> VideogameRepository 
+GameService <-- DevNestController
+
+RandomWordService <-- DevNestController 
+
+UserService --> UserRepository 
+UserService --> TeamRepository  
+UserService <-- DevNestController 
+
+CommentService --> CommentRepository 
+CommentService --> UserService 
+CommentService --> gameJamService 
+CommentService <-- DevNestController 
+
+
+DevNestController --> UserService 
+DevNestController --> gameJamService 
+DevNestController --> RandomWordService 
+
+GameController --> UserService 
+GameController --> gameJamService 
+GameController --> GameService 
+GameController --> CommentService 
+
+GameJamController --> UserService 
+GameJamController --> gameJamService 
+GameJamController --> RandomWordService 
+GameJamController --> AsyncEmailService 
+
+TeamController --> UserService 
+TeamController --> gameJamService 
+
+UserController --> UserService 
+UserController --> AsyncEmailService 
+
 @enduml
