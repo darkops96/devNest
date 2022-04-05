@@ -110,7 +110,6 @@
 
 **Delete GameJam**: Página para eliminar GameJams existentes. Solo puede acceder el administrador.
 * Página que lista todas GameJams existentes junto a un botón para eliminarlas.
-* Sólo puede acceder un usuario administrador
 
 ![Admin-deleteJams](https://user-images.githubusercontent.com/58952176/161638292-7f261d39-6de2-4197-a27c-16ac4888a1eb.PNG)
 
