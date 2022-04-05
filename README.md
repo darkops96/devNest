@@ -52,7 +52,7 @@
   * Sistema de descarga archivos de videojuegos (.zip).
   
 ## Páginas Web:
-![Diagrama de pantallas](https://user-images.githubusercontent.com/49963607/155017804-c55d094a-5b66-47c8-b7fc-689157e39b23.png)
+![diagrama_de_pantallas](https://user-images.githubusercontent.com/49963607/161752551-329478d4-267f-4286-8afe-164efb3b0bb5.png)
 
 **Home**: Página inicial. Pública a todos los usuarios. 
 
