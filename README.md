@@ -19,8 +19,8 @@
   8. Repetir los pasos 5, 6 y 7 con el proyecto del servicio interno (devNestInternalService).
   ### Despliegue en Máquina Virtual:
   Las siguientes instrucciones se corresponden con el despliegue de la aplicación y su servicio interno en una máquina virtual con un sistema operativo Ubuntu (o derivado de este). Si se buscase desplegar el proyecto en un sistema distinto (por ejemplo, Windows), los pasos necesarios serían los mismos, pero adaptados a los comandos de dicho sistema.
-  1. Instalar el JRE de Java 17 o posterior: `sudo apt install openjdk-17-jre-headless`
-  2. MySQL Server en la máquina virtual: 
+  1. Instalar el JRE de Java 17 o posterior en la máquina virtual: `sudo apt install openjdk-17-jre-headless`
+  2. Instalar MySQL Server en la máquina virtual: 
       1. `sudo apt install mysql-server-8.0`
       2. `sudo mysql`
       3. `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'devnest1234';`
