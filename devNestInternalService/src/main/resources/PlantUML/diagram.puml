@@ -1,4 +1,4 @@
-@startuml devNest
+@startuml devNestInternalService
 
 package "Respositories"{
     component VideogameRepository
@@ -11,7 +11,7 @@ package "Services"{
 
 }
 
-package "Controller"{
+package "Rest Controllers"{
     component EmailController 
     component FileController
     component RandomWordController
