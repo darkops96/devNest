@@ -89,7 +89,7 @@ public class GameService {
         RestTemplate restTemplate = new RestTemplate();
         URI url = null;
         try {
-            url = new URI("http://localhost:8080/download-videogame/" + id + "/");
+            url = new URI("http://localhost:8080/videogame-file/" + id + "/");
         } catch (URISyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

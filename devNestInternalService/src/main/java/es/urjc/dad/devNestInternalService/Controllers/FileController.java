@@ -1,5 +1,7 @@
 package es.urjc.dad.devNestInternalService.Controllers;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +27,16 @@ public class FileController {
      * @return game file
      * @throws Exception
      */
-    @GetMapping("/download-videogame/{id}")
+    @GetMapping("/videogame-file/{id}")
     public ResponseEntity<ByteArrayResource> getVideogame(@PathVariable long id) throws Exception {
         if (fileService.isDownloable(id))
-            return fileService.download(id);
+        {
+            CompletableFuture<ResponseEntity<ByteArrayResource>> result = fileService.download(id);
+            if(result.isCancelled())
+                return (ResponseEntity<ByteArrayResource>) ResponseEntity.notFound();
+            else  
+                return result.get();
+        }
         else
             return (ResponseEntity<ByteArrayResource>) ResponseEntity.notFound();
     }
