@@ -24,7 +24,7 @@ public class EmailController {
      *
      * @param data contains the username (0) and email (1)
      */
-    @PostMapping("/registration-email")
+    @PostMapping("/registration")
     public void sendRegistrationEmail(@RequestBody List<String> data) {
         Email email = new Email(data.get(1), "Registro devNest ", "¡Enhorabuena " + data.get(0) + "!\nTe has registrado como usuario de devNest.\n\nDisfruta de tu experiencia con nosotros :D");
         emailService.sendEmail(email);
@@ -35,7 +35,7 @@ public class EmailController {
      *
      * @param data contains the username (0), email (1) and jam (2)
      */
-    @PostMapping("/create-jam")
+    @PostMapping("/jam-creation")
     public void sendCreationOfJamEmail(@RequestBody List<String> data) {
         Email email = new Email(data.get(1), "Tu Jam ha sido registrada", "Enhorabuena " + data.get(0) + ", tu Jam " + data.get(2) + " ha sido registrada con exito");
         emailService.sendEmail(email);
@@ -46,7 +46,7 @@ public class EmailController {
      *
      * @param data contains the username (0), email (1) and team name (2)
      */
-    @PostMapping("/join-team")
+    @PostMapping("/new-team")
     public void sendJoinTeamEmail(@RequestBody List<String> data) {
         Email email = new Email(data.get(1), data.get(0) + " te has unido a un equipo", "Enhorabuena " + data.get(0) + ",\nTe has unido al equipo " + data.get(2) + ".");
         emailService.sendEmail(email);

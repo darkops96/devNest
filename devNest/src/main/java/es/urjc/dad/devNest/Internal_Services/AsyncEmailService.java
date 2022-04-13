@@ -32,7 +32,7 @@ public class AsyncEmailService {
     public void sendRegisterEmail(String username, String email) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
-        URI url = new URI("http://localhost:8080/emails/registration-email/");
+        URI url = new URI("http://localhost:8080/emails/registration/");
         //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(2);
         data.add(username);
@@ -57,7 +57,7 @@ public class AsyncEmailService {
     public void sendRegisterJam(String username, String email, String jam) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
-        URI url = new URI("http://localhost:8080/emails/create-jam/");
+        URI url = new URI("http://localhost:8080/emails/jam-creation/");
         //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(3);
         data.add(username);
@@ -83,7 +83,7 @@ public class AsyncEmailService {
     public void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
-        URI url = new URI("http://localhost:8080/emails/join-team/");
+        URI url = new URI("http://localhost:8080/emails/new-team/");
         //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(3);
         data.add(username);

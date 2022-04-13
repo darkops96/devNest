@@ -3,6 +3,8 @@ package es.urjc.dad.devNestInternalService.Internal_Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -10,6 +12,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +20,7 @@ import javax.annotation.PostConstruct;
  * Class in vharge of reading the file words file and selecting 2 random ones
  */
 @Service
+@EnableAsync
 public class RandomWordService {
 
     private List<String> words;
@@ -36,7 +40,7 @@ public class RandomWordService {
      * Auxiliar method to read the TXT
      * @return  an arraylist with all the words
      */
-    List<String> initializeList() {
+    private List<String> initializeList() {
         List<String> aux = new ArrayList<>();
         BufferedReader reader;
         try {
@@ -59,9 +63,10 @@ public class RandomWordService {
      * selects a random word from the words array
      * @return a word
      */
-    public String getRandomWord() {
+    @Async
+    public CompletableFuture<String> getRandomWord() {
         Random rn = new Random();
-        return words.get(rn.nextInt(0, words.size() - 1));
+        return CompletableFuture.completedFuture(words.get(rn.nextInt(0, words.size() - 1)));
     }
 
     /**
