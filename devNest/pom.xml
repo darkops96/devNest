@@ -65,11 +65,11 @@
 				<version>3.2.1</version>
 				<configuration>
 					<to>
-						<image>ghcr.io/darkops96/devNest-webapp</image>
+						<image>ghcr.io/darkops96/devnest-webapp</image>
 					</to>
 					<container>
 						<ports>
-							<port>8080</port>
+							<port>443</port>
 						</ports>
 					</container>
 				</configuration>
