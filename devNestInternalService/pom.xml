@@ -47,12 +47,23 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+		<plugins>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<to>
+						<image>ghcr.io/darkops96/devnest-internalservice</image>
+					</to>
+					<container>
+						<ports>
+							<port>8080</port>
+						</ports>
+					</container>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
