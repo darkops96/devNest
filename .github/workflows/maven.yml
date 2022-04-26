@@ -25,11 +25,7 @@ jobs:
         cache: maven
     - name: Build Web App with Maven
       working-directory: ./devNest
-      run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          mvn compile jib:build
+      run: mvn compile jib:build -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.PABLO_PASSWORD }}
     - name: Build Internal Service with Maven
       working-directory: ./devNestInternalService
-      run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          mvn compile jib:build
+      run: mvn compile jib:build -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.PABLO_PASSWORD }}
