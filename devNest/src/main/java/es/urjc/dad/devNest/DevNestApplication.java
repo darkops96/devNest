@@ -5,14 +5,23 @@ import java.util.Collections;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.JoinConfig;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.hazelcast.config.annotation.web.http.EnableHazelcastHttpSession;
 
 @SpringBootApplication
+@EnableCaching
 @EnableHazelcastHttpSession
 public class DevNestApplication {
+
+    private static final Log logger = LogFactory.getLog(DevNestApplication.class);
+
     public static void main(String[] args) {
         String newLine = System.lineSeparator();
         System.out.println(newLine +
@@ -26,6 +35,13 @@ public class DevNestApplication {
                            "*******************************" + newLine);
 
         SpringApplication.run(DevNestApplication.class, args);
+    }
+
+    @Bean
+    public CacheManager cacheManager()
+    {
+        logger.info("Initializing cache...");
+        return new ConcurrentMapCacheManager("devnest");
     }
 
     @Bean
