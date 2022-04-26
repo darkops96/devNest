@@ -29,30 +29,13 @@ public class GameJamService {
     @Autowired
     private AsyncEmailService asyncEmailService;
 
-    private List<GamejamEntity> allJams;
-    private boolean needsUpdate;
-
-    public GameJamService() {
-        needsUpdate = true;
-    }
-
-    /**
-     * updates the internal list of this class with all the current gamejams availible in the database
-     */
-    public void refreshJamList() {
-        allJams = gamejamRepository.findAll();
-        needsUpdate = false;
-    }
-
     /**
      * get all jams in the database and updates the internal list if necessay
      *
      * @return a list with all the jams
      */
     public List<GamejamEntity> getAllJams() {
-        if (needsUpdate)
-            refreshJamList();
-        return allJams;
+        return gamejamRepository.findAll();
     }
 
     /**
@@ -71,7 +54,6 @@ public class GameJamService {
         Optional<GamejamEntity> u = gamejamRepository.findById(newJam.getId());
         if (!u.isPresent()) {
             gamejamRepository.save(newJam);
-            needsUpdate = true;
             return true;
         } else
             return false;
@@ -87,7 +69,6 @@ public class GameJamService {
         if (jam.isPresent()) {
             teamRepository.deleteAll(jam.get().getTeams());
             gamejamRepository.delete(jam.get());
-            needsUpdate = true;
         }
     }
 
@@ -162,7 +143,6 @@ public class GameJamService {
                 teamRepository.save(t);
                 gj.getTeams().add(t);
                 gamejamRepository.save(gj);
-                needsUpdate = true;
 
                 try {
                     asyncEmailService.sendJoinTeam(user.getAlias(), user.getEmail(), teamName);
@@ -217,7 +197,6 @@ public class GameJamService {
                         members.add(user);
                         teamRepository.save(t);
                         gamejamRepository.save(gj);
-                        needsUpdate = true;
 
                         try {
                             asyncEmailService.sendJoinTeam(user.getAlias(), user.getEmail(), t.getTeamName());
@@ -262,7 +241,6 @@ public class GameJamService {
                     teamRepository.save(t);
                 }
                 gamejamRepository.save(gj);
-                needsUpdate = true;
             }
         }
     }
@@ -303,7 +281,6 @@ public class GameJamService {
             }
             teamRepository.deleteAllById(emptyTeams);
             gamejamRepository.save(gj);
-            needsUpdate = true;
         }
     }
 }
