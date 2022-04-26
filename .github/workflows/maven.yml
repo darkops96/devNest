@@ -13,11 +13,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
 
     steps:
     - name: Checkout repository
@@ -30,7 +25,7 @@ jobs:
         cache: maven
     - name: Build Web App with Maven
       working-directory: ./devNest
-      run: mvn compile jib:build -Djib.to.auth.username=darkops96 -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+      run: mvn compile jib:build -Djib.to.auth.username=${{ github.repository }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
     - name: Build Internal Service with Maven
       working-directory: ./devNestInternalService
-      run: mvn compile jib:build -Djib.to.auth.username=darkops96 -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+      run: mvn compile jib:build -Djib.to.auth.username=${{ github.repository }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
