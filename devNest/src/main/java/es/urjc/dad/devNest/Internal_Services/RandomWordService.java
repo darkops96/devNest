@@ -1,5 +1,6 @@
 package es.urjc.dad.devNest.Internal_Services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,6 +15,10 @@ import java.util.List;
  */
 @Service
 public class RandomWordService {
+    
+    @Value("${internalService.baseUri}")
+    private String serviceBaseUri;
+    
     /**
      * Asks the REST for 2 new topics and will be used in the
      * used in home and register a jam
@@ -25,7 +30,7 @@ public class RandomWordService {
         URI url = null;
         try {
             //url of the controller in the REST
-            url = new URI("http://localhost:8080/random-topics/");
+            url = new URI(serviceBaseUri + "/random-topics/");
         } catch (URISyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
