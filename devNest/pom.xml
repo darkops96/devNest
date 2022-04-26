@@ -78,6 +78,7 @@
 						<image>ghcr.io/darkops96/devnest-webapp</image>
 					</to>
 					<container>
+						<mainClass>es.urjc.dad.devNest.DevNestApplication</mainClass>
 						<ports>
 							<port>443</port>
 						</ports>
