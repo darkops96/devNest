@@ -1,0 +1,72 @@
+version: "3"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: devnest
+      MYSQL_USER: devnest
+      MYSQL_PASSWORD: devnest1234
+    expose:
+      - 3306
+    restart: on-failure
+  
+  internalService-1:
+    container_name: internalService-1
+    image: ghcr.io/darkops96/devnest-internalservice:latest
+    expose:
+      - 80
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  internalService-2:
+    container_name: internalService-2
+    image: ghcr.io/darkops96/devnest-internalservice:latest
+    expose:
+      - 80
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  devNest-1:
+    container_name: devNest-1
+    image: ghcr.io/darkops96/devnest-webapp:latest
+    expose:
+      - 443
+    depends_on:
+      - mysql
+      - internalService-1
+      - internalService-2
+    restart: on-failure
+
+  devNest-2:
+    container_name: devNest-2
+    image: ghcr.io/darkops96/devnest-webapp:latest
+    expose:
+      - 443
+    depends_on:
+      - mysql
+      - internalService-1
+      - internalService-2
+    restart: on-failure
+
+  webapp_loadbalancer:
+    container_name: webapp_loadbalancer
+    build: ./web_HAProxy
+    ports:
+      - 443:443
+    depends_on:
+      - devNest-1
+      - devNest-2
+    restart: on-failure
+
+  internal_loadbalancer:
+    container_name: internal_loadbalancer
+    build: ./internalService_HAProxy
+    ports:
+      - 80:80
+    depends_on:
+      - internalService-1
+      - internalService-2
+    restart: on-failure
