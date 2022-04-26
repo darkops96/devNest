@@ -47,6 +47,8 @@ public class DevNestApplication {
     @Bean
     public Config config()
     {
+        logger.info("Initializing Hazelcast...");
+        
         Config config = new Config();
         JoinConfig joinConfig = config.getNetworkConfig().getJoin();
 
