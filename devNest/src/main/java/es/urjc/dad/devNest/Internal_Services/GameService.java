@@ -5,6 +5,7 @@ import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
 import es.urjc.dad.devNest.Database.Repositories.VideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ public class GameService {
     VideogameRepository videogameRepository;
     @Autowired
     TeamRepository teamRepository;
+
+    @Value("${internalService.baseUri}")
+    private String serviceBaseUri;
 
     /**
      * Add a new game to the database
@@ -89,7 +93,7 @@ public class GameService {
         RestTemplate restTemplate = new RestTemplate();
         URI url = null;
         try {
-            url = new URI("http://localhost:8080/videogame-file/" + id + "/");
+            url = new URI(serviceBaseUri + "/videogame-file/" + id + "/");
         } catch (URISyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

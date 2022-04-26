@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,7 +20,11 @@ import org.springframework.web.client.RestTemplate;
  */
 @Service
 @EnableAsync
-public class AsyncEmailService {
+public class AsyncEmailService
+{
+    @Value("${internalService.baseUri}")
+    private String serviceBaseUri;
+    
     /**
      * Asks the Rest to send an email when the user correctly registers
      *
@@ -32,7 +37,7 @@ public class AsyncEmailService {
     public void sendRegisterEmail(String username, String email) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
-        URI url = new URI("http://localhost:8080/emails/registration/");
+        URI url = new URI(serviceBaseUri + "/emails/registration/");
         //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(2);
         data.add(username);
@@ -57,7 +62,7 @@ public class AsyncEmailService {
     public void sendRegisterJam(String username, String email, String jam) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
-        URI url = new URI("http://localhost:8080/emails/jam-creation/");
+        URI url = new URI(serviceBaseUri + "/emails/jam-creation/");
         //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(3);
         data.add(username);
@@ -83,7 +88,7 @@ public class AsyncEmailService {
     public void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
-        URI url = new URI("http://localhost:8080/emails/new-team/");
+        URI url = new URI(serviceBaseUri + "/emails/new-team/");
         //store the user and its email in an arraylist
         List<String> data = new ArrayList<>(3);
         data.add(username);

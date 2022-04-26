@@ -58,7 +58,7 @@
 					</to>
 					<container>
 						<ports>
-							<port>8080</port>
+							<port>80</port>
 						</ports>
 					</container>
 				</configuration>
