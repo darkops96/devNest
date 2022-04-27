@@ -5,6 +5,8 @@ import es.urjc.dad.devNestInternalService.Objets.Email;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
+    private static final Log logger = LogFactory.getLog(EmailController.class);
+
     /**
      * creates the email when aplication Registers a user. This method its called in the aplication -> AsyncEmailService
      *
@@ -26,6 +30,8 @@ public class EmailController {
      */
     @PostMapping("/registration")
     public void sendRegistrationEmail(@RequestBody List<String> data) {
+        logger.info("POST /emails/registration");
+        
         Email email = new Email(data.get(1), "Registro devNest ", "¡Enhorabuena " + data.get(0) + "!\nTe has registrado como usuario de devNest.\n\nDisfruta de tu experiencia con nosotros :D");
         emailService.sendEmail(email);
     }
@@ -37,6 +43,8 @@ public class EmailController {
      */
     @PostMapping("/jam-creation")
     public void sendCreationOfJamEmail(@RequestBody List<String> data) {
+        logger.info("POST /emails/jam-creation");
+        
         Email email = new Email(data.get(1), "Tu Jam ha sido registrada", "Enhorabuena " + data.get(0) + ", tu Jam " + data.get(2) + " ha sido registrada con exito");
         emailService.sendEmail(email);
     }
@@ -48,6 +56,8 @@ public class EmailController {
      */
     @PostMapping("/new-team")
     public void sendJoinTeamEmail(@RequestBody List<String> data) {
+        logger.info("POST /emails/new-team");
+        
         Email email = new Email(data.get(1), data.get(0) + " te has unido a un equipo", "Enhorabuena " + data.get(0) + ",\nTe has unido al equipo " + data.get(2) + ".");
         emailService.sendEmail(email);
     }

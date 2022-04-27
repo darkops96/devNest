@@ -1,5 +1,7 @@
 package es.urjc.dad.devNest.Internal_Services;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import es.urjc.dad.devNest.Database.Entities.TeamEntity;
 import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
@@ -28,6 +30,8 @@ public class GameService {
 
     @Value("${internalService.baseUri}")
     private String serviceBaseUri;
+
+    private static final Log logger = LogFactory.getLog(GameService.class);
 
     /**
      * Add a new game to the database
@@ -90,6 +94,8 @@ public class GameService {
      * @return invocation to the method in the rest to download the zip
      */
     public ResponseEntity<ByteArrayResource> downloadGame(long id) {
+        logger.info("Downloading videogame " + id);
+        
         RestTemplate restTemplate = new RestTemplate();
         URI url = null;
         try {

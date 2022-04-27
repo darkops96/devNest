@@ -1,5 +1,7 @@
 package es.urjc.dad.devNest.Internal_Services;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class RandomWordService {
     @Value("${internalService.baseUri}")
     private String serviceBaseUri;
     
+    private static final Log logger = LogFactory.getLog(RandomWordService.class);
+
     /**
      * Asks the REST for 2 new topics and will be used in the
      * used in home and register a jam
@@ -26,6 +30,8 @@ public class RandomWordService {
      * @return obtains the 2 words inside an arraylist
      */
     public List<String> getRandomWord() {
+        logger.info("GET 2 random topics");
+        
         RestTemplate restTemplate = new RestTemplate();
         URI url = null;
         try {
