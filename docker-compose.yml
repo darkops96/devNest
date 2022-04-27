@@ -1,72 +1,78 @@
 version: "3"
+
+volumes:
+  dbdata:
+
 services:
   mysql:
     container_name: mysql
-    image: mysql:latest
+    image: mysql:latest    
+    restart: on-failure
+    command: --default-authentication-plugin=mysql_native_password
     environment:
+      MYSQL_ROOT_PASSWORD: devnest1234 
       MYSQL_DATABASE: devnest
       MYSQL_USER: devnest
       MYSQL_PASSWORD: devnest1234
-    expose:
-      - 3306
-    restart: on-failure
+    volumes:
+      - dbdata:/var/lib/mysql
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
   
   internalService-1:
     container_name: internalService-1
     image: ghcr.io/darkops96/devnest-internalservice:latest
-    expose:
-      - 80
+    restart: on-failure
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
     depends_on:
       - mysql
-    restart: on-failure
 
   internalService-2:
     container_name: internalService-2
     image: ghcr.io/darkops96/devnest-internalservice:latest
-    expose:
-      - 80
+    restart: on-failure
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
     depends_on:
       - mysql
+
+  internal_loadbalancer:
+    container_name: internal_loadbalancer
+    build: ./internalService_HAProxy
     restart: on-failure
+    depends_on:
+      - internalService-1
+      - internalService-2
 
   devNest-1:
     container_name: devNest-1
     image: ghcr.io/darkops96/devnest-webapp:latest
-    expose:
-      - 443
+    restart: on-failure
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
+      INTERNALSERVICE_BASEURI: http://internal_loadbalancer:80
     depends_on:
       - mysql
-      - internalService-1
-      - internalService-2
-    restart: on-failure
+      - internal_loadbalancer
 
   devNest-2:
     container_name: devNest-2
     image: ghcr.io/darkops96/devnest-webapp:latest
-    expose:
-      - 443
+    restart: on-failure
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
+      INTERNALSERVICE_BASEURI: http://internal_loadbalancer:80
     depends_on:
       - mysql
-      - internalService-1
-      - internalService-2
-    restart: on-failure
+      - internal_loadbalancer
 
   webapp_loadbalancer:
     container_name: webapp_loadbalancer
-    build: ./web_HAProxy
+    build: ./web_HAProxy    
+    restart: on-failure
     ports:
       - 443:443
     depends_on:
       - devNest-1
       - devNest-2
-    restart: on-failure
-
-  internal_loadbalancer:
-    container_name: internal_loadbalancer
-    build: ./internalService_HAProxy
-    ports:
-      - 80:80
-    depends_on:
-      - internalService-1
-      - internalService-2
-    restart: on-failure
