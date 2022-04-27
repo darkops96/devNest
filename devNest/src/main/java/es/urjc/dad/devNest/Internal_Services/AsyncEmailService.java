@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +24,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableAsync
 public class AsyncEmailService
 {
+    private static final Log logger = LogFactory.getLog(AsyncEmailService.class);
+
     @Value("${internalService.baseUri}")
     private String serviceBaseUri;
     
@@ -35,6 +39,8 @@ public class AsyncEmailService
      */
     @Async
     public void sendRegisterEmail(String username, String email) throws RestClientException, URISyntaxException {
+        logger.info("Sending " + username + " registration email");
+        
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
         URI url = new URI(serviceBaseUri + "/emails/registration/");
@@ -60,6 +66,8 @@ public class AsyncEmailService
      */
     @Async
     public void sendRegisterJam(String username, String email, String jam) throws RestClientException, URISyntaxException {
+        logger.info("Sending " + username + " gamejam " + jam + " registration email");
+
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
         URI url = new URI(serviceBaseUri + "/emails/jam-creation/");
@@ -86,6 +94,8 @@ public class AsyncEmailService
      */
     @Async
     public void sendJoinTeam(String username, String email, String team) throws RestClientException, URISyntaxException {
+        logger.info("Sending " + username + " has joined team " + team + " email");
+        
         RestTemplate restTemplate = new RestTemplate();
         //URL of the controller in charge of sending the emails
         URI url = new URI(serviceBaseUri + "/emails/new-team/");

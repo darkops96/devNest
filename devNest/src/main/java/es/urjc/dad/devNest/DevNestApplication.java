@@ -37,17 +37,23 @@ public class DevNestApplication {
         SpringApplication.run(DevNestApplication.class, args);
     }
 
+    /**
+    * Method in charge of initializing the database cache
+    */
     @Bean
     public CacheManager cacheManager()
     {
-        logger.info("Initializing cache...");
+        logger.info("Initializing database cache");
         return new ConcurrentMapCacheManager("devnest");
     }
 
+    /**
+    * Method in charge of initializing Hazelcast
+    */
     @Bean
     public Config config()
     {
-        logger.info("Initializing Hazelcast...");
+        logger.info("Initializing Hazelcast");
         
         Config config = new Config();
         JoinConfig joinConfig = config.getNetworkConfig().getJoin();

@@ -1,5 +1,7 @@
 package es.urjc.dad.devNestInternalService.Controllers;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import es.urjc.dad.devNestInternalService.Internal_Services.RandomWordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +20,8 @@ public class RandomWordController {
     @Autowired
     private RandomWordService randomWordService;
 
+    private static final Log logger = LogFactory.getLog(RandomWordController.class);
+
     /**
      * asks for 2 words to the service and sends them to the aplication in the body of the response entity
      * it  is used in the aplication in -> random word service
@@ -26,6 +30,8 @@ public class RandomWordController {
      */
     @GetMapping("/random-topics")
     public ResponseEntity<ArrayList> getRandomTopics() {
+        logger.info("GET /random-topics");
+        
         ArrayList<String> topics = new ArrayList<String>(2);
         try
         {            
