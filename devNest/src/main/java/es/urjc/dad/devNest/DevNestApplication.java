@@ -43,8 +43,8 @@ public class DevNestApplication {
     @Bean
     public CacheManager cacheManager()
     {
-        logger.info("Initializing database cache");
-        return new ConcurrentMapCacheManager("devnest");
+        logger.info("Initializing Game Jams database cache");
+        return new ConcurrentMapCacheManager("gamejams");
     }
 
     /**
