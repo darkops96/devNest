@@ -6,19 +6,20 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GamejamRepository extends JpaRepository<GamejamEntity,Long> {
-    @Cacheable
+    @Cacheable("gamejams")
     List<GamejamEntity> findAll();
 
-    @Cacheable
+    @Cacheable("gamejams")
     Optional<GamejamEntity> findById(Long id);
 
-    @CacheEvict(allEntries = true)
+    @CachePut(value = "gamejams")
     GamejamEntity save(GamejamEntity gamejamEntity);
     
-    @CacheEvict(allEntries = true)
+    @CacheEvict(value = "gamejams", allEntries = true)
     void delete(GamejamEntity entity);
 }
