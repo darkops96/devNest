@@ -16,27 +16,9 @@ public interface GamejamRepository extends JpaRepository<GamejamEntity,Long> {
     @Cacheable
     Optional<GamejamEntity> findById(Long id);
 
-    @Cacheable
-    List<GamejamEntity> findAllById(Iterable<Long> ids);
-
     @CacheEvict(allEntries = true)
     GamejamEntity save(GamejamEntity gamejamEntity);
-
-    @CacheEvict(allEntries = true)
-    List<GamejamEntity> saveAll(List<? extends GamejamEntity> entities);
     
     @CacheEvict(allEntries = true)
     void delete(GamejamEntity entity);
-
-    @CacheEvict(allEntries = true)
-    void deleteById(Long id);
-
-    @CacheEvict(allEntries = true)
-    void deleteAll(Iterable<? extends GamejamEntity> entities);    
-
-    @CacheEvict(allEntries = true)
-    void deleteAll(); 
-
-    @CacheEvict(allEntries = true)
-    void deleteAllById(Iterable<? extends Long> ids);
 }
