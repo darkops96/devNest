@@ -1,6 +1,6 @@
 package es.urjc.dad.devNest;
 
-import java.util.Collections;
+import java.util.List;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.JoinConfig;
@@ -23,8 +23,8 @@ public class DevNestApplication {
 
     private static final Log logger = LogFactory.getLog(DevNestApplication.class);
 
-    @Value("${machine.ip}")
-    private String localhost;
+    @Value("#{'${machine.ips}'.split(',')}")
+    private List<String> machineIPs;
 
     public static void main(String[] args) {
         String newLine = System.lineSeparator();
@@ -63,7 +63,7 @@ public class DevNestApplication {
         JoinConfig joinConfig = config.getNetworkConfig().getJoin();
 
         joinConfig.getMulticastConfig().setEnabled(false);
-        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(Collections.singletonList(localhost));
+        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(machineIPs);
 
         return config;
     }
