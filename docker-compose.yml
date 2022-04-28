@@ -52,7 +52,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
       INTERNALSERVICE_BASEURI: http://internal-loadbalancer:80
-      MACHINE_IP: devNest-1
+      MACHINE.IPS: devNest-1,devNest-2
     depends_on:
       - mysql
       - internal-loadbalancer
@@ -64,7 +64,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
       INTERNALSERVICE_BASEURI: http://internal-loadbalancer:80
-      MACHINE_IP: devNest-2
+      MACHINE.IPS: devNest-2,devNest-1
     depends_on:
       - mysql
       - internal-loadbalancer
