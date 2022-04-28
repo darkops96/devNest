@@ -7,6 +7,7 @@ import com.hazelcast.config.JoinConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.CacheManager;
@@ -21,6 +22,9 @@ import org.springframework.session.hazelcast.config.annotation.web.http.EnableHa
 public class DevNestApplication {
 
     private static final Log logger = LogFactory.getLog(DevNestApplication.class);
+
+    @Value("${machine.ip}")
+    private String localhost;
 
     public static void main(String[] args) {
         String newLine = System.lineSeparator();
@@ -59,7 +63,7 @@ public class DevNestApplication {
         JoinConfig joinConfig = config.getNetworkConfig().getJoin();
 
         joinConfig.getMulticastConfig().setEnabled(false);
-        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(Collections.singletonList("127.0.0.1"));
+        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(Collections.singletonList(localhost));
 
         return config;
     }

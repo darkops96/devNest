@@ -37,8 +37,8 @@ services:
     depends_on:
       - mysql
 
-  internal_loadbalancer:
-    container_name: internal_loadbalancer
+  internal-loadbalancer:
+    container_name: internal-loadbalancer
     build: ./internalService_HAProxy
     restart: on-failure
     depends_on:
@@ -51,10 +51,11 @@ services:
     restart: on-failure
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
-      INTERNALSERVICE_BASEURI: http://internal_loadbalancer:80
+      INTERNALSERVICE_BASEURI: http://internal-loadbalancer:80
+      MACHINE_IP: devNest-1
     depends_on:
       - mysql
-      - internal_loadbalancer
+      - internal-loadbalancer
 
   devNest-2:
     container_name: devNest-2
@@ -62,13 +63,14 @@ services:
     restart: on-failure
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
-      INTERNALSERVICE_BASEURI: http://internal_loadbalancer:80
+      INTERNALSERVICE_BASEURI: http://internal-loadbalancer:80
+      MACHINE_IP: devNest-2
     depends_on:
       - mysql
-      - internal_loadbalancer
+      - internal-loadbalancer
 
-  webapp_loadbalancer:
-    container_name: webapp_loadbalancer
+  webapp-loadbalancer:
+    container_name: webapp-loadbalancer
     build: ./web_HAProxy    
     restart: on-failure
     ports:
