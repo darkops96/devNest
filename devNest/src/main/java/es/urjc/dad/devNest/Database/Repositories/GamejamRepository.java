@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GamejamRepository extends JpaRepository<GamejamEntity,Long> {
     @Cacheable("gamejams")
+    @Override
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     List<GamejamEntity> findAll();
 
     @Cacheable("gamejams")
