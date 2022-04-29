@@ -1,5 +1,6 @@
 package es.urjc.dad.devNest.Database.Entities;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class UserEntity {
+public class UserEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

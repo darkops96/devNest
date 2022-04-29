@@ -1,12 +1,13 @@
 package es.urjc.dad.devNest.Database.Entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
 
 @Entity
-public class TeamEntity {
+public class TeamEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
