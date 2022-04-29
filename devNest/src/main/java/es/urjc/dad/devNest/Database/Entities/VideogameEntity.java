@@ -3,11 +3,13 @@ package es.urjc.dad.devNest.Database.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 
 @Entity
-public class VideogameEntity {
+public class VideogameEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -155,6 +157,26 @@ public class VideogameEntity {
     @Override
     public String toString() {
         return "Videogame [title=" + title + ", date=" + date + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // self check
+        if (this == obj)
+            return true;
+        // null check
+        if (obj == null)
+            return false;
+        // type check and cast
+        if (getClass() != obj.getClass())
+            return false;        
+        GamejamEntity gamejamEntity = (GamejamEntity) obj;
+        return this.getId() == gamejamEntity.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) getId() * getTitle().hashCode();
     }
 }
 

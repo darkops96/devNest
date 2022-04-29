@@ -1,9 +1,11 @@
 package es.urjc.dad.devNest.Database.Entities;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
-public class CommentEntity {
+public class CommentEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -106,5 +108,25 @@ public class CommentEntity {
     @Override
     public String toString() {
         return "Comment [comment=" + textComment + ", user=" + user.getAlias() + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // self check
+        if (this == obj)
+            return true;
+        // null check
+        if (obj == null)
+            return false;
+        // type check and cast
+        if (getClass() != obj.getClass())
+            return false;        
+        GamejamEntity gamejamEntity = (GamejamEntity) obj;
+        return this.getId() == gamejamEntity.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) getId() * getDate().hashCode();
     }
 }

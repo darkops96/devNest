@@ -1,12 +1,13 @@
 package es.urjc.dad.devNest.Database.Entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
 
 @Entity
-public class TeamEntity {
+public class TeamEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,5 +88,25 @@ public class TeamEntity {
     @Override
     public String toString() {
         return "Team [name=" + teamName + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // self check
+        if (this == obj)
+            return true;
+        // null check
+        if (obj == null)
+            return false;
+        // type check and cast
+        if (getClass() != obj.getClass())
+            return false;        
+        GamejamEntity gamejamEntity = (GamejamEntity) obj;
+        return this.getId() == gamejamEntity.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) getId() * getTeamName().hashCode();
     }
 }
