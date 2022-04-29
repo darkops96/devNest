@@ -45,10 +45,15 @@ public class DevNestApplication {
     * Method in charge of initializing the database cache
     */
     @Bean
-    public CacheManager cacheManager()
+    public CacheManager cacheManager(HazelcastInstance hazelcastInstance)
     {
         logger.info("Initializing Game Jams database cache");
-        return new ConcurrentMapCacheManager("gamejams");
+        return new HazelcastCacheManager(hazelcastInstance);
+    }
+
+    @Bean
+    public HazelcastInstance hazelcastInstance (Config config){
+        return Hazelcast.newHazelcastInstance(config);
     }
 
     /**
@@ -62,8 +67,12 @@ public class DevNestApplication {
         Config config = new Config();
         JoinConfig joinConfig = config.getNetworkConfig().getJoin();
 
-        joinConfig.getMulticastConfig().setEnabled(false);
-        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(machineIPs);
+        joinConfig.getMulticastConfig().setEnabled(true);
+        //joinConfig.getTcpIpConfig().setEnabled(true).setMembers(machineIPs);
+
+        MapConfig usersMapConfig = new MapConfig().setName("gamejams");
+
+        config.addMapConfig(usersMapConfig);
 
         return config;
     }
