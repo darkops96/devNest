@@ -34,7 +34,7 @@ public class GamejamEntity implements Serializable
     @Column(nullable = false)
     private String endDate;
 
-    @OneToMany(mappedBy = "gamejam")
+    @OneToMany(mappedBy = "gamejam", fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private List<TeamEntity> teams;
 
