@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Fetch;
+
 
 @Entity
 
@@ -17,13 +20,16 @@ public class TeamEntity implements Serializable{
     @Column(nullable = false)
     private String teamName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<UserEntity> members;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private VideogameEntity videogame;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private GamejamEntity gamejam;
 
     public TeamEntity() {

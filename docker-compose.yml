@@ -52,6 +52,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devnest?serverTimezone=UTC
       INTERNALSERVICE_BASEURI: http://internal-loadbalancer:80
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - mysql
       - internal-loadbalancer
