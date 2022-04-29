@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-public class CommentEntity implements Serializable {
+public class CommentEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

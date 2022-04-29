@@ -7,7 +7,8 @@ import javax.persistence.*;
 
 
 @Entity
-public class TeamEntity implements Serializable {
+
+public class TeamEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
