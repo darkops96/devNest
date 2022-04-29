@@ -3,7 +3,7 @@ package es.urjc.dad.devNest.Database.Entities;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class GamejamEntity implements Serializable
@@ -31,8 +31,8 @@ public class GamejamEntity implements Serializable
     @Column(nullable = false)
     private String endDate;
 
-    @OneToMany(mappedBy = "gamejam", fetch = FetchType.LAZY)
-    private List<TeamEntity> teams;
+    @OneToMany(mappedBy = "gamejam")
+    private Set<TeamEntity> teams;
 
     @ManyToOne
     private TeamEntity winner;
@@ -99,7 +99,7 @@ public class GamejamEntity implements Serializable
         this.startDate = startDate;
     }
 
-    public void setTeams(List<TeamEntity> teams) {
+    public void setTeams(Set<TeamEntity> teams) {
         this.teams = teams;
     }
 
@@ -130,7 +130,7 @@ public class GamejamEntity implements Serializable
         return adminUser;
     }
 
-    public List<TeamEntity> getTeams() {
+    public Set<TeamEntity> getTeams() {
         return teams;
     }
 
