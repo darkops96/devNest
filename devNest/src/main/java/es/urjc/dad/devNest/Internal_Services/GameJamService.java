@@ -128,7 +128,7 @@ public class GameJamService {
         leaveTeam(jamId, user);
         GamejamEntity gj = getJam(jamId);
         if (gj != null) {
-            List<TeamEntity> teams = new ArrayList<TeamEntity>(gj.getTeams());
+            List<TeamEntity> teams = gj.getTeams();
             boolean duplicateName = false;
             for (TeamEntity teamEntity : teams) {
                 if (teamEntity.getTeamName().equalsIgnoreCase(teamName)) {
@@ -253,7 +253,7 @@ public class GameJamService {
      * @return
      */
     public long checkIfIsInTeam(GamejamEntity gj, UserEntity user) {
-        List<TeamEntity> teams = new ArrayList<TeamEntity>(gj.getTeams());
+        List<TeamEntity> teams = gj.getTeams();
         for (TeamEntity teamEntity : teams) {
             for (UserEntity u : teamEntity.getMembers()) {
                 if (u.getId() == user.getId()) {
@@ -272,7 +272,7 @@ public class GameJamService {
     public void deleteEmptyTeams(long jamId) {
         GamejamEntity gj = getJam(jamId);
         if (gj != null) {
-            List<TeamEntity> teams = new ArrayList<TeamEntity>(gj.getTeams());
+            List<TeamEntity> teams = gj.getTeams();
             List<Long> emptyTeams = new ArrayList<Long>();
             for (TeamEntity teamEntity : teams) {
                 if (teamEntity.getMembers().size() == 0) {

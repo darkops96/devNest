@@ -42,7 +42,7 @@ public class UserEntity implements Serializable{
     @Column(length = 512)
     private String description;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     private List<String> roles;
 
     public UserEntity() {

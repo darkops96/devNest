@@ -2,10 +2,8 @@ package es.urjc.dad.devNest.Database.Entities;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class GamejamEntity implements Serializable
@@ -33,9 +31,8 @@ public class GamejamEntity implements Serializable
     @Column(nullable = false)
     private String endDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "gamejam")
-    private Set<TeamEntity> teams;
+    @OneToMany(mappedBy = "gamejam", fetch = FetchType.EAGER)
+    private List<TeamEntity> teams;
 
     @ManyToOne
     private TeamEntity winner;
@@ -102,7 +99,7 @@ public class GamejamEntity implements Serializable
         this.startDate = startDate;
     }
 
-    public void setTeams(Set<TeamEntity> teams) {
+    public void setTeams(List<TeamEntity> teams) {
         this.teams = teams;
     }
 
@@ -133,7 +130,7 @@ public class GamejamEntity implements Serializable
         return adminUser;
     }
 
-    public Set<TeamEntity> getTeams() {
+    public List<TeamEntity> getTeams() {
         return teams;
     }
 
