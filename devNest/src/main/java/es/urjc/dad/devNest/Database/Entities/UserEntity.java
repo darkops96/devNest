@@ -136,4 +136,24 @@ public class UserEntity implements Serializable{
     public String toString() {
         return "User [username=" + alias + ", email=" + email + "]";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // self check
+        if (this == obj)
+            return true;
+        // null check
+        if (obj == null)
+            return false;
+        // type check and cast
+        if (getClass() != obj.getClass())
+            return false;        
+        GamejamEntity gamejamEntity = (GamejamEntity) obj;
+        return this.getId() == gamejamEntity.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) getId() * getAlias().hashCode();
+    }
 }
