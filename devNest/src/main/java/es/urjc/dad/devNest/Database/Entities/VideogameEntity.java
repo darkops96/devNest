@@ -35,7 +35,7 @@ public class VideogameEntity implements Serializable{
     @Column(nullable = false)
     private Blob gameFile;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "videogame", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "videogame", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<CommentEntity> comments;
 
 
