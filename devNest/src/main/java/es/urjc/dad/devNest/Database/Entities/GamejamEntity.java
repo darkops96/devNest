@@ -2,6 +2,8 @@ package es.urjc.dad.devNest.Database.Entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -31,6 +33,7 @@ public class GamejamEntity implements Serializable
     @Column(nullable = false)
     private String endDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "gamejam")
     private Set<TeamEntity> teams;
 
