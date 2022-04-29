@@ -17,13 +17,13 @@ public class TeamEntity implements Serializable{
     @Column(nullable = false)
     private String teamName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<UserEntity> members;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private VideogameEntity videogame;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private GamejamEntity gamejam;
 
     public TeamEntity() {

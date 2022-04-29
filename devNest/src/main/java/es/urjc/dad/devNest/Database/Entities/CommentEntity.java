@@ -11,13 +11,13 @@ public class CommentEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private VideogameEntity videogame;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private CommentEntity parentComment;
 
     @Column(nullable = false)

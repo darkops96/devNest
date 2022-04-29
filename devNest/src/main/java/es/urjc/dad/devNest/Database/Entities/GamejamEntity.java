@@ -15,7 +15,7 @@ public class GamejamEntity implements Serializable
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private UserEntity adminUser;
 
     @Lob
@@ -34,7 +34,7 @@ public class GamejamEntity implements Serializable
     @OneToMany(mappedBy = "gamejam", fetch = FetchType.EAGER)
     private List<TeamEntity> teams;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private TeamEntity winner;
 
 
