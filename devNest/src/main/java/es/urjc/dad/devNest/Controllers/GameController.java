@@ -7,6 +7,8 @@ import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Internal_Services.*;
 import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -41,6 +43,8 @@ public class GameController {
     private GameService gameService;
     @Autowired
     private CommentService commentService;
+    
+    private static final Log logger = LogFactory.getLog(GameController.class);
 
     //region game controller
 
@@ -53,6 +57,7 @@ public class GameController {
      */
     @RequestMapping(value = "/game/{gId}")
     public String gamePage(Model model, @PathVariable long gId, HttpServletRequest request) {
+        logger.info("GET videogame " + gId + " page");
 
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
@@ -78,6 +83,8 @@ public class GameController {
      */
     @RequestMapping(value = "/createGame/{tID}")
     public String createGame(@RequestParam String _title, @RequestParam String _descrition, @RequestParam String _category, @RequestParam String _platform, @RequestParam MultipartFile _file, @PathVariable long tID, HttpServletRequest request) throws IOException {
+        logger.info("POST videogame " + _title);
+        
         //team by name
         TeamEntity team = gameJamService.getTeam(tID);
         //current date
@@ -112,7 +119,7 @@ public class GameController {
      * @return
      */
     @RequestMapping("/registerGame/{gId}")
-    public String goCreateGame(@PathVariable long gId, HttpServletRequest request) {
+    public String goCreateGame(@PathVariable long gId, HttpServletRequest request) {        
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null)
@@ -136,6 +143,8 @@ public class GameController {
      */
     @RequestMapping("/uploadGame/{tId}")
     public String uploadGamePage(Model model, @PathVariable long tId, HttpServletRequest request) {
+        logger.info("GET upload videogame page");
+
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null)
@@ -156,6 +165,8 @@ public class GameController {
      */
     @RequestMapping("/game/{gId}/addComment")
     public String addComment(@PathVariable long gId, @RequestParam String userCommentBox, HttpServletRequest request) {
+        logger.info("POST new comment");
+
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null) {
@@ -175,6 +186,8 @@ public class GameController {
      */
     @RequestMapping("/game/{gId}/answerComment+{cId}")
     public String answerComment(@PathVariable long gId, @PathVariable long cId, @RequestParam String userCommentBox, HttpServletRequest request) {
+        logger.info("POST new reply");
+
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null) {
@@ -192,6 +205,8 @@ public class GameController {
      */
     @GetMapping(value = "/game/{gId}/download-game", produces = "application/zip")
     public ResponseEntity<ByteArrayResource> download(@PathVariable long gId, HttpServletRequest request) {
+        logger.info("DOWNLOAD videogame " + gId);
+
         return gameService.downloadGame(gId);
     }
     //endregion    

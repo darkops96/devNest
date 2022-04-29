@@ -9,6 +9,8 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,8 @@ public class GameJamController {
     @Autowired
     private AsyncEmailService asyncEmailService;
 
+    private static final Log logger = LogFactory.getLog(GameJamController.class);
+
     //region gamejam controller
 
     /**
@@ -42,6 +46,8 @@ public class GameJamController {
      */
     @RequestMapping("/gamejam/{gjId}")
     public String jamPage(Model model, @PathVariable long gjId, HttpServletRequest request) {
+        logger.info("GET Game Jam " + gjId + " page");
+
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null)
@@ -64,6 +70,8 @@ public class GameJamController {
      */
     @RequestMapping(value = "/gamejam/{gjId}/register+team")
     public String registerTeam(@PathVariable long gjId, @RequestParam String teamname, HttpServletRequest request) {
+        logger.info("POST team " + teamname + " for Game Jam " + gjId);
+
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null) {
@@ -86,6 +94,8 @@ public class GameJamController {
      */
     @GetMapping("/registerJam")
     public String goToOrganizeJam(Model model, HttpServletRequest request) {
+        logger.info("GET organize Game Jam page");
+
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null)
@@ -109,6 +119,8 @@ public class GameJamController {
      */
     @RequestMapping(value = "/registerGameJam")
     public String createAJam(@RequestParam String jamName, @RequestParam String description, @RequestParam String topic, @RequestParam String sDate, @RequestParam String eDate, HttpServletRequest request) {
+        logger.info("POST Game Jam " + jamName);
+        
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null)

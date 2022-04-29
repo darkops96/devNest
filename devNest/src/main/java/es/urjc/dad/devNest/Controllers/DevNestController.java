@@ -8,6 +8,8 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ public class DevNestController {
     @Autowired
     private RandomWordService randomWord;
 
+    private static final Log logger = LogFactory.getLog(DevNestController.class);
+
     //region initial web controller
 
     /**
@@ -38,7 +42,7 @@ public class DevNestController {
      */
     @GetMapping("/")
     public String home(Model model, HttpServletRequest request) {
-
+        logger.info("GET home page");
         //Random word generator
         randomWordAction(model);
         //list of jams
@@ -64,6 +68,7 @@ public class DevNestController {
      */
     @GetMapping("/admin")
     public String adminPage(Model model, HttpServletRequest request) {
+        logger.info("GET admin page");
         model.addAttribute("gamejams", gameJamService.getAllJams());
 
         UserEntity myUser = null;
@@ -83,6 +88,7 @@ public class DevNestController {
      */
     @GetMapping("/admin/delete-jam/{id}")
     public String deleteJam(@PathVariable long id) {
+        logger.info("DELETE Game Jam " + id);
         gameJamService.deleteJam(id);
         return "redirect:/admin";
     }

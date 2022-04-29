@@ -4,6 +4,8 @@ import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Internal_Services.AsyncEmailService;
 import es.urjc.dad.devNest.Internal_Services.User_Services.UserService;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -39,6 +41,8 @@ public class UserController {
 
     @Autowired
     private AsyncEmailService asyncEmailService;
+    
+    private static final Log logger = LogFactory.getLog(UserController.class);
 
     //region login controller
 
@@ -52,6 +56,8 @@ public class UserController {
      */
     @GetMapping(value = "/login")
     public String login(Model model, @RequestParam(name = "error", required = false) boolean error, HttpServletRequest request) {
+        logger.info("GET log in web");
+
         model.addAttribute("error", error);
         return "loginWeb";
     }
@@ -65,6 +71,8 @@ public class UserController {
      */
     @GetMapping(value = "/login-error")
     public String failedLogin(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        logger.warn("FAILED log in");
+
         redirectAttributes.addAttribute("error", true);
         return "redirect:/login";
     }
@@ -80,6 +88,8 @@ public class UserController {
      */
     @GetMapping("/register")
     public String goToRegister(HttpServletRequest request) {
+        logger.info("GET register web");
+
         return "registerWeb";
     }
 
@@ -95,6 +105,8 @@ public class UserController {
      */
     @PostMapping(value = "/registerUser")
     public String register(@RequestParam String username, @RequestParam String psw, @RequestParam String email, @RequestParam String pswRepeat, HttpServletRequest request) {
+        logger.info("POST user " + username);
+        
         //check the passwors match
         if (psw.equals(pswRepeat)) {
             //attempts to register a user
@@ -134,6 +146,8 @@ public class UserController {
      */
     @RequestMapping("/profile/{uId}")
     public String goToProfile(Model model, @PathVariable long uId, HttpServletRequest request) {
+        logger.info("GET user " + uId + " profile web");
+        
         UserEntity user = userService.getUser(uId);
 
         UserEntity myUser = null;
@@ -164,6 +178,8 @@ public class UserController {
      */
     @GetMapping("/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException, MalformedURLException {
+        logger.info("GET user " + id + " profile picture");
+        
         UserEntity myUser = userService.getUser(id);
         if (myUser.getProfilePicture() != null) {
             InputStreamResource file = new InputStreamResource(
@@ -188,13 +204,15 @@ public class UserController {
      * @throws IOException
      */
     @PostMapping("/editProfile")
-    public String updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {
+    public String updateProfile(@RequestParam String description, @RequestParam MultipartFile myfile, HttpServletRequest request) throws IOException {        
         UserEntity user = null;
         Principal up = request.getUserPrincipal();
         if (up != null) {
             user = userService.getUser(request.getUserPrincipal().getName());
         }
         if (user != null) {
+            logger.info("PUT user " + user.getId() + " profile web");
+
             user.setDescription(description);
             URI location = fromCurrentRequest().build().toUri();
             if (!myfile.isEmpty()) {

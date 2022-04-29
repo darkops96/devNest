@@ -8,6 +8,8 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,8 @@ public class TeamController {
     private UserService userService;
     @Autowired
     private GameJamService gameJamService;
+    
+    private static final Log logger = LogFactory.getLog(TeamController.class);
 
     //region teams controller
 
@@ -34,6 +38,8 @@ public class TeamController {
      */
     @RequestMapping(value = "/gamejam/{gjId}/join+team/{tId}")
     public String joinTeam(@PathVariable long gjId, @PathVariable long tId, HttpServletRequest request) {
+        logger.info("JOIN team " + tId + " in Game Jam " + gjId);
+        
         UserEntity myUser = null;
         Principal up = request.getUserPrincipal();
         if (up != null) {
