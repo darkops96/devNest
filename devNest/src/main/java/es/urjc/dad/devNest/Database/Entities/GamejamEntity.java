@@ -2,6 +2,9 @@ package es.urjc.dad.devNest.Database.Entities;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -32,6 +35,7 @@ public class GamejamEntity implements Serializable
     private String endDate;
 
     @OneToMany(mappedBy = "gamejam", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<TeamEntity> teams;
 
     @ManyToOne

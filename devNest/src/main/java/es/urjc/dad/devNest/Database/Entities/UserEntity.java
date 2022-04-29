@@ -15,6 +15,9 @@ import javax.persistence.Lob;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 @Entity
 public class UserEntity implements Serializable{
@@ -42,7 +45,8 @@ public class UserEntity implements Serializable{
     @Column(length = 512)
     private String description;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<String> roles;
 
     public UserEntity() {
