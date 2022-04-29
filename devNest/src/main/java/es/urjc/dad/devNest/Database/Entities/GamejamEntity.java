@@ -2,12 +2,12 @@ package es.urjc.dad.devNest.Database.Entities;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class GamejamEntity {
-
-
+public class GamejamEntity implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
