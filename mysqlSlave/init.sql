@@ -1,9 +1,14 @@
 /* proxysql user */
-CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
+CREATE USER IF NOT EXISTS 'devnestMonitor'@'%' IDENTIFIED BY 'monitor';
+GRANT ALL PRIVILEGES ON *.* TO 'devnestMonitor'@'%';
 
 /* mysql exporter user */
-CREATE USER IF NOT EXISTS 'exporter'@'%' IDENTIFIED BY 'password' WITH MAX_USER_CONNECTIONS 3;
+CREATE USER IF NOT EXISTS 'devnestExporter'@'%' IDENTIFIED BY 'exporter' WITH MAX_USER_CONNECTIONS 2;
 GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'%';
+
+/* app user */
+CREATE USER 'devnest'@'%' IDENTIFIED BY 'devnest1234';
+GRANT ALL PRIVILEGES ON *.* TO 'devnest'@'%';
 
 FLUSH PRIVILEGES;
 

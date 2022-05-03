@@ -4,6 +4,7 @@ socket          = /var/run/mysqld/mysqld.sock
 datadir         = /var/lib/mysql
 secure-file-priv= NULL
 symbolic-links=0
+default_authentication_plugin=mysql_native_password
 
 bind-address            = 0.0.0.0
 server-id               = 1
@@ -16,9 +17,9 @@ log_slave_updates        = on
 
 
 general_log=1
-general_log_file=/var/log/mysql/general.log
+general_log_file = /var/log/mysql/general.log
 
 # Slow query settings:
 slow_query_log=1
-slow_query_log_file=/var/log/mysql/slow.log
+slow_query_log_file = /var/log/mysql/slow.log
 long_query_time=0.5

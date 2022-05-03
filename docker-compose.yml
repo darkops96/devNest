@@ -1,41 +1,36 @@
 version: "3"
 
 volumes:
-  dbdata:
+  masterdata:
+  slavedata:
+  proxysqldata:
 
 services:
   mysql-1:
     container_name: mysql-1
-    image: mysql:latest    
+    build: ./mysqlMaster
     restart: on-failure
-    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: devnest1234 
       MYSQL_DATABASE: devnest
-      MYSQL_USER: devnest
-      MYSQL_PASSWORD: devnest1234
     volumes:
-      - dbdata:/var/lib/mysql
-      - ./mysqlMaster/master.cnf:dbdata:/etc/mysql/master.cnf
-      - ./mysqlMaster/init.sql:dbdata:/docker-entrepoint-initdb.d/init.sql
-
+      - masterdata:/var/lib/mysql
+      - masterdata:/var/run/mysqld
+      - masterdata:/var/log/mysql
     cap_add:
       - SYS_NICE  # CAP_SYS_NICE
 
   mysql-2:
     container_name: mysql-2
-    image: mysql:latest    
+    build: ./mysqlSlave
     restart: on-failure
-    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: devnest1234 
       MYSQL_DATABASE: devnest
-      MYSQL_USER: devnest
-      MYSQL_PASSWORD: devnest1234
     volumes:
-      - dbdata:/var/lib/mysql
-      - ./mysqlSlave/slave.cnf:dbdata:/etc/mysql/slave.cnf
-      - ./mysqlSlave/init.sql:dbdata:/docker-entrypoint-initdb.d/init.sql
+      - slavedata:/var/lib/mysql
+      - slavedata:/var/run/mysqld
+      - slavedata:/var/log/mysql
     depends_on:
       - mysql-1
     cap_add:
@@ -43,11 +38,10 @@ services:
   
   mysql-proxy:
     container_name: mysql-proxy
-    image: proxysql/proxysql:latest
+    build: ./proxysql
     restart: on-failure
     volumes:
-      - ./proxysql/proxysql.cnf:dbdata:/etc/proxysql.cnf
-      - ./proxysql/data:dbdata:/var/lib/proxysql
+      - proxysqldata:/var/lib/proxysql
     depends_on:
       - mysql-1
       - mysql-2
