@@ -16,6 +16,9 @@ services:
       MYSQL_PASSWORD: devnest1234
     volumes:
       - dbdata:/var/lib/mysql
+      - ./mysqlMaster/master.cnf:dbdata:/etc/mysql/master.cnf
+      - ./mysqlMaster/init.sql:dbdata:/docker-entrepoint-initdb.d/init.sql
+
     cap_add:
       - SYS_NICE  # CAP_SYS_NICE
 
@@ -31,13 +34,20 @@ services:
       MYSQL_PASSWORD: devnest1234
     volumes:
       - dbdata:/var/lib/mysql
+      - ./mysqlSlave/slave.cnf:dbdata:/etc/mysql/slave.cnf
+      - ./mysqlSlave/init.sql:dbdata:/docker-entrypoint-initdb.d/init.sql
+    depends_on:
+      - mysql-1
     cap_add:
       - SYS_NICE  # CAP_SYS_NICE
-
-  mysql-loadbalancer:
-    container_name: mysql-loadbalancer
-    build: ./mysql_HAProxy
+  
+  mysql-proxy:
+    container_name: mysql-proxy
+    image: proxysql/proxysql:latest
     restart: on-failure
+    volumes:
+      - ./proxysql/proxysql.cnf:dbdata:/etc/proxysql.cnf
+      - ./proxysql/data:dbdata:/var/lib/proxysql
     depends_on:
       - mysql-1
       - mysql-2
@@ -47,18 +57,18 @@ services:
     image: ghcr.io/darkops96/devnest-internalservice:latest
     restart: on-failure
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-loadbalancer:3306/devnest?serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-proxy:6033/devnest?serverTimezone=UTC
     depends_on:
-      - mysql-loadbalancer
+      - mysql-proxy
 
   internalService-2:
     container_name: internalService-2
     image: ghcr.io/darkops96/devnest-internalservice:latest
     restart: on-failure
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-loadbalancer:3306/devnest?serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-proxy:6033/devnest?serverTimezone=UTC
     depends_on:
-      - mysql-loadbalancer
+      - mysql-proxy
 
   internal-loadbalancer:
     container_name: internal-loadbalancer
@@ -73,11 +83,11 @@ services:
     image: ghcr.io/darkops96/devnest-webapp:latest
     restart: on-failure
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-loadbalancer:3306/devnest?serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-proxy:6033/devnest?serverTimezone=UTC
       INTERNALSERVICE_BASEURI: http://internal-loadbalancer:80
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
-      - mysql-loadbalancer
+      - mysql-proxy
       - internal-loadbalancer
 
   devNest-2:
@@ -85,10 +95,10 @@ services:
     image: ghcr.io/darkops96/devnest-webapp:latest
     restart: on-failure
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-loadbalancer:3306/devnest?serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-proxy:6033/devnest?serverTimezone=UTC
       INTERNALSERVICE_BASEURI: http://internal-loadbalancer:80
     depends_on:
-      - mysql-loadbalancer
+      - mysql-proxy
       - internal-loadbalancer
 
   webapp-loadbalancer:
