@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 
 import es.urjc.dad.devNest.Database.Entities.GamejamEntity;
@@ -82,6 +83,7 @@ public class GameJamService {
      *
      * @param id of the jam that needs to be deleted
      */
+    @Transactional
     public void deleteJam(long id) {
         Optional<GamejamEntity> jam = gamejamRepository.findById(id);
         if (jam.isPresent()) {            
