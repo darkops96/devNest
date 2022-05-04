@@ -39,7 +39,7 @@ public class UserEntity implements Serializable{
 
     @Lob
     @JsonIgnore
-    private Blob pPictureFile;
+    private transient Blob pPictureFile;
 
     @Lob
     @Column(length = 512)

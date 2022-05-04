@@ -6,14 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 
 import es.urjc.dad.devNest.Database.Entities.GamejamEntity;
@@ -35,9 +30,6 @@ public class GameJamService {
     private TeamRepository teamRepository;
     @Autowired
     private AsyncEmailService asyncEmailService;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     /**
      * get all jams in the database and updates the internal list if necessay
@@ -83,12 +75,9 @@ public class GameJamService {
      *
      * @param id of the jam that needs to be deleted
      */
-    @Transactional
     public void deleteJam(long id) {
         Optional<GamejamEntity> jam = gamejamRepository.findById(id);
-        if (jam.isPresent()) {            
-            Session session = entityManager.unwrap(Session.class);
-            session.merge(jam);
+        if (jam.isPresent()) {
             teamRepository.deleteAll(jam.get().getTeams());
             gamejamRepository.delete(jam.get());
         }
