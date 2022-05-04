@@ -3,13 +3,15 @@ package es.urjc.dad.devNestInternalService.Database.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.sql.Blob;
 
 /**
  * videogame entity so the REST can read the necessary info from the data base
  */
 @Entity
-public class VideogameEntity {
+public class VideogameEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -21,8 +23,7 @@ public class VideogameEntity {
 
     @Lob
     @JsonIgnore
-    @Column(name = "game_file")
-    private Blob gameFile;
+    private transient Blob gameFile;
 
     public VideogameEntity() {}
 
