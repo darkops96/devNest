@@ -23,6 +23,6 @@ public interface GamejamRepository extends JpaRepository<GamejamEntity, Long> {
     @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     GamejamEntity save(GamejamEntity gamejamEntity);
 
-    @CacheEvict(value = "gamejams", allEntries = true)
+    @CacheEvict(value = "gamejams", key = "#entity.id")
     void delete(GamejamEntity entity);
 }
