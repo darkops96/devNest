@@ -78,8 +78,12 @@ public class GameJamService {
     public void deleteJam(long id) {
         Optional<GamejamEntity> jam = gamejamRepository.findById(id);
         if (jam.isPresent()) {
-            teamRepository.deleteAll(jam.get().getTeams());
-            gamejamRepository.delete(jam.get());
+            try {                
+                teamRepository.deleteAll(jam.get().getTeams());
+                gamejamRepository.delete(jam.get());
+            } catch (org.springframework.dao.InvalidDataAccessApiUsageException e) {
+                //TODO: handle exception
+            }
         }
     }
 

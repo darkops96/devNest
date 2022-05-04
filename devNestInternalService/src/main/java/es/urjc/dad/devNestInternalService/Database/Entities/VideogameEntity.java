@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-import java.io.Serializable;
 import java.sql.Blob;
 
 /**
  * videogame entity so the REST can read the necessary info from the data base
  */
 @Entity
-public class VideogameEntity implements Serializable{
+public class VideogameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -23,7 +22,7 @@ public class VideogameEntity implements Serializable{
 
     @Lob
     @JsonIgnore
-    private transient Blob gameFile;
+    private Blob gameFile;
 
     public VideogameEntity() {}
 
