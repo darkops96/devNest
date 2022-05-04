@@ -33,8 +33,9 @@ public class VideogameEntity implements Serializable{
 
     private String filePath;
     
+    @Lob
     @JsonIgnore
-    @Column(columnDefinition="blob")
+    @Column(name = "game_file")
     private transient Blob gameFile;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "videogame", orphanRemoval = true, fetch = FetchType.EAGER)

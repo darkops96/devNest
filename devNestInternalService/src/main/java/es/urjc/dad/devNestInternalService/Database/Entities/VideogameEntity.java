@@ -19,8 +19,9 @@ public class VideogameEntity {
 
     private String filePath;
 
+    @Lob
     @JsonIgnore
-    @Column(columnDefinition="blob")
+    @Column(name = "game_file")
     private Blob gameFile;
 
     public VideogameEntity() {}
