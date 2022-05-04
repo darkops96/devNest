@@ -139,11 +139,13 @@ public class GameJamService {
         leaveTeam(jamId, user);
         GamejamEntity gj = getJam(jamId);
         if (gj != null) {
-            List<TeamEntity> teams = gj.getTeams();
+            List<TeamEntity> teams = gj.getTeams();            
             boolean duplicateName = false;
-            for (TeamEntity teamEntity : teams) {
-                if (teamEntity.getTeamName().equalsIgnoreCase(teamName)) {
-                    duplicateName = true;
+            if(teams != null) {
+                for (TeamEntity teamEntity : teams) {
+                    if (teamEntity.getTeamName().equalsIgnoreCase(teamName)) {
+                        duplicateName = true;
+                    }
                 }
             }
 
