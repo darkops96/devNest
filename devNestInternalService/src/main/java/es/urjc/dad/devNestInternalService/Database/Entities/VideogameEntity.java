@@ -21,7 +21,7 @@ public class VideogameEntity {
 
     @JsonIgnore
     @Column(columnDefinition="blob")
-    private transient Blob gameFile;
+    private Blob gameFile;
 
     public VideogameEntity() {}
 
