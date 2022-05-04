@@ -2,9 +2,6 @@ package es.urjc.dad.devNest.Database.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -35,10 +32,9 @@ public class VideogameEntity implements Serializable{
     
     @Lob
     @JsonIgnore
-    private transient Blob gameFile;
+    private Blob gameFile;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "videogame", orphanRemoval = true, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "videogame", orphanRemoval = true)
     private List<CommentEntity> comments;
 
 

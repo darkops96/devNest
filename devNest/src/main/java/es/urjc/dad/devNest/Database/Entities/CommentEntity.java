@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 @Entity
 public class CommentEntity implements Serializable{
 
@@ -14,16 +11,13 @@ public class CommentEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @ManyToOne
     private VideogameEntity videogame;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @ManyToOne
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @ManyToOne
     private CommentEntity parentComment;
 
     @Column(nullable = false)

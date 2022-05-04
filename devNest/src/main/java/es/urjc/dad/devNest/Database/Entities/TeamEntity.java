@@ -10,7 +10,6 @@ import org.hibernate.annotations.Fetch;
 
 
 @Entity
-
 public class TeamEntity implements Serializable{
 
     @Id
@@ -20,12 +19,10 @@ public class TeamEntity implements Serializable{
     @Column(nullable = false)
     private String teamName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @ManyToMany
     private List<UserEntity> members;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private VideogameEntity videogame;
 
     @ManyToOne(fetch = FetchType.EAGER)

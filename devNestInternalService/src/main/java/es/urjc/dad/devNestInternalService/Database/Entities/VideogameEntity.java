@@ -23,7 +23,7 @@ public class VideogameEntity implements Serializable{
 
     @Lob
     @JsonIgnore
-    private transient Blob gameFile;
+    private Blob gameFile;
 
     public VideogameEntity() {}
 
