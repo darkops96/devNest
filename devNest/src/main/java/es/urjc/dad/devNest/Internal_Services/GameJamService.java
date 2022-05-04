@@ -81,7 +81,7 @@ public class GameJamService {
             try {                
                 teamRepository.deleteAll(jam.get().getTeams());
                 gamejamRepository.delete(jam.get());
-            } catch (IllegalStateException e) {
+            } catch (org.springframework.dao.InvalidDataAccessApiUsageException e) {
                 //TODO: handle exception
             }
         }
