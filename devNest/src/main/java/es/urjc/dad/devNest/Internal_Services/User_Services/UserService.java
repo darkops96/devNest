@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,6 +46,10 @@ public class UserService {
 
     @Value("${security.adminPassword}")
     private String adminPassword;
+
+    
+    @PersistenceContext
+    private EntityManager entityManager;
 
     //region INIT
 
@@ -135,6 +142,8 @@ public class UserService {
      * @param user user updated
      */
     public void updateUser(UserEntity user) {
+        Session session = entityManager.unwrap(Session.class);
+        session.merge(user);
         userRepository.save(user);
     }
 
