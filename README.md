@@ -125,3 +125,6 @@
 ## Diagrama Entidad-Relación
 ![Diagrama-Entidad-Relacion](https://user-images.githubusercontent.com/58952176/155035518-28213136-7775-4a52-815b-81e821234202.PNG)
 
+## Diagrama Arquitectura Docker
+![Untitled Diagram drawio (1)](https://user-images.githubusercontent.com/58952176/166725128-f7ddbeed-ac2c-4a83-8be7-e8ccfef83930.png)
+
