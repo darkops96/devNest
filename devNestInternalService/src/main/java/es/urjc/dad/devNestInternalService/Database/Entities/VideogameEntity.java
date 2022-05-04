@@ -19,10 +19,9 @@ public class VideogameEntity {
 
     private String filePath;
 
-    @Lob
     @JsonIgnore
-    @Column(nullable = false)
-    private Blob gameFile;
+    @Column(columnDefinition="blob")
+    private transient Blob gameFile;
 
     public VideogameEntity() {}
 
