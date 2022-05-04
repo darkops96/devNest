@@ -154,7 +154,14 @@ public class GameJamService {
                 members.add(user);
                 TeamEntity t = new TeamEntity(teamName, members, gj);
                 teamRepository.save(t);
-                gj.getTeams().add(t);
+                if(teams != null) {
+                    gj.getTeams().add(t);
+                }
+                else {
+                    List<TeamEntity> newTeams = new ArrayList<>();
+                    newTeams.add(t);
+                    gj.setTeams(newTeams);
+                }
                 gamejamRepository.save(gj);
 
                 try {
