@@ -265,10 +265,12 @@ public class GameJamService {
      */
     public long checkIfIsInTeam(GamejamEntity gj, UserEntity user) {
         List<TeamEntity> teams = gj.getTeams();
-        for (TeamEntity teamEntity : teams) {
-            for (UserEntity u : teamEntity.getMembers()) {
-                if (u.getId() == user.getId()) {
-                    return teamEntity.getId();
+        if(teams != null){
+            for (TeamEntity teamEntity : teams) {
+                for (UserEntity u : teamEntity.getMembers()) {
+                    if (u.getId() == user.getId()) {
+                        return teamEntity.getId();
+                    }
                 }
             }
         }
