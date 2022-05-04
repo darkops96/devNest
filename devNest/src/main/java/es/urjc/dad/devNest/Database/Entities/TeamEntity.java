@@ -19,7 +19,8 @@ public class TeamEntity implements Serializable{
     @Column(nullable = false)
     private String teamName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<UserEntity> members;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
