@@ -15,9 +15,6 @@ import org.springframework.data.jpa.repository.QueryHints;
 
 public interface GamejamRepository extends JpaRepository<GamejamEntity, Long> {
     @Cacheable(value = "gamejams", key = "#id")
-    List<GamejamEntity> findAll();
-
-    @Cacheable(value = "gamejams", key = "#id")
     Optional<GamejamEntity> findById(Long id);
 
     @CachePut(value = "gamejams", key = "#gamejamEntity.id")

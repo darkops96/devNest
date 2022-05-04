@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
@@ -16,6 +17,7 @@ import es.urjc.dad.devNest.Database.Entities.UserEntity;
 import es.urjc.dad.devNest.Database.Entities.VideogameEntity;
 import es.urjc.dad.devNest.Database.Repositories.GamejamRepository;
 import es.urjc.dad.devNest.Database.Repositories.TeamRepository;
+
 
 /**
  * this class is responsible for the management and services related to gamejams
@@ -35,7 +37,16 @@ public class GameJamService {
      * @return a list with all the jams
      */
     public List<GamejamEntity> getAllJams() {
-        return gamejamRepository.findAll();
+        List<GamejamEntity> allJams = gamejamRepository.findAll();
+        for (GamejamEntity gameJam : allJams) {
+            cacheAllJams(gameJam);
+        }
+        return allJams;
+    }
+
+    @Cacheable(value = "gamejams", key = "#gamejamEntity.id")
+    public GamejamEntity cacheAllJams(GamejamEntity gamejamEntity) {
+        return gamejamEntity;
     }
 
     /**
