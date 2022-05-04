@@ -35,8 +35,8 @@ public class VideogameEntity implements Serializable{
 
     @Lob
     @JsonIgnore
-    @Column(nullable = false)
-    private transient Blob gameFile = null;
+    @Column(columnDefinition="blob default null")
+    private transient Blob gameFile;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "videogame", orphanRemoval = true, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)

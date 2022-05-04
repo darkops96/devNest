@@ -38,8 +38,9 @@ public class UserEntity implements Serializable{
     private String profilePicture;
 
     @Lob
-    @JsonIgnore
-    private transient Blob pPictureFile = null;
+    @JsonIgnore    
+    @Column(columnDefinition="blob default null")
+    private transient Blob pPictureFile;
 
     @Lob
     @Column(length = 512)
