@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
 
 @Entity
-public class VideogameEntity {
+public class VideogameEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
