@@ -285,13 +285,15 @@ public class GameJamService {
         if (gj != null) {
             List<TeamEntity> teams = gj.getTeams();
             List<Long> emptyTeams = new ArrayList<Long>();
-            for (TeamEntity teamEntity : teams) {
-                if (teamEntity.getMembers().size() == 0) {
-                    emptyTeams.add(teamEntity.getId());
+            if (!teams.isEmpty()) {
+                for (TeamEntity teamEntity : teams) {
+                    if (teamEntity.getMembers().size() == 0) {
+                        emptyTeams.add(teamEntity.getId());
+                    }
                 }
+                teamRepository.deleteAllById(emptyTeams);
+                gamejamRepository.save(gj);
             }
-            teamRepository.deleteAllById(emptyTeams);
-            gamejamRepository.save(gj);
         }
     }
 }
