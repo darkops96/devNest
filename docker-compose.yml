@@ -74,6 +74,7 @@ services:
     restart: on-failure
     ports:
       - 443:443
+      - 80:80
     depends_on:
       - devNest-1
       - devNest-2
