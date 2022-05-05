@@ -2,7 +2,7 @@
 **Red social para la interacción de desarrolladores de videojuegos, con la posibilidad de organizar y gestionar Game Jams.**
 
 ## Video demostrativo:
-*Añadir video*
+https://youtu.be/w9mk1g6mM9o
 
 ## Funcionalidades de la página web:
 **De forma pública**, se podrán ver los perfiles de otros usuarios, sus juegos y comentar en ellos. También se podrán ver las Game Jams organizadas anteriormente y los proyectos que se presentaron en ellas. Los juegos se podrán descargar para jugarlos. Además, todos los usuarios podrán hacer uso de un randomizador que devuelve aleatoriamente 2 temáticas de una pool. 
